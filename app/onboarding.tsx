@@ -94,6 +94,7 @@ export default function OnboardingScreen() {
   const [goalWeight, setGoalWeight] = useState('');
   const [weeklyGoal, setWeeklyGoal] = useState(1.0);
   const [weeklyGoalUnit, setWeeklyGoalUnit] = useState<'lbs' | 'kg'>('lbs');
+  const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
   const [activityLevel, setActivityLevel] = useState<ActivityLevel | undefined>();
   const [cravingsDays, setCravingsDays] = useState<string[]>([]);
   const [sideEffects, setSideEffects] = useState<string[]>([]);
@@ -1073,55 +1074,119 @@ export default function OnboardingScreen() {
 
           {/* Plans */}
           <View style={{ gap: Spacing.md }}>
-            <Card
-              elevated
-              style={{
-                borderWidth: 2,
-                borderColor: Colors.primary,
-                gap: Spacing.sm,
-              }}
-            >
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <View>
-                  <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Yearly</Text>
-                  <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>
-                    7-day free trial
-                  </Text>
-                </View>
-                <View style={{ alignItems: 'flex-end' }}>
-                  <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: Colors.primary }}>$39.99</Text>
-                  <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textSecondary }}>
-                    $3.33/mo
-                  </Text>
-                </View>
-              </View>
-              <View
+            <Pressable onPress={() => setSelectedPlan('yearly')}>
+              <Card
+                elevated={selectedPlan === 'yearly'}
                 style={{
-                  backgroundColor: Colors.accent,
-                  paddingVertical: 4,
-                  paddingHorizontal: Spacing.md,
-                  borderRadius: Radius.full,
-                  alignSelf: 'flex-start',
-                  borderCurve: 'continuous',
+                  borderWidth: 2,
+                  borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border,
+                  gap: Spacing.sm,
                 }}
               >
-                <Text style={{ fontFamily: Fonts.semiBold, fontSize: 11, color: '#fff' }}>
-                  BEST VALUE - SAVE 67%
-                </Text>
-              </View>
-            </Card>
-
-            <Card style={{ gap: Spacing.sm }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <View>
-                  <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Monthly</Text>
-                  <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>
-                    7-day free trial
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
+                  <View
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: 11,
+                      borderWidth: 2,
+                      borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {selectedPlan === 'yearly' && (
+                      <View
+                        style={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: 6,
+                          backgroundColor: Colors.primary,
+                        }}
+                      />
+                    )}
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <View>
+                        <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Yearly</Text>
+                        <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>
+                          7-day free trial
+                        </Text>
+                      </View>
+                      <View style={{ alignItems: 'flex-end' }}>
+                        <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: selectedPlan === 'yearly' ? Colors.primary : Colors.text }}>$39.99</Text>
+                        <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textSecondary }}>
+                          $3.33/mo
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    backgroundColor: Colors.accent,
+                    paddingVertical: 4,
+                    paddingHorizontal: Spacing.md,
+                    borderRadius: Radius.full,
+                    alignSelf: 'flex-start',
+                    marginLeft: 34,
+                    borderCurve: 'continuous',
+                  }}
+                >
+                  <Text style={{ fontFamily: Fonts.semiBold, fontSize: 11, color: '#fff' }}>
+                    BEST VALUE - SAVE 67%
                   </Text>
                 </View>
-                <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: Colors.text }}>$9.99</Text>
-              </View>
-            </Card>
+              </Card>
+            </Pressable>
+
+            <Pressable onPress={() => setSelectedPlan('monthly')}>
+              <Card
+                elevated={selectedPlan === 'monthly'}
+                style={{
+                  borderWidth: 2,
+                  borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border,
+                  gap: Spacing.sm,
+                }}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
+                  <View
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: 11,
+                      borderWidth: 2,
+                      borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {selectedPlan === 'monthly' && (
+                      <View
+                        style={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: 6,
+                          backgroundColor: Colors.primary,
+                        }}
+                      />
+                    )}
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <View>
+                        <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Monthly</Text>
+                        <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>
+                          7-day free trial
+                        </Text>
+                      </View>
+                      <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: selectedPlan === 'monthly' ? Colors.primary : Colors.text }}>$9.99</Text>
+                    </View>
+                  </View>
+                </View>
+              </Card>
+            </Pressable>
           </View>
 
           {/* CTA */}
