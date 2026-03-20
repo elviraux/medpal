@@ -12,6 +12,14 @@ config.transformer = {
   },
 };
 
+// Treat @fastshot/ai as source (ships raw .ts, no compiled dist)
+config.watchFolders = [
+  ...(config.watchFolders || []),
+  path.resolve(__dirname, 'node_modules/@fastshot/ai'),
+];
+
+const fs = require('fs');
+
 // Add support for resolving modules
 config.resolver = {
   ...config.resolver,
@@ -22,6 +30,34 @@ config.resolver = {
   // Fix for react-native-svg module resolution
   sourceExts: [...(config.resolver.sourceExts || []), 'svg'],
   resolverMainFields: ['react-native', 'browser', 'main'],
+  // Fix .ts resolution inside @fastshot/ai (ships raw TypeScript, no dist)
+  resolveRequest: (context, moduleName, platform) => {
+    // Only intercept relative imports originating from @fastshot/ai
+    if (
+      moduleName.startsWith('.') &&
+      context.originModulePath.includes(
+        path.join('@fastshot', 'ai', 'src')
+      )
+    ) {
+      const dir = path.dirname(context.originModulePath);
+      const exts = ['.ts', '.tsx', '.js', '.jsx'];
+      for (const ext of exts) {
+        const candidate = path.resolve(dir, moduleName + ext);
+        if (fs.existsSync(candidate)) {
+          return { filePath: candidate, type: 'sourceFile' };
+        }
+      }
+      // Also try index files for directory imports
+      for (const ext of exts) {
+        const candidate = path.resolve(dir, moduleName, 'index' + ext);
+        if (fs.existsSync(candidate)) {
+          return { filePath: candidate, type: 'sourceFile' };
+        }
+      }
+    }
+    // Fall back to the default resolver for everything else
+    return context.resolveRequest(context, moduleName, platform);
+  },
 };
 
 // Configure Metro for proxy deployment
