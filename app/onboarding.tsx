@@ -93,6 +93,7 @@ export default function OnboardingScreen() {
   const [startDate, setStartDate] = useState(new Date());
   const [goalWeight, setGoalWeight] = useState('');
   const [weeklyGoal, setWeeklyGoal] = useState(1.0);
+  const [weeklyGoalUnit, setWeeklyGoalUnit] = useState<'lbs' | 'kg'>('lbs');
   const [activityLevel, setActivityLevel] = useState<ActivityLevel | undefined>();
   const [cravingsDays, setCravingsDays] = useState<string[]>([]);
   const [sideEffects, setSideEffects] = useState<string[]>([]);
@@ -170,6 +171,7 @@ export default function OnboardingScreen() {
       initialSideEffects: sideEffects,
       cravingsDays,
       weeklyGoal,
+      weeklyGoalUnit,
       disclaimerAccepted,
       onboardingComplete: true,
     });
@@ -180,7 +182,7 @@ export default function OnboardingScreen() {
     heightUnit, heightCm, heightFt, heightIn,
     currentWeight, startWeight, goalWeight, startDate,
     activityLevel, motivation, sideEffects, cravingsDays,
-    weeklyGoal, disclaimerAccepted, shouldShowDeviceStep,
+    weeklyGoal, weeklyGoalUnit, disclaimerAccepted, shouldShowDeviceStep,
     setUserProfile, completeOnboarding, router,
   ]);
 
@@ -194,6 +196,23 @@ export default function OnboardingScreen() {
     setSideEffects((prev) =>
       prev.includes(effect) ? prev.filter((e) => e !== effect) : [...prev, effect]
     );
+  };
+
+  const handleWeeklyGoalUnitChange = (newUnit: 'lbs' | 'kg') => {
+    if (newUnit === weeklyGoalUnit) return;
+
+    if (newUnit === 'kg') {
+      // Convert lbs -> kg, snap to nearest 0.25
+      const converted = weeklyGoal * 0.453592;
+      const snapped = Math.round(converted / 0.25) * 0.25;
+      setWeeklyGoal(Math.max(0.25, Math.min(1.0, snapped)));
+    } else {
+      // Convert kg -> lbs, snap to nearest 0.5
+      const converted = weeklyGoal / 0.453592;
+      const snapped = Math.round(converted / 0.5) * 0.5;
+      setWeeklyGoal(Math.max(0.5, Math.min(2.5, snapped)));
+    }
+    setWeeklyGoalUnit(newUnit);
   };
 
   // Step 0: Welcome
@@ -625,6 +644,14 @@ export default function OnboardingScreen() {
 
   // Step 13: Goal pace (slider)
   if (step === 13) {
+    const isKg = weeklyGoalUnit === 'kg';
+    const sliderMin = isKg ? 0.25 : 0.5;
+    const sliderMax = isKg ? 1.0 : 2.5;
+    const sliderStep = isKg ? 0.25 : 0.5;
+    const displayValue = isKg ? weeklyGoal.toFixed(2) : weeklyGoal.toFixed(1);
+    const minLabel = isKg ? '0.25 kg' : '0.5 lbs';
+    const maxLabel = isKg ? '1.0 kg' : '2.5 lbs';
+
     return (
       <OnboardingLayout
         step={13}
@@ -635,6 +662,42 @@ export default function OnboardingScreen() {
         onBack={handleBack}
       >
         <View style={{ alignItems: 'center', paddingTop: Spacing.xxl, gap: Spacing.xxl }}>
+          {/* Unit toggle */}
+          <View
+            style={{
+              flexDirection: 'row',
+              backgroundColor: Colors.borderLight,
+              borderRadius: Radius.md,
+              padding: 3,
+              borderCurve: 'continuous',
+            }}
+          >
+            {(['lbs', 'kg'] as const).map((u) => (
+              <Pressable
+                key={u}
+                onPress={() => handleWeeklyGoalUnitChange(u)}
+                style={{
+                  paddingVertical: Spacing.sm,
+                  paddingHorizontal: Spacing.xxl,
+                  borderRadius: Radius.sm,
+                  backgroundColor: weeklyGoalUnit === u ? Colors.surface : 'transparent',
+                  borderCurve: 'continuous',
+                  boxShadow: weeklyGoalUnit === u ? '0px 1px 3px rgba(0,0,0,0.08)' : 'none',
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: weeklyGoalUnit === u ? Fonts.semiBold : Fonts.medium,
+                    fontSize: 15,
+                    color: weeklyGoalUnit === u ? Colors.primary : Colors.textSecondary,
+                  }}
+                >
+                  {u}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+
           <Text
             style={{
               fontFamily: Fonts.bold,
@@ -643,16 +706,16 @@ export default function OnboardingScreen() {
               fontVariant: ['tabular-nums'],
             }}
           >
-            {weeklyGoal.toFixed(1)} lbs
+            {displayValue} {weeklyGoalUnit}
           </Text>
           <Text style={{ fontFamily: Fonts.medium, fontSize: 16, color: Colors.textSecondary }}>
             per week
           </Text>
           <View style={{ width: '100%', paddingHorizontal: Spacing.lg }}>
             <Slider
-              minimumValue={0.5}
-              maximumValue={2.5}
-              step={0.5}
+              minimumValue={sliderMin}
+              maximumValue={sliderMax}
+              step={sliderStep}
               value={weeklyGoal}
               onValueChange={setWeeklyGoal}
               minimumTrackTintColor={Colors.primary}
@@ -661,10 +724,10 @@ export default function OnboardingScreen() {
             />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: Spacing.sm }}>
               <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textTertiary }}>
-                0.5 lbs
+                {minLabel}
               </Text>
               <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textTertiary }}>
-                2.5 lbs
+                {maxLabel}
               </Text>
             </View>
           </View>

@@ -131,7 +131,7 @@ export default function ProfileScreen() {
           <SettingRow label="Start Weight" value={userProfile.startWeight ? `${userProfile.startWeight} lbs` : '--'} />
           <SettingRow label="Current Weight" value={userProfile.currentWeight ? `${userProfile.currentWeight} lbs` : '--'} />
           <SettingRow label="Goal Weight" value={userProfile.goalWeight ? `${userProfile.goalWeight} lbs` : '--'} />
-          <SettingRow label="Weekly Goal" value={userProfile.weeklyGoal ? `${userProfile.weeklyGoal} lbs/week` : '--'} />
+          <SettingRow label="Weekly Goal" value={userProfile.weeklyGoal ? `${userProfile.weeklyGoal} ${userProfile.weeklyGoalUnit ?? 'lbs'}/week` : '--'} />
         </View>
       </Card>
 

@@ -84,7 +84,8 @@ export interface UserProfile {
   motivation?: Motivation;
   initialSideEffects?: string[];
   cravingsDays?: string[];
-  weeklyGoal?: number; // lbs per week
+  weeklyGoal?: number; // in the unit specified by weeklyGoalUnit
+  weeklyGoalUnit?: 'lbs' | 'kg';
   onboardingComplete?: boolean;
   disclaimerAccepted?: boolean;
 }
