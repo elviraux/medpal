@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Fonts } from '@/constants/Typography';
@@ -30,17 +31,19 @@ export function StepWelcome({ onNext }: StepWelcomeProps) {
         {/* Logo */}
         <View
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 28,
-            backgroundColor: Colors.primary,
-            justifyContent: 'center',
-            alignItems: 'center',
+            width: 110,
+            height: 110,
+            borderRadius: 30,
             borderCurve: 'continuous',
+            overflow: 'hidden',
             boxShadow: '0px 8px 32px rgba(26, 111, 212, 0.35)',
           }}
         >
-          <Ionicons name="pulse" size={48} color="#fff" />
+          <Image
+            source={require('@/assets/images/slimsy_logo.png')}
+            style={{ width: 110, height: 110 }}
+            contentFit="cover"
+          />
         </View>
 
         <View style={{ alignItems: 'center', gap: Spacing.sm }}>
