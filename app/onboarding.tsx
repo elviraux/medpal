@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native';
+import { View, Text, Pressable, ScrollView, Linking } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -1219,6 +1219,51 @@ export default function OnboardingScreen() {
           >
             {"Cancel anytime. You won't be charged during the free trial."}
           </Text>
+
+          {/* Legal Links */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: Spacing.lg,
+              paddingTop: Spacing.md,
+            }}
+          >
+            <Pressable
+              onPress={() => Linking.openURL('https://slimsy.lovable.app/terms')}
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+              style={{ paddingVertical: Spacing.sm }}
+            >
+              <Text
+                style={{
+                  fontFamily: Fonts.medium,
+                  fontSize: 12,
+                  color: Colors.textTertiary,
+                  textDecorationLine: 'underline',
+                }}
+              >
+                Terms of Service
+              </Text>
+            </Pressable>
+            <Text style={{ fontSize: 12, color: Colors.borderLight }}>|</Text>
+            <Pressable
+              onPress={() => Linking.openURL('https://slimsy.lovable.app/privacy')}
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+              style={{ paddingVertical: Spacing.sm }}
+            >
+              <Text
+                style={{
+                  fontFamily: Fonts.medium,
+                  fontSize: 12,
+                  color: Colors.textTertiary,
+                  textDecorationLine: 'underline',
+                }}
+              >
+                Privacy Policy
+              </Text>
+            </Pressable>
+          </View>
         </ScrollView>
       </View>
     );

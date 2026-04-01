@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, Pressable, Alert, Switch } from 'react-native';
+import { View, Text, ScrollView, Pressable, Alert, Switch, Linking } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -216,6 +216,50 @@ export default function ProfileScreen() {
               </Text>
             </Pressable>
           </View>
+        </View>
+      </Card>
+
+      {/* Legal */}
+      <Card>
+        <SectionHeader title="Legal" />
+        <View style={{ gap: Spacing.xs, paddingTop: Spacing.sm }}>
+          <Pressable
+            onPress={() => Linking.openURL('https://slimsy.lovable.app/terms')}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingVertical: Spacing.md,
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
+              <Ionicons name="document-text-outline" size={20} color={Colors.primary} />
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text }}>
+                Terms of Service
+              </Text>
+            </View>
+            <Ionicons name="open-outline" size={18} color={Colors.textTertiary} />
+          </Pressable>
+
+          <View style={{ height: 1, backgroundColor: Colors.borderLight, marginLeft: 32 }} />
+
+          <Pressable
+            onPress={() => Linking.openURL('https://slimsy.lovable.app/privacy')}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingVertical: Spacing.md,
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
+              <Ionicons name="shield-checkmark-outline" size={20} color={Colors.primary} />
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text }}>
+                Privacy Policy
+              </Text>
+            </View>
+            <Ionicons name="open-outline" size={18} color={Colors.textTertiary} />
+          </Pressable>
         </View>
       </Card>
 
