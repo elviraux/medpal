@@ -12,6 +12,7 @@ import { SectionHeader } from '@/components/ui/section-header';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { WeightChart } from '@/components/charts/weight-chart';
 import { formatDate } from '@/utils/date';
+import { displayWeight, getWeightUnit, calculateBMI } from '@/utils/units';
 
 type TimePeriod = '7d' | '30d' | '90d' | 'all';
 
@@ -23,22 +24,32 @@ export default function WeightScreen() {
   const userProfile = useAppStore((s) => s.userProfile);
   const weightLogs = useAppStore((s) => s.weightLogs);
   const deleteWeightLog = useAppStore((s) => s.deleteWeightLog);
+  const units = useAppStore((s) => s.preferences.units ?? 'imperial');
+  const wUnit = getWeightUnit(units);
 
   const [period, setPeriod] = useState<TimePeriod>('30d');
 
-  const currentWeight = weightLogs.length > 0 ? weightLogs[0].weight : userProfile.currentWeight;
-  const startWeight = userProfile.startWeight;
-  const goalWeight = userProfile.goalWeight;
+  // All stored weights are in lbs (canonical)
+  const currentWeightLbs = weightLogs.length > 0 ? weightLogs[0].weight : userProfile.currentWeight;
+  const startWeightLbs = userProfile.startWeight;
+  const goalWeightLbs = userProfile.goalWeight;
 
-  const totalLost = startWeight && currentWeight ? startWeight - currentWeight : 0;
-  const pctToGoal = startWeight && goalWeight && currentWeight
-    ? Math.min(100, Math.round(((startWeight - currentWeight) / (startWeight - goalWeight)) * 100))
+  // Display values converted to user's preferred unit
+  const currentWeight = currentWeightLbs != null ? displayWeight(currentWeightLbs, units) : undefined;
+  const startWeight = startWeightLbs != null ? displayWeight(startWeightLbs, units) : undefined;
+  const goalWeight = goalWeightLbs != null ? displayWeight(goalWeightLbs, units) : undefined;
+
+  // Progress calculations use lbs internally
+  const totalLostLbs = startWeightLbs && currentWeightLbs ? startWeightLbs - currentWeightLbs : 0;
+  const totalLost = Math.abs(displayWeight(totalLostLbs, units));
+  const pctToGoal = startWeightLbs && goalWeightLbs && currentWeightLbs
+    ? Math.min(100, Math.round(((startWeightLbs - currentWeightLbs) / (startWeightLbs - goalWeightLbs)) * 100))
     : 0;
 
-  // Calculate BMI
+  // Calculate BMI from lbs and cm
   const heightCm = userProfile.height;
-  const bmi = heightCm && currentWeight
-    ? ((currentWeight * 0.453592) / Math.pow(heightCm / 100, 2)).toFixed(1)
+  const bmi = heightCm && currentWeightLbs
+    ? calculateBMI(currentWeightLbs, heightCm).toFixed(1)
     : '--';
 
   // Filter data by period
@@ -81,10 +92,10 @@ export default function WeightScreen() {
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: Spacing.sm }}>
             <Text selectable style={{ fontFamily: Fonts.bold, fontSize: 52, color: Colors.text, fontVariant: ['tabular-nums'] }}>
-              {currentWeight ?? '--'}
+              {currentWeight != null ? currentWeight.toFixed(1) : '--'}
             </Text>
             <Text style={{ fontFamily: Fonts.medium, fontSize: 20, color: Colors.textSecondary }}>
-              lbs
+              {wUnit}
             </Text>
           </View>
 
@@ -110,10 +121,10 @@ export default function WeightScreen() {
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textTertiary }}>
-                  {startWeight} lbs
+                  {startWeight?.toFixed(1)} {wUnit}
                 </Text>
                 <Text style={{ fontFamily: Fonts.medium, fontSize: 12, color: Colors.accent }}>
-                  Goal: {goalWeight} lbs
+                  Goal: {goalWeight?.toFixed(1)} {wUnit}
                 </Text>
               </View>
             </View>
@@ -164,9 +175,10 @@ export default function WeightScreen() {
 
         <WeightChart
           data={filteredData}
-          goalWeight={goalWeight}
+          goalWeight={goalWeightLbs}
           width={chartWidth > 0 ? chartWidth : 280}
           height={180}
+          units={units}
         />
       </Card>
 
@@ -177,7 +189,7 @@ export default function WeightScreen() {
             Total Lost
           </Text>
           <Text selectable style={{ fontFamily: Fonts.bold, fontSize: 22, color: Colors.accent, fontVariant: ['tabular-nums'] }}>
-            {totalLost > 0 ? totalLost.toFixed(1) : '0'} lbs
+            {totalLostLbs > 0 ? totalLost.toFixed(1) : '0'} {wUnit}
           </Text>
         </Card>
         <Card style={{ flex: 1, alignItems: 'center', gap: 4 }}>
@@ -239,7 +251,7 @@ export default function WeightScreen() {
                     marginRight: Spacing.md,
                   }}
                 >
-                  {log.weight} lbs
+                  {displayWeight(log.weight, units).toFixed(1)} {wUnit}
                 </Text>
                 <Pressable
                   onPress={() => deleteWeightLog(log.id)}

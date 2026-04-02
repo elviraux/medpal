@@ -10,6 +10,8 @@ import { useAppStore } from '@/store/useAppStore';
 import { Card } from '@/components/ui/card';
 import { SectionHeader } from '@/components/ui/section-header';
 import { formatDate } from '@/utils/date';
+import { displayWeight, getWeightUnit, formatHeight, convertWeeklyGoal } from '@/utils/units';
+import type { UnitSystem } from '@/utils/units';
 
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
@@ -19,8 +21,26 @@ export default function ProfileScreen() {
     preferences,
     dailyTargets,
     setPreferences,
+    setUserProfile,
     resetStore,
   } = useAppStore();
+
+  const units = (preferences.units ?? 'imperial') as UnitSystem;
+  const wUnit = getWeightUnit(units);
+
+  const handleUnitsChange = (newUnits: UnitSystem) => {
+    if (newUnits === units) return;
+    // Convert weekly goal to new unit system
+    if (userProfile.weeklyGoal) {
+      const currentGoalUnit = userProfile.weeklyGoalUnit ?? 'lbs';
+      const newGoalUnit = newUnits === 'metric' ? 'kg' as const : 'lbs' as const;
+      if (currentGoalUnit !== newGoalUnit) {
+        const converted = convertWeeklyGoal(userProfile.weeklyGoal, currentGoalUnit, newGoalUnit);
+        setUserProfile({ weeklyGoal: converted, weeklyGoalUnit: newGoalUnit });
+      }
+    }
+    setPreferences({ units: newUnits });
+  };
 
   const handleReset = () => {
     Alert.alert(
@@ -128,10 +148,13 @@ export default function ProfileScreen() {
       <Card>
         <SectionHeader title="Weight Goals" />
         <View style={{ gap: Spacing.md, paddingTop: Spacing.sm }}>
-          <SettingRow label="Start Weight" value={userProfile.startWeight ? `${userProfile.startWeight} lbs` : '--'} />
-          <SettingRow label="Current Weight" value={userProfile.currentWeight ? `${userProfile.currentWeight} lbs` : '--'} />
-          <SettingRow label="Goal Weight" value={userProfile.goalWeight ? `${userProfile.goalWeight} lbs` : '--'} />
+          <SettingRow label="Start Weight" value={userProfile.startWeight ? `${displayWeight(userProfile.startWeight, units).toFixed(1)} ${wUnit}` : '--'} />
+          <SettingRow label="Current Weight" value={userProfile.currentWeight ? `${displayWeight(userProfile.currentWeight, units).toFixed(1)} ${wUnit}` : '--'} />
+          <SettingRow label="Goal Weight" value={userProfile.goalWeight ? `${displayWeight(userProfile.goalWeight, units).toFixed(1)} ${wUnit}` : '--'} />
           <SettingRow label="Weekly Goal" value={userProfile.weeklyGoal ? `${userProfile.weeklyGoal} ${userProfile.weeklyGoalUnit ?? 'lbs'}/week` : '--'} />
+          {userProfile.height ? (
+            <SettingRow label="Height" value={formatHeight(userProfile.height, units)} />
+          ) : null}
         </View>
       </Card>
 
@@ -197,24 +220,43 @@ export default function ProfileScreen() {
                 Units
               </Text>
             </View>
-            <Pressable
-              onPress={() =>
-                setPreferences({
-                  units: preferences.units === 'metric' ? 'imperial' : 'metric',
-                })
-              }
+            <View
               style={{
-                paddingVertical: Spacing.xs,
-                paddingHorizontal: Spacing.md,
-                backgroundColor: Colors.primaryLight,
+                flexDirection: 'row',
+                backgroundColor: Colors.borderLight,
                 borderRadius: Radius.sm,
+                padding: 2,
                 borderCurve: 'continuous',
               }}
             >
-              <Text style={{ fontFamily: Fonts.semiBold, fontSize: 13, color: Colors.primary }}>
-                {preferences.units === 'metric' ? 'Metric' : 'Imperial'}
-              </Text>
-            </Pressable>
+              {([
+                { value: 'imperial' as UnitSystem, label: 'Imperial' },
+                { value: 'metric' as UnitSystem, label: 'Metric' },
+              ]).map((option) => (
+                <Pressable
+                  key={option.value}
+                  onPress={() => handleUnitsChange(option.value)}
+                  style={{
+                    paddingVertical: Spacing.xs + 1,
+                    paddingHorizontal: Spacing.md,
+                    borderRadius: Radius.sm - 2,
+                    backgroundColor: units === option.value ? Colors.surface : 'transparent',
+                    borderCurve: 'continuous',
+                    boxShadow: units === option.value ? '0px 1px 2px rgba(0,0,0,0.08)' : 'none',
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: units === option.value ? Fonts.semiBold : Fonts.medium,
+                      fontSize: 13,
+                      color: units === option.value ? Colors.primary : Colors.textSecondary,
+                    }}
+                  >
+                    {option.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
           </View>
         </View>
       </Card>

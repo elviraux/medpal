@@ -4,12 +4,15 @@ import Svg, { Polyline, Line, Circle, Defs, LinearGradient, Stop } from 'react-n
 import { Colors } from '@/constants/Colors';
 import { Fonts } from '@/constants/Typography';
 import type { WeightLog } from '@/store/types';
+import { displayWeight } from '@/utils/units';
+import type { UnitSystem } from '@/utils/units';
 
 interface WeightChartProps {
   data: WeightLog[];
   goalWeight?: number;
   width?: number;
   height?: number;
+  units?: UnitSystem;
 }
 
 export function WeightChart({
@@ -17,6 +20,7 @@ export function WeightChart({
   goalWeight,
   width = 320,
   height = 180,
+  units = 'imperial',
 }: WeightChartProps) {
   if (data.length === 0) {
     return (
@@ -39,8 +43,10 @@ export function WeightChart({
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  const weights = sorted.map((d) => d.weight);
-  const allValues = goalWeight ? [...weights, goalWeight] : weights;
+  // Convert stored lbs to display unit for charting
+  const weights = sorted.map((d) => displayWeight(d.weight, units));
+  const goalDisplay = goalWeight != null ? displayWeight(goalWeight, units) : undefined;
+  const allValues = goalDisplay != null ? [...weights, goalDisplay] : weights;
   const minW = Math.min(...allValues) - 2;
   const maxW = Math.max(...allValues) + 2;
   const range = maxW - minW || 1;
@@ -52,14 +58,15 @@ export function WeightChart({
 
   const points = sorted.map((d, i) => {
     const x = padX + (sorted.length > 1 ? (i / (sorted.length - 1)) * chartW : chartW / 2);
-    const y = padY + chartH - ((d.weight - minW) / range) * chartH;
+    const displayW = displayWeight(d.weight, units);
+    const y = padY + chartH - ((displayW - minW) / range) * chartH;
     return { x, y };
   });
 
   const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(' ');
 
-  const goalY = goalWeight
-    ? padY + chartH - ((goalWeight - minW) / range) * chartH
+  const goalY = goalDisplay != null
+    ? padY + chartH - ((goalDisplay - minW) / range) * chartH
     : null;
 
   return (

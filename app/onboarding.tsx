@@ -25,7 +25,7 @@ import Slider from '@react-native-community/slider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path, Circle } from 'react-native-svg';
 
-const TOTAL_STEPS = 21;
+const TOTAL_STEPS = 22;
 
 const medications: MedicationType[] = [
   'Wegovy', 'Ozempic', 'Zepbound', 'Mounjaro',
@@ -73,7 +73,7 @@ const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Unknown', 
 export default function OnboardingScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { setUserProfile, completeOnboarding } = useAppStore();
+  const { setUserProfile, completeOnboarding, setPreferences } = useAppStore();
 
   const [step, setStep] = useState(0);
 
@@ -84,7 +84,11 @@ export default function OnboardingScreen() {
   const [frequency, setFrequency] = useState<Frequency | undefined>();
   const [deviceType, setDeviceType] = useState<DeviceType | undefined>();
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
-  const [heightUnit, setHeightUnit] = useState<'cm' | 'ft'>('ft');
+  // Global unit system selection — drives all unit-related UI
+  const [unitSystem, setUnitSystem] = useState<'imperial' | 'metric'>('imperial');
+  const heightUnit = unitSystem === 'metric' ? ('cm' as const) : ('ft' as const);
+  const weightUnitLabel = unitSystem === 'metric' ? 'kg' : 'lbs';
+  const weeklyGoalUnit = unitSystem === 'metric' ? ('kg' as const) : ('lbs' as const);
   const [heightCm, setHeightCm] = useState('');
   const [heightFt, setHeightFt] = useState('');
   const [heightIn, setHeightIn] = useState('');
@@ -93,13 +97,11 @@ export default function OnboardingScreen() {
   const [startDate, setStartDate] = useState(new Date());
   const [goalWeight, setGoalWeight] = useState('');
   const [weeklyGoal, setWeeklyGoal] = useState(1.0);
-  const [weeklyGoalUnit, setWeeklyGoalUnit] = useState<'lbs' | 'kg'>('lbs');
   const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
   const [activityLevel, setActivityLevel] = useState<ActivityLevel | undefined>();
   const [cravingsDays, setCravingsDays] = useState<string[]>([]);
   const [sideEffects, setSideEffects] = useState<string[]>([]);
   const [motivation, setMotivation] = useState<Motivation | undefined>();
-  const [weightUnit, setWeightUnit] = useState<'lbs' | 'kg'>('lbs');
 
   // Determine which steps to show based on delivery type
   const shouldShowDeviceStep = deliveryType === 'injection';
@@ -155,6 +157,15 @@ export default function OnboardingScreen() {
       ? parseFloat(heightCm) || undefined
       : ((parseFloat(heightFt) || 0) * 12 + (parseFloat(heightIn) || 0)) * 2.54 || undefined;
 
+    // Convert weights to lbs for canonical storage
+    const parseLbs = (val: string): number | undefined => {
+      const num = parseFloat(val);
+      if (!num) return undefined;
+      return unitSystem === 'metric' ? num / 0.453592 : num;
+    };
+
+    // Store unit preference globally
+    setPreferences({ units: unitSystem });
     setUserProfile({
       medication,
       deliveryType,
@@ -163,9 +174,9 @@ export default function OnboardingScreen() {
       deviceType: shouldShowDeviceStep ? deviceType : undefined,
       height: heightVal,
       heightUnit,
-      currentWeight: parseFloat(currentWeight) || undefined,
-      startWeight: parseFloat(startWeight) || undefined,
-      goalWeight: parseFloat(goalWeight) || undefined,
+      currentWeight: parseLbs(currentWeight),
+      startWeight: parseLbs(startWeight),
+      goalWeight: parseLbs(goalWeight),
       startDate: startDate.toISOString().split('T')[0],
       activityLevel,
       motivation,
@@ -180,11 +191,11 @@ export default function OnboardingScreen() {
     router.replace('/(tabs)/dashboard');
   }, [
     medication, deliveryType, dose, frequency, deviceType,
-    heightUnit, heightCm, heightFt, heightIn,
+    heightUnit, heightCm, heightFt, heightIn, unitSystem,
     currentWeight, startWeight, goalWeight, startDate,
     activityLevel, motivation, sideEffects, cravingsDays,
     weeklyGoal, weeklyGoalUnit, disclaimerAccepted, shouldShowDeviceStep,
-    setUserProfile, completeOnboarding, router,
+    setUserProfile, setPreferences, completeOnboarding, router,
   ]);
 
   const toggleCravingsDay = (day: string) => {
@@ -199,22 +210,6 @@ export default function OnboardingScreen() {
     );
   };
 
-  const handleWeeklyGoalUnitChange = (newUnit: 'lbs' | 'kg') => {
-    if (newUnit === weeklyGoalUnit) return;
-
-    if (newUnit === 'kg') {
-      // Convert lbs -> kg, snap to nearest 0.25
-      const converted = weeklyGoal * 0.453592;
-      const snapped = Math.round(converted / 0.25) * 0.25;
-      setWeeklyGoal(Math.max(0.25, Math.min(1.0, snapped)));
-    } else {
-      // Convert kg -> lbs, snap to nearest 0.5
-      const converted = weeklyGoal / 0.453592;
-      const snapped = Math.round(converted / 0.5) * 0.5;
-      setWeeklyGoal(Math.max(0.5, Math.min(2.5, snapped)));
-    }
-    setWeeklyGoalUnit(newUnit);
-  };
 
   // Step 0: Welcome
   if (step === 0) {
@@ -476,11 +471,116 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 8: Height
+  // Step 8: Unit System Selection
   if (step === 8) {
     return (
       <OnboardingLayout
         step={8}
+        totalSteps={TOTAL_STEPS}
+        title="Choose your units"
+        subtitle="This will be used throughout the app"
+        onNext={handleNext}
+        onBack={handleBack}
+      >
+        <View style={{ gap: Spacing.lg, paddingTop: Spacing.xl }}>
+          {([
+            {
+              system: 'imperial' as const,
+              title: 'Imperial',
+              desc: 'Pounds & feet/inches',
+              examples: 'lbs, ft/in',
+              icon: 'speedometer-outline' as const,
+            },
+            {
+              system: 'metric' as const,
+              title: 'Metric',
+              desc: 'Kilograms & centimeters',
+              examples: 'kg, cm',
+              icon: 'globe-outline' as const,
+            },
+          ]).map((option) => (
+            <Pressable
+              key={option.system}
+              onPress={() => {
+                if (option.system !== unitSystem) {
+                  setUnitSystem(option.system);
+                  setWeeklyGoal(option.system === 'metric' ? 0.5 : 1.0);
+                }
+              }}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                padding: Spacing.lg,
+                borderRadius: Radius.lg,
+                borderWidth: 2,
+                borderColor: unitSystem === option.system ? Colors.primary : Colors.border,
+                backgroundColor: unitSystem === option.system ? Colors.primaryLight : Colors.surface,
+                gap: Spacing.lg,
+                borderCurve: 'continuous',
+              }}
+            >
+              <View
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 16,
+                  backgroundColor: unitSystem === option.system ? Colors.primary : Colors.borderLight,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderCurve: 'continuous',
+                }}
+              >
+                <Ionicons
+                  name={option.icon}
+                  size={26}
+                  color={unitSystem === option.system ? '#fff' : Colors.textSecondary}
+                />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>
+                  {option.title}
+                </Text>
+                <Text style={{ fontFamily: Fonts.regular, fontSize: 14, color: Colors.textSecondary, marginTop: 2 }}>
+                  {option.desc}
+                </Text>
+                <Text style={{ fontFamily: Fonts.medium, fontSize: 13, color: Colors.textTertiary, marginTop: 4 }}>
+                  {option.examples}
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 12,
+                  borderWidth: 2,
+                  borderColor: unitSystem === option.system ? Colors.primary : Colors.border,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {unitSystem === option.system && (
+                  <View
+                    style={{
+                      width: 14,
+                      height: 14,
+                      borderRadius: 7,
+                      backgroundColor: Colors.primary,
+                    }}
+                  />
+                )}
+              </View>
+            </Pressable>
+          ))}
+        </View>
+      </OnboardingLayout>
+    );
+  }
+
+  // Step 9: Height
+  if (step === 9) {
+    return (
+      <OnboardingLayout
+        step={9}
         totalSteps={TOTAL_STEPS}
         title="What's your height?"
         onNext={handleNext}
@@ -488,42 +588,6 @@ export default function OnboardingScreen() {
         nextDisabled={heightUnit === 'cm' ? !heightCm : (!heightFt)}
       >
         <View style={{ gap: Spacing.xxl, alignItems: 'center', paddingTop: Spacing.xxl }}>
-          {/* Unit toggle */}
-          <View
-            style={{
-              flexDirection: 'row',
-              backgroundColor: Colors.borderLight,
-              borderRadius: Radius.md,
-              padding: 3,
-              borderCurve: 'continuous',
-            }}
-          >
-            {(['cm', 'ft'] as const).map((u) => (
-              <Pressable
-                key={u}
-                onPress={() => setHeightUnit(u)}
-                style={{
-                  paddingVertical: Spacing.sm,
-                  paddingHorizontal: Spacing.xxl,
-                  borderRadius: Radius.sm,
-                  backgroundColor: heightUnit === u ? Colors.surface : 'transparent',
-                  borderCurve: 'continuous',
-                  boxShadow: heightUnit === u ? '0px 1px 3px rgba(0,0,0,0.08)' : 'none',
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: heightUnit === u ? Fonts.semiBold : Fonts.medium,
-                    fontSize: 15,
-                    color: heightUnit === u ? Colors.primary : Colors.textSecondary,
-                  }}
-                >
-                  {u}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
           {heightUnit === 'cm' ? (
             <NumericInput
               value={heightCm}
@@ -542,11 +606,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 9: Current weight
-  if (step === 9) {
+  // Step 10: Current weight
+  if (step === 10) {
     return (
       <OnboardingLayout
-        step={9}
+        step={10}
         totalSteps={TOTAL_STEPS}
         title="What's your current weight?"
         onNext={handleNext}
@@ -557,10 +621,7 @@ export default function OnboardingScreen() {
           <NumericInput
             value={currentWeight}
             onChangeText={setCurrentWeight}
-            unit={weightUnit}
-            units={['lbs', 'kg']}
-            selectedUnit={weightUnit}
-            onUnitChange={(u) => setWeightUnit(u as 'lbs' | 'kg')}
+            unit={weightUnitLabel}
             large
           />
         </View>
@@ -568,11 +629,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 10: Starting weight
-  if (step === 10) {
+  // Step 11: Starting weight
+  if (step === 11) {
     return (
       <OnboardingLayout
-        step={10}
+        step={11}
         totalSteps={TOTAL_STEPS}
         title="What was your starting weight?"
         subtitle="Your weight when you started GLP-1 medication"
@@ -584,7 +645,7 @@ export default function OnboardingScreen() {
           <NumericInput
             value={startWeight}
             onChangeText={setStartWeight}
-            unit={weightUnit}
+            unit={weightUnitLabel}
             large
           />
         </View>
@@ -592,11 +653,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 11: Start date
-  if (step === 11) {
+  // Step 12: Start date
+  if (step === 12) {
     return (
       <OnboardingLayout
-        step={11}
+        step={12}
         totalSteps={TOTAL_STEPS}
         title="When did you start?"
         subtitle="When did you begin taking your GLP-1 medication?"
@@ -619,11 +680,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 12: Goal weight
-  if (step === 12) {
+  // Step 13: Goal weight
+  if (step === 13) {
     return (
       <OnboardingLayout
-        step={12}
+        step={13}
         totalSteps={TOTAL_STEPS}
         title="What's your goal weight?"
         subtitle="Don't worry, you can change this anytime"
@@ -635,7 +696,7 @@ export default function OnboardingScreen() {
           <NumericInput
             value={goalWeight}
             onChangeText={setGoalWeight}
-            unit={weightUnit}
+            unit={weightUnitLabel}
             large
           />
         </View>
@@ -643,8 +704,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 13: Goal pace (slider)
-  if (step === 13) {
+  // Step 14: Goal pace (slider)
+  if (step === 14) {
     const isKg = weeklyGoalUnit === 'kg';
     const sliderMin = isKg ? 0.25 : 0.5;
     const sliderMax = isKg ? 1.0 : 2.5;
@@ -655,7 +716,7 @@ export default function OnboardingScreen() {
 
     return (
       <OnboardingLayout
-        step={13}
+        step={14}
         totalSteps={TOTAL_STEPS}
         title="Set your pace"
         subtitle="How much weight would you like to lose per week?"
@@ -663,42 +724,6 @@ export default function OnboardingScreen() {
         onBack={handleBack}
       >
         <View style={{ alignItems: 'center', paddingTop: Spacing.xxl, gap: Spacing.xxl }}>
-          {/* Unit toggle */}
-          <View
-            style={{
-              flexDirection: 'row',
-              backgroundColor: Colors.borderLight,
-              borderRadius: Radius.md,
-              padding: 3,
-              borderCurve: 'continuous',
-            }}
-          >
-            {(['lbs', 'kg'] as const).map((u) => (
-              <Pressable
-                key={u}
-                onPress={() => handleWeeklyGoalUnitChange(u)}
-                style={{
-                  paddingVertical: Spacing.sm,
-                  paddingHorizontal: Spacing.xxl,
-                  borderRadius: Radius.sm,
-                  backgroundColor: weeklyGoalUnit === u ? Colors.surface : 'transparent',
-                  borderCurve: 'continuous',
-                  boxShadow: weeklyGoalUnit === u ? '0px 1px 3px rgba(0,0,0,0.08)' : 'none',
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: weeklyGoalUnit === u ? Fonts.semiBold : Fonts.medium,
-                    fontSize: 15,
-                    color: weeklyGoalUnit === u ? Colors.primary : Colors.textSecondary,
-                  }}
-                >
-                  {u}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
           <Text
             style={{
               fontFamily: Fonts.bold,
@@ -737,11 +762,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 14: Activity level
-  if (step === 14) {
+  // Step 15: Activity level
+  if (step === 15) {
     return (
       <OnboardingLayout
-        step={14}
+        step={15}
         totalSteps={TOTAL_STEPS}
         title="Activity level"
         subtitle="How active are you in a typical week?"
@@ -798,11 +823,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 15: Tough days (informational)
-  if (step === 15) {
+  // Step 16: Tough days (informational)
+  if (step === 16) {
     return (
       <OnboardingLayout
-        step={15}
+        step={16}
         totalSteps={TOTAL_STEPS}
         title="Tough days happen"
         subtitle="And that's completely normal"
@@ -850,11 +875,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 16: Cravings day
-  if (step === 16) {
+  // Step 17: Cravings day
+  if (step === 17) {
     return (
       <OnboardingLayout
-        step={16}
+        step={17}
         totalSteps={TOTAL_STEPS}
         title="When do cravings hit?"
         subtitle="Select the days you tend to crave food most"
@@ -876,11 +901,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 17: Side effects
-  if (step === 17) {
+  // Step 18: Side effects
+  if (step === 18) {
     return (
       <OnboardingLayout
-        step={17}
+        step={18}
         totalSteps={TOTAL_STEPS}
         title="Any concerns?"
         subtitle="Select side effects you're experiencing or worried about"
@@ -901,11 +926,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 18: Motivation
-  if (step === 18) {
+  // Step 19: Motivation
+  if (step === 19) {
     return (
       <OnboardingLayout
-        step={18}
+        step={19}
         totalSteps={TOTAL_STEPS}
         title="What motivates you?"
         subtitle="Understanding your 'why' helps us support you better"
@@ -951,11 +976,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 19: Social proof
-  if (step === 19) {
+  // Step 20: Social proof
+  if (step === 20) {
     return (
       <OnboardingLayout
-        step={19}
+        step={20}
         totalSteps={TOTAL_STEPS}
         title="You're not alone"
         showProgress={false}
@@ -1012,8 +1037,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 20: Paywall
-  if (step === 20) {
+  // Step 21: Paywall
+  if (step === 21) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
         <ScrollView

@@ -20,6 +20,7 @@ import {
   getFrequencyDays,
   formatDate,
 } from '@/utils/date';
+import { displayWeight, getWeightUnit } from '@/utils/units';
 
 export default function DashboardScreen() {
   const insets = useSafeAreaInsets();
@@ -32,6 +33,8 @@ export default function DashboardScreen() {
   const waterLogs = useAppStore((s) => s.waterLogs);
   const medicationLogs = useAppStore((s) => s.medicationLogs);
   const weightLogs = useAppStore((s) => s.weightLogs);
+  const units = useAppStore((s) => s.preferences.units ?? 'imperial');
+  const wUnit = getWeightUnit(units);
 
   const today = getTodayString();
 
@@ -53,8 +56,9 @@ export default function DashboardScreen() {
   const daysSinceLastDose = lastDose ? daysSince(lastDose.date) : null;
   const daysUntil = lastDose ? daysUntilNext(lastDose.date, freqDays) : null;
 
-  // Weight progress
-  const currentW = weightLogs.length > 0 ? weightLogs[0].weight : userProfile.currentWeight;
+  // Weight progress (stored in lbs, convert for display)
+  const currentWLbs = weightLogs.length > 0 ? weightLogs[0].weight : userProfile.currentWeight;
+  const currentW = currentWLbs != null ? displayWeight(currentWLbs, units) : undefined;
   const recentWeightLogs = weightLogs.slice(0, 30);
   const chartWidth = width - Spacing.xxl * 2 - Spacing.lg * 2;
 
@@ -203,6 +207,7 @@ export default function DashboardScreen() {
               goalWeight={userProfile.goalWeight}
               width={chartWidth > 0 ? chartWidth : 280}
               height={140}
+              units={units}
             />
             <View
               style={{
@@ -216,7 +221,7 @@ export default function DashboardScreen() {
                   Current
                 </Text>
                 <Text style={{ fontFamily: Fonts.semiBold, fontSize: 16, color: Colors.text }}>
-                  {currentW ?? '--'} lbs
+                  {currentW != null ? currentW.toFixed(1) : '--'} {wUnit}
                 </Text>
               </View>
               <View style={{ alignItems: 'flex-end' }}>
@@ -224,7 +229,7 @@ export default function DashboardScreen() {
                   Goal
                 </Text>
                 <Text style={{ fontFamily: Fonts.semiBold, fontSize: 16, color: Colors.accent }}>
-                  {userProfile.goalWeight ?? '--'} lbs
+                  {userProfile.goalWeight != null ? displayWeight(userProfile.goalWeight, units).toFixed(1) : '--'} {wUnit}
                 </Text>
               </View>
             </View>
@@ -310,7 +315,7 @@ export default function DashboardScreen() {
             ...weightLogs.slice(0, 2).map((l) => ({
               type: 'weight' as const,
               date: l.date,
-              text: `Weighed in: ${l.weight} lbs`,
+              text: `Weighed in: ${displayWeight(l.weight, units).toFixed(1)} ${wUnit}`,
               icon: 'scale' as const,
               color: Colors.accent,
             }))]

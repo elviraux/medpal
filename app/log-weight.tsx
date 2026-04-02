@@ -18,12 +18,15 @@ import { useAppStore } from '@/store/useAppStore';
 import { Card } from '@/components/ui/card';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { generateId } from '@/utils/date';
+import { toLbs, getWeightUnit } from '@/utils/units';
 
 export default function LogWeightScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const addWeightLog = useAppStore((s) => s.addWeightLog);
   const setUserProfile = useAppStore((s) => s.setUserProfile);
+  const units = useAppStore((s) => s.preferences.units ?? 'imperial');
+  const wUnit = getWeightUnit(units);
 
   const [weight, setWeight] = useState('');
   const [date, setDate] = useState(new Date());
@@ -35,13 +38,15 @@ export default function LogWeightScreen() {
       Alert.alert('Invalid weight', 'Please enter a valid weight.');
       return;
     }
+    // Convert to lbs for canonical storage
+    const storageLbs = toLbs(w, units);
     addWeightLog({
       id: generateId(),
       date: date.toISOString().split('T')[0],
-      weight: w,
+      weight: storageLbs,
       notes: notes || undefined,
     });
-    setUserProfile({ currentWeight: w });
+    setUserProfile({ currentWeight: storageLbs });
     router.back();
   };
 
@@ -98,7 +103,7 @@ export default function LogWeightScreen() {
               }}
             />
             <Text style={{ fontFamily: Fonts.medium, fontSize: 22, color: Colors.textSecondary }}>
-              lbs
+              {wUnit}
             </Text>
           </View>
         </View>
