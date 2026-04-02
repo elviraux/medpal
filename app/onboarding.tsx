@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, Pressable, ScrollView, Linking } from 'react-native';
+import { View, Text, Pressable, ScrollView, Linking, ActivityIndicator, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -24,6 +24,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Slider from '@react-native-community/slider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path, Circle } from 'react-native-svg';
+import { adapty } from 'react-native-adapty';
 
 const TOTAL_STEPS = 22;
 
@@ -102,6 +103,7 @@ export default function OnboardingScreen() {
   const [cravingsDays, setCravingsDays] = useState<string[]>([]);
   const [sideEffects, setSideEffects] = useState<string[]>([]);
   const [motivation, setMotivation] = useState<Motivation | undefined>();
+  const [isRestoring, setIsRestoring] = useState(false);
 
   // Determine which steps to show based on delivery type
   const shouldShowDeviceStep = deliveryType === 'injection';
@@ -197,6 +199,35 @@ export default function OnboardingScreen() {
     weeklyGoal, weeklyGoalUnit, disclaimerAccepted, shouldShowDeviceStep,
     setUserProfile, setPreferences, completeOnboarding, router,
   ]);
+
+  const handleRestorePurchases = useCallback(async () => {
+    setIsRestoring(true);
+    try {
+      const profile = await adapty.restorePurchases();
+      const isPremium = profile?.accessLevels?.['premium']?.isActive ?? false;
+      if (isPremium) {
+        Alert.alert(
+          'Purchases Restored',
+          'Your Pro subscription has been restored successfully.',
+          [{ text: 'Continue', onPress: handleComplete }]
+        );
+      } else {
+        Alert.alert(
+          'No Purchases Found',
+          'We couldn\'t find any active subscriptions linked to your account.',
+          [{ text: 'OK' }]
+        );
+      }
+    } catch {
+      Alert.alert(
+        'Restore Failed',
+        'Something went wrong while restoring purchases. Please try again.',
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setIsRestoring(false);
+    }
+  }, [handleComplete]);
 
   const toggleCravingsDay = (day: string) => {
     setCravingsDays((prev) =>
@@ -1245,6 +1276,35 @@ export default function OnboardingScreen() {
             {"Cancel anytime. You won't be charged during the free trial."}
           </Text>
 
+          {/* Restore Purchases */}
+          <Pressable
+            onPress={handleRestorePurchases}
+            disabled={isRestoring}
+            hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }}
+            style={{
+              paddingVertical: Spacing.md,
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              gap: Spacing.sm,
+            }}
+          >
+            {isRestoring ? (
+              <ActivityIndicator size="small" color={Colors.textTertiary} />
+            ) : (
+              <Ionicons name="refresh-outline" size={14} color={Colors.textTertiary} />
+            )}
+            <Text
+              style={{
+                fontFamily: Fonts.medium,
+                fontSize: 13,
+                color: Colors.textTertiary,
+              }}
+            >
+              {isRestoring ? 'Restoring...' : 'Restore Purchases'}
+            </Text>
+          </Pressable>
+
           {/* Legal Links */}
           <View
             style={{
@@ -1252,7 +1312,6 @@ export default function OnboardingScreen() {
               justifyContent: 'center',
               alignItems: 'center',
               gap: Spacing.lg,
-              paddingTop: Spacing.md,
             }}
           >
             <Pressable

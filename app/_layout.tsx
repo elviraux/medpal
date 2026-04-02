@@ -4,8 +4,11 @@ import { useFonts } from "expo-font";
 import { FontMap } from "@/constants/Typography";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { adapty } from "react-native-adapty";
 
 SplashScreen.preventAutoHideAsync();
+
+const ADAPTY_API_KEY = process.env.EXPO_PUBLIC_ADAPTY_API_KEY ?? "";
 
 export default function RootLayout() {
   const [loaded, error] = useFonts(FontMap);
@@ -15,6 +18,16 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded, error]);
+
+  useEffect(() => {
+    adapty
+      .activate(ADAPTY_API_KEY, {
+        __ignoreActivationOnFastRefresh: __DEV__,
+      })
+      .catch(() => {
+        // Activation may fail in dev/web — mock mode handles this gracefully
+      });
+  }, []);
 
   if (!loaded && !error) {
     return null;
