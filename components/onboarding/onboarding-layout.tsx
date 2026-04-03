@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   Text,
+  Pressable,
   ScrollView,
   KeyboardAvoidingView,
 } from 'react-native';
@@ -23,6 +24,8 @@ interface OnboardingLayoutProps {
   nextDisabled?: boolean;
   showProgress?: boolean;
   loading?: boolean;
+  onSkip?: () => void;
+  skipLabel?: string;
 }
 
 export function OnboardingLayout({
@@ -37,6 +40,8 @@ export function OnboardingLayout({
   nextDisabled,
   showProgress = true,
   loading,
+  onSkip,
+  skipLabel,
 }: OnboardingLayoutProps) {
   const insets = useSafeAreaInsets();
 
@@ -158,6 +163,23 @@ export function OnboardingLayout({
             disabled={nextDisabled}
             loading={loading}
           />
+          {onSkip && (
+            <Pressable
+              onPress={onSkip}
+              hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }}
+              style={{ paddingVertical: Spacing.md, alignItems: 'center' }}
+            >
+              <Text
+                style={{
+                  fontFamily: Fonts.medium,
+                  fontSize: 15,
+                  color: Colors.textTertiary,
+                }}
+              >
+                {skipLabel || 'Skip for now'}
+              </Text>
+            </Pressable>
+          )}
         </View>
       </View>
     </KeyboardAvoidingView>

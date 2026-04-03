@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, Pressable, ScrollView, Linking, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, Pressable, ScrollView, Linking, ActivityIndicator, Alert, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -12,6 +12,7 @@ import { PillButton } from '@/components/ui/pill-button';
 import { NumericInput } from '@/components/ui/numeric-input';
 import { Card } from '@/components/ui/card';
 import { PrimaryButton } from '@/components/ui/primary-button';
+import { BodyDiagram } from '@/components/medication/body-diagram';
 import type {
   MedicationType,
   DeliveryType,
@@ -19,6 +20,8 @@ import type {
   DeviceType,
   ActivityLevel,
   Motivation,
+  InjectionSite,
+  MedicationLog,
 } from '@/store/types';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Slider from '@react-native-community/slider';
@@ -26,7 +29,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { adapty } from 'react-native-adapty';
 
-const TOTAL_STEPS = 22;
+const TOTAL_STEPS = 23;
 
 const medications: MedicationType[] = [
   'Wegovy', 'Ozempic', 'Zepbound', 'Mounjaro',
@@ -74,7 +77,7 @@ const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Unknown', 
 export default function OnboardingScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { setUserProfile, completeOnboarding, setPreferences } = useAppStore();
+  const { setUserProfile, completeOnboarding, setPreferences, addMedicationLog } = useAppStore();
 
   const [step, setStep] = useState(0);
 
@@ -104,6 +107,11 @@ export default function OnboardingScreen() {
   const [sideEffects, setSideEffects] = useState<string[]>([]);
   const [motivation, setMotivation] = useState<Motivation | undefined>();
   const [isRestoring, setIsRestoring] = useState(false);
+
+  // First dose logging state
+  const [firstDoseDateTime, setFirstDoseDateTime] = useState(new Date());
+  const [firstDoseInjectionSite, setFirstDoseInjectionSite] = useState<InjectionSite | undefined>();
+  const [firstDoseNotes, setFirstDoseNotes] = useState('');
 
   // Determine which steps to show based on delivery type
   const shouldShowDeviceStep = deliveryType === 'injection';
@@ -141,7 +149,7 @@ export default function OnboardingScreen() {
     // Skip device step if not injection
     let nextStep = step + 1;
     if (step === 4 && !shouldShowDeviceStep) {
-      nextStep = 6; // Skip device type step (step 5)
+      nextStep = 6; // Skip device type step (step 5), go to first dose
     }
     setStep(nextStep);
   }, [step, shouldShowDeviceStep]);
@@ -240,6 +248,20 @@ export default function OnboardingScreen() {
       prev.includes(effect) ? prev.filter((e) => e !== effect) : [...prev, effect]
     );
   };
+
+  const handleLogFirstDose = useCallback(() => {
+    const log: MedicationLog = {
+      id: Date.now().toString(),
+      date: firstDoseDateTime.toISOString().split('T')[0],
+      time: `${String(firstDoseDateTime.getHours()).padStart(2, '0')}:${String(firstDoseDateTime.getMinutes()).padStart(2, '0')}`,
+      dose: dose || 'Unknown',
+      deliveryType: deliveryType || 'injection',
+      injectionSite: shouldShowDeviceStep ? firstDoseInjectionSite : undefined,
+      notes: firstDoseNotes.trim() || undefined,
+    };
+    addMedicationLog(log);
+    handleNext();
+  }, [firstDoseDateTime, dose, deliveryType, shouldShowDeviceStep, firstDoseInjectionSite, firstDoseNotes, addMedicationLog, handleNext]);
 
 
   // Step 0: Welcome
@@ -377,11 +399,216 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 6: Estimated Medication Levels (educational)
+  // Step 6: Record First Dose
   if (step === 6) {
+    const isInjection = deliveryType === 'injection';
+
     return (
       <OnboardingLayout
         step={6}
+        totalSteps={TOTAL_STEPS}
+        title="Record Your Starting Dose"
+        subtitle="Mark the beginning of your tracking journey"
+        onNext={handleLogFirstDose}
+        onBack={handleBack}
+        nextLabel="Log Dose"
+        onSkip={handleNext}
+        skipLabel="Skip for now"
+      >
+        {/* Encouragement banner */}
+        <Card elevated style={{ gap: Spacing.md, marginBottom: Spacing.xl }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: Spacing.md,
+            }}
+          >
+            <View
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 14,
+                backgroundColor: Colors.accentLight,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderCurve: 'continuous',
+              }}
+            >
+              <Ionicons name="flag-outline" size={24} color={Colors.accent} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontFamily: Fonts.medium,
+                  fontSize: 14,
+                  color: Colors.textSecondary,
+                  lineHeight: 20,
+                }}
+              >
+                Logging your first dose helps us track your medication levels accurately from day one.
+              </Text>
+            </View>
+          </View>
+        </Card>
+
+        {/* Date & Time */}
+        <Text
+          style={{
+            fontFamily: Fonts.semiBold,
+            fontSize: 15,
+            color: Colors.text,
+            marginBottom: Spacing.sm,
+          }}
+        >
+          When did you take it?
+        </Text>
+        <Card style={{ gap: Spacing.lg, marginBottom: Spacing.xl }}>
+          <View style={{ gap: Spacing.md }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: Spacing.md,
+              }}
+            >
+              <View
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  backgroundColor: Colors.primaryLight,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderCurve: 'continuous',
+                }}
+              >
+                <Ionicons name="calendar-outline" size={18} color={Colors.primary} />
+              </View>
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text, flex: 1 }}>
+                Date
+              </Text>
+              <DateTimePicker
+                value={firstDoseDateTime}
+                mode="date"
+                display="default"
+                maximumDate={new Date()}
+                onChange={(_, date) => {
+                  if (date) {
+                    const updated = new Date(firstDoseDateTime);
+                    updated.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+                    setFirstDoseDateTime(updated);
+                  }
+                }}
+              />
+            </View>
+          </View>
+
+          <View style={{ height: 1, backgroundColor: Colors.borderLight }} />
+
+          <View style={{ gap: Spacing.md }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: Spacing.md,
+              }}
+            >
+              <View
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  backgroundColor: Colors.primaryLight,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderCurve: 'continuous',
+                }}
+              >
+                <Ionicons name="time-outline" size={18} color={Colors.primary} />
+              </View>
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text, flex: 1 }}>
+                Time
+              </Text>
+              <DateTimePicker
+                value={firstDoseDateTime}
+                mode="time"
+                display="default"
+                onChange={(_, date) => {
+                  if (date) {
+                    const updated = new Date(firstDoseDateTime);
+                    updated.setHours(date.getHours(), date.getMinutes());
+                    setFirstDoseDateTime(updated);
+                  }
+                }}
+              />
+            </View>
+          </View>
+        </Card>
+
+        {/* Injection Site — only for injection users */}
+        {isInjection && (
+          <>
+            <Text
+              style={{
+                fontFamily: Fonts.semiBold,
+                fontSize: 15,
+                color: Colors.text,
+                marginBottom: Spacing.sm,
+              }}
+            >
+              Where did you inject?
+            </Text>
+            <Card style={{ marginBottom: Spacing.xl, paddingVertical: Spacing.lg }}>
+              <BodyDiagram
+                selectedSite={firstDoseInjectionSite}
+                onSelectSite={setFirstDoseInjectionSite}
+              />
+            </Card>
+          </>
+        )}
+
+        {/* Notes */}
+        <Text
+          style={{
+            fontFamily: Fonts.semiBold,
+            fontSize: 15,
+            color: Colors.text,
+            marginBottom: Spacing.sm,
+          }}
+        >
+          Notes
+          <Text style={{ fontFamily: Fonts.regular, color: Colors.textTertiary }}>
+            {' '}(optional)
+          </Text>
+        </Text>
+        <Card>
+          <TextInput
+            value={firstDoseNotes}
+            onChangeText={setFirstDoseNotes}
+            placeholder="How did it go? Any observations..."
+            placeholderTextColor={Colors.textTertiary}
+            multiline
+            numberOfLines={3}
+            style={{
+              fontFamily: Fonts.regular,
+              fontSize: 15,
+              color: Colors.text,
+              minHeight: 80,
+              textAlignVertical: 'top',
+              paddingTop: 0,
+            }}
+          />
+        </Card>
+      </OnboardingLayout>
+    );
+  }
+
+  // Step 7: Estimated Medication Levels (educational)
+  if (step === 7) {
+    return (
+      <OnboardingLayout
+        step={7}
         totalSteps={TOTAL_STEPS}
         title="Medication Levels"
         subtitle="Understanding how GLP-1 works in your body"
@@ -437,11 +664,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 7: Health Disclaimer
-  if (step === 7) {
+  // Step 8: Health Disclaimer
+  if (step === 8) {
     return (
       <OnboardingLayout
-        step={7}
+        step={8}
         totalSteps={TOTAL_STEPS}
         title="Health Disclaimer"
         subtitle="Please read carefully before continuing"
@@ -502,11 +729,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 8: Unit System Selection
-  if (step === 8) {
+  // Step 9: Unit System Selection
+  if (step === 9) {
     return (
       <OnboardingLayout
-        step={8}
+        step={9}
         totalSteps={TOTAL_STEPS}
         title="Choose your units"
         subtitle="This will be used throughout the app"
@@ -607,11 +834,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 9: Height
-  if (step === 9) {
+  // Step 10: Height
+  if (step === 10) {
     return (
       <OnboardingLayout
-        step={9}
+        step={10}
         totalSteps={TOTAL_STEPS}
         title="What's your height?"
         onNext={handleNext}
@@ -637,11 +864,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 10: Current weight
-  if (step === 10) {
+  // Step 11: Current weight
+  if (step === 11) {
     return (
       <OnboardingLayout
-        step={10}
+        step={11}
         totalSteps={TOTAL_STEPS}
         title="What's your current weight?"
         onNext={handleNext}
@@ -660,11 +887,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 11: Starting weight
-  if (step === 11) {
+  // Step 12: Starting weight
+  if (step === 12) {
     return (
       <OnboardingLayout
-        step={11}
+        step={12}
         totalSteps={TOTAL_STEPS}
         title="What was your starting weight?"
         subtitle="Your weight when you started GLP-1 medication"
@@ -684,11 +911,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 12: Start date
-  if (step === 12) {
+  // Step 13: Start date
+  if (step === 13) {
     return (
       <OnboardingLayout
-        step={12}
+        step={13}
         totalSteps={TOTAL_STEPS}
         title="When did you start?"
         subtitle="When did you begin taking your GLP-1 medication?"
@@ -711,11 +938,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 13: Goal weight
-  if (step === 13) {
+  // Step 14: Goal weight
+  if (step === 14) {
     return (
       <OnboardingLayout
-        step={13}
+        step={14}
         totalSteps={TOTAL_STEPS}
         title="What's your goal weight?"
         subtitle="Don't worry, you can change this anytime"
@@ -735,8 +962,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 14: Goal pace (slider)
-  if (step === 14) {
+  // Step 15: Goal pace (slider)
+  if (step === 15) {
     const isKg = weeklyGoalUnit === 'kg';
     const sliderMin = isKg ? 0.25 : 0.5;
     const sliderMax = isKg ? 1.0 : 2.5;
@@ -747,7 +974,7 @@ export default function OnboardingScreen() {
 
     return (
       <OnboardingLayout
-        step={14}
+        step={15}
         totalSteps={TOTAL_STEPS}
         title="Set your pace"
         subtitle="How much weight would you like to lose per week?"
@@ -793,11 +1020,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 15: Activity level
-  if (step === 15) {
+  // Step 16: Activity level
+  if (step === 16) {
     return (
       <OnboardingLayout
-        step={15}
+        step={16}
         totalSteps={TOTAL_STEPS}
         title="Activity level"
         subtitle="How active are you in a typical week?"
@@ -854,11 +1081,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 16: Tough days (informational)
-  if (step === 16) {
+  // Step 17: Tough days (informational)
+  if (step === 17) {
     return (
       <OnboardingLayout
-        step={16}
+        step={17}
         totalSteps={TOTAL_STEPS}
         title="Tough days happen"
         subtitle="And that's completely normal"
@@ -906,11 +1133,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 17: Cravings day
-  if (step === 17) {
+  // Step 18: Cravings day
+  if (step === 18) {
     return (
       <OnboardingLayout
-        step={17}
+        step={18}
         totalSteps={TOTAL_STEPS}
         title="When do cravings hit?"
         subtitle="Select the days you tend to crave food most"
@@ -932,11 +1159,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 18: Side effects
-  if (step === 18) {
+  // Step 19: Side effects
+  if (step === 19) {
     return (
       <OnboardingLayout
-        step={18}
+        step={19}
         totalSteps={TOTAL_STEPS}
         title="Any concerns?"
         subtitle="Select side effects you're experiencing or worried about"
@@ -957,11 +1184,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 19: Motivation
-  if (step === 19) {
+  // Step 20: Motivation
+  if (step === 20) {
     return (
       <OnboardingLayout
-        step={19}
+        step={20}
         totalSteps={TOTAL_STEPS}
         title="What motivates you?"
         subtitle="Understanding your 'why' helps us support you better"
@@ -1007,11 +1234,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 20: Social proof
-  if (step === 20) {
+  // Step 21: Social proof
+  if (step === 21) {
     return (
       <OnboardingLayout
-        step={20}
+        step={21}
         totalSteps={TOTAL_STEPS}
         title="You're not alone"
         showProgress={false}
@@ -1068,8 +1295,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 21: Paywall
-  if (step === 21) {
+  // Step 22: Paywall
+  if (step === 22) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
         <ScrollView
