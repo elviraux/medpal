@@ -13,6 +13,7 @@ import { NumericInput } from '@/components/ui/numeric-input';
 import { Card } from '@/components/ui/card';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { BodyDiagram } from '@/components/medication/body-diagram';
+import { ConfettiBurst } from '@/components/ui/confetti-burst';
 import type {
   MedicationType,
   DeliveryType,
@@ -112,6 +113,7 @@ export default function OnboardingScreen() {
   const [firstDoseDateTime, setFirstDoseDateTime] = useState(new Date());
   const [firstDoseInjectionSite, setFirstDoseInjectionSite] = useState<InjectionSite | undefined>();
   const [firstDoseNotes, setFirstDoseNotes] = useState('');
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Determine which steps to show based on delivery type
   const shouldShowDeviceStep = deliveryType === 'injection';
@@ -146,10 +148,10 @@ export default function OnboardingScreen() {
   };
 
   const handleNext = useCallback(() => {
-    // Skip device step if not injection
     let nextStep = step + 1;
+    // Skip device step if not injection
     if (step === 4 && !shouldShowDeviceStep) {
-      nextStep = 6; // Skip device type step (step 5), go to first dose
+      nextStep = 6; // Skip device type step (step 5)
     }
     setStep(nextStep);
   }, [step, shouldShowDeviceStep]);
@@ -167,14 +169,12 @@ export default function OnboardingScreen() {
       ? parseFloat(heightCm) || undefined
       : ((parseFloat(heightFt) || 0) * 12 + (parseFloat(heightIn) || 0)) * 2.54 || undefined;
 
-    // Convert weights to lbs for canonical storage
     const parseLbs = (val: string): number | undefined => {
       const num = parseFloat(val);
       if (!num) return undefined;
       return unitSystem === 'metric' ? num / 0.453592 : num;
     };
 
-    // Store unit preference globally
     setPreferences({ units: unitSystem });
     setUserProfile({
       medication,
@@ -249,6 +249,7 @@ export default function OnboardingScreen() {
     );
   };
 
+  // Save dose then trigger confetti celebration before advancing
   const handleLogFirstDose = useCallback(() => {
     const log: MedicationLog = {
       id: Date.now().toString(),
@@ -260,8 +261,13 @@ export default function OnboardingScreen() {
       notes: firstDoseNotes.trim() || undefined,
     };
     addMedicationLog(log);
-    handleNext();
-  }, [firstDoseDateTime, dose, deliveryType, shouldShowDeviceStep, firstDoseInjectionSite, firstDoseNotes, addMedicationLog, handleNext]);
+    setShowConfetti(true);
+  }, [firstDoseDateTime, dose, deliveryType, shouldShowDeviceStep, firstDoseInjectionSite, firstDoseNotes, addMedicationLog]);
+
+  const handleConfettiComplete = useCallback(() => {
+    setShowConfetti(false);
+    setStep((prev) => prev + 1);
+  }, []);
 
 
   // Step 0: Welcome
@@ -399,216 +405,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 6: Record First Dose
+  // Step 6: Estimated Medication Levels (educational)
   if (step === 6) {
-    const isInjection = deliveryType === 'injection';
-
     return (
       <OnboardingLayout
         step={6}
-        totalSteps={TOTAL_STEPS}
-        title="Record Your Starting Dose"
-        subtitle="Mark the beginning of your tracking journey"
-        onNext={handleLogFirstDose}
-        onBack={handleBack}
-        nextLabel="Log Dose"
-        onSkip={handleNext}
-        skipLabel="Skip for now"
-      >
-        {/* Encouragement banner */}
-        <Card elevated style={{ gap: Spacing.md, marginBottom: Spacing.xl }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: Spacing.md,
-            }}
-          >
-            <View
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: 14,
-                backgroundColor: Colors.accentLight,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderCurve: 'continuous',
-              }}
-            >
-              <Ionicons name="flag-outline" size={24} color={Colors.accent} />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  fontFamily: Fonts.medium,
-                  fontSize: 14,
-                  color: Colors.textSecondary,
-                  lineHeight: 20,
-                }}
-              >
-                Logging your first dose helps us track your medication levels accurately from day one.
-              </Text>
-            </View>
-          </View>
-        </Card>
-
-        {/* Date & Time */}
-        <Text
-          style={{
-            fontFamily: Fonts.semiBold,
-            fontSize: 15,
-            color: Colors.text,
-            marginBottom: Spacing.sm,
-          }}
-        >
-          When did you take it?
-        </Text>
-        <Card style={{ gap: Spacing.lg, marginBottom: Spacing.xl }}>
-          <View style={{ gap: Spacing.md }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: Spacing.md,
-              }}
-            >
-              <View
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  backgroundColor: Colors.primaryLight,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderCurve: 'continuous',
-                }}
-              >
-                <Ionicons name="calendar-outline" size={18} color={Colors.primary} />
-              </View>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text, flex: 1 }}>
-                Date
-              </Text>
-              <DateTimePicker
-                value={firstDoseDateTime}
-                mode="date"
-                display="default"
-                maximumDate={new Date()}
-                onChange={(_, date) => {
-                  if (date) {
-                    const updated = new Date(firstDoseDateTime);
-                    updated.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
-                    setFirstDoseDateTime(updated);
-                  }
-                }}
-              />
-            </View>
-          </View>
-
-          <View style={{ height: 1, backgroundColor: Colors.borderLight }} />
-
-          <View style={{ gap: Spacing.md }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: Spacing.md,
-              }}
-            >
-              <View
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  backgroundColor: Colors.primaryLight,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderCurve: 'continuous',
-                }}
-              >
-                <Ionicons name="time-outline" size={18} color={Colors.primary} />
-              </View>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text, flex: 1 }}>
-                Time
-              </Text>
-              <DateTimePicker
-                value={firstDoseDateTime}
-                mode="time"
-                display="default"
-                onChange={(_, date) => {
-                  if (date) {
-                    const updated = new Date(firstDoseDateTime);
-                    updated.setHours(date.getHours(), date.getMinutes());
-                    setFirstDoseDateTime(updated);
-                  }
-                }}
-              />
-            </View>
-          </View>
-        </Card>
-
-        {/* Injection Site — only for injection users */}
-        {isInjection && (
-          <>
-            <Text
-              style={{
-                fontFamily: Fonts.semiBold,
-                fontSize: 15,
-                color: Colors.text,
-                marginBottom: Spacing.sm,
-              }}
-            >
-              Where did you inject?
-            </Text>
-            <Card style={{ marginBottom: Spacing.xl, paddingVertical: Spacing.lg }}>
-              <BodyDiagram
-                selectedSite={firstDoseInjectionSite}
-                onSelectSite={setFirstDoseInjectionSite}
-              />
-            </Card>
-          </>
-        )}
-
-        {/* Notes */}
-        <Text
-          style={{
-            fontFamily: Fonts.semiBold,
-            fontSize: 15,
-            color: Colors.text,
-            marginBottom: Spacing.sm,
-          }}
-        >
-          Notes
-          <Text style={{ fontFamily: Fonts.regular, color: Colors.textTertiary }}>
-            {' '}(optional)
-          </Text>
-        </Text>
-        <Card>
-          <TextInput
-            value={firstDoseNotes}
-            onChangeText={setFirstDoseNotes}
-            placeholder="How did it go? Any observations..."
-            placeholderTextColor={Colors.textTertiary}
-            multiline
-            numberOfLines={3}
-            style={{
-              fontFamily: Fonts.regular,
-              fontSize: 15,
-              color: Colors.text,
-              minHeight: 80,
-              textAlignVertical: 'top',
-              paddingTop: 0,
-            }}
-          />
-        </Card>
-      </OnboardingLayout>
-    );
-  }
-
-  // Step 7: Estimated Medication Levels (educational)
-  if (step === 7) {
-    return (
-      <OnboardingLayout
-        step={7}
         totalSteps={TOTAL_STEPS}
         title="Medication Levels"
         subtitle="Understanding how GLP-1 works in your body"
@@ -630,7 +431,6 @@ export default function OnboardingScreen() {
                 fill={Colors.primaryLight}
                 opacity={0.5}
               />
-              {/* Dose markers */}
               <Circle cx={10} cy={100} r={4} fill={Colors.primary} />
               <Circle cx={130} cy={30} r={4} fill={Colors.primary} />
               <Circle cx={270} cy={15} r={4} fill={Colors.primary} />
@@ -664,11 +464,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 8: Health Disclaimer
-  if (step === 8) {
+  // Step 7: Health Disclaimer
+  if (step === 7) {
     return (
       <OnboardingLayout
-        step={8}
+        step={7}
         totalSteps={TOTAL_STEPS}
         title="Health Disclaimer"
         subtitle="Please read carefully before continuing"
@@ -729,11 +529,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 9: Unit System Selection
-  if (step === 9) {
+  // Step 8: Unit System Selection
+  if (step === 8) {
     return (
       <OnboardingLayout
-        step={9}
+        step={8}
         totalSteps={TOTAL_STEPS}
         title="Choose your units"
         subtitle="This will be used throughout the app"
@@ -834,11 +634,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 10: Height
-  if (step === 10) {
+  // Step 9: Height
+  if (step === 9) {
     return (
       <OnboardingLayout
-        step={10}
+        step={9}
         totalSteps={TOTAL_STEPS}
         title="What's your height?"
         onNext={handleNext}
@@ -864,11 +664,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 11: Current weight
-  if (step === 11) {
+  // Step 10: Current weight
+  if (step === 10) {
     return (
       <OnboardingLayout
-        step={11}
+        step={10}
         totalSteps={TOTAL_STEPS}
         title="What's your current weight?"
         onNext={handleNext}
@@ -887,11 +687,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 12: Starting weight
-  if (step === 12) {
+  // Step 11: Starting weight
+  if (step === 11) {
     return (
       <OnboardingLayout
-        step={12}
+        step={11}
         totalSteps={TOTAL_STEPS}
         title="What was your starting weight?"
         subtitle="Your weight when you started GLP-1 medication"
@@ -911,11 +711,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 13: Start date
-  if (step === 13) {
+  // Step 12: Start date
+  if (step === 12) {
     return (
       <OnboardingLayout
-        step={13}
+        step={12}
         totalSteps={TOTAL_STEPS}
         title="When did you start?"
         subtitle="When did you begin taking your GLP-1 medication?"
@@ -938,11 +738,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 14: Goal weight
-  if (step === 14) {
+  // Step 13: Goal weight
+  if (step === 13) {
     return (
       <OnboardingLayout
-        step={14}
+        step={13}
         totalSteps={TOTAL_STEPS}
         title="What's your goal weight?"
         subtitle="Don't worry, you can change this anytime"
@@ -962,8 +762,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 15: Goal pace (slider)
-  if (step === 15) {
+  // Step 14: Goal pace (slider)
+  if (step === 14) {
     const isKg = weeklyGoalUnit === 'kg';
     const sliderMin = isKg ? 0.25 : 0.5;
     const sliderMax = isKg ? 1.0 : 2.5;
@@ -974,7 +774,7 @@ export default function OnboardingScreen() {
 
     return (
       <OnboardingLayout
-        step={15}
+        step={14}
         totalSteps={TOTAL_STEPS}
         title="Set your pace"
         subtitle="How much weight would you like to lose per week?"
@@ -1020,11 +820,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 16: Activity level
-  if (step === 16) {
+  // Step 15: Activity level
+  if (step === 15) {
     return (
       <OnboardingLayout
-        step={16}
+        step={15}
         totalSteps={TOTAL_STEPS}
         title="Activity level"
         subtitle="How active are you in a typical week?"
@@ -1081,11 +881,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 17: Tough days (informational)
-  if (step === 17) {
+  // Step 16: Tough days (informational)
+  if (step === 16) {
     return (
       <OnboardingLayout
-        step={17}
+        step={16}
         totalSteps={TOTAL_STEPS}
         title="Tough days happen"
         subtitle="And that's completely normal"
@@ -1133,11 +933,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 18: Cravings day
-  if (step === 18) {
+  // Step 17: Cravings day
+  if (step === 17) {
     return (
       <OnboardingLayout
-        step={18}
+        step={17}
         totalSteps={TOTAL_STEPS}
         title="When do cravings hit?"
         subtitle="Select the days you tend to crave food most"
@@ -1159,11 +959,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 19: Side effects
-  if (step === 19) {
+  // Step 18: Side effects
+  if (step === 18) {
     return (
       <OnboardingLayout
-        step={19}
+        step={18}
         totalSteps={TOTAL_STEPS}
         title="Any concerns?"
         subtitle="Select side effects you're experiencing or worried about"
@@ -1184,11 +984,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 20: Motivation
-  if (step === 20) {
+  // Step 19: Motivation
+  if (step === 19) {
     return (
       <OnboardingLayout
-        step={20}
+        step={19}
         totalSteps={TOTAL_STEPS}
         title="What motivates you?"
         subtitle="Understanding your 'why' helps us support you better"
@@ -1234,11 +1034,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 21: Social proof
-  if (step === 21) {
+  // Step 20: Social proof
+  if (step === 20) {
     return (
       <OnboardingLayout
-        step={21}
+        step={20}
         totalSteps={TOTAL_STEPS}
         title="You're not alone"
         showProgress={false}
@@ -1292,6 +1092,217 @@ export default function OnboardingScreen() {
           </View>
         </View>
       </OnboardingLayout>
+    );
+  }
+
+  // Step 21: Record First Dose (milestone moment with confetti)
+  if (step === 21) {
+    const isInjection = deliveryType === 'injection';
+
+    return (
+      <View style={{ flex: 1 }}>
+        <OnboardingLayout
+          step={21}
+          totalSteps={TOTAL_STEPS}
+          title="Record Your Starting Dose"
+          subtitle="Mark the beginning of your tracking journey"
+          onNext={handleLogFirstDose}
+          onBack={handleBack}
+          nextLabel={showConfetti ? 'Logged!' : 'Log Dose'}
+          nextDisabled={showConfetti}
+          onSkip={showConfetti ? undefined : handleNext}
+          skipLabel="Skip for now"
+        >
+          {/* Encouragement banner */}
+          <Card elevated style={{ gap: Spacing.md, marginBottom: Spacing.xl }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: Spacing.md,
+              }}
+            >
+              <View
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 14,
+                  backgroundColor: Colors.accentLight,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderCurve: 'continuous',
+                }}
+              >
+                <Ionicons name="flag-outline" size={24} color={Colors.accent} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text
+                  style={{
+                    fontFamily: Fonts.medium,
+                    fontSize: 14,
+                    color: Colors.textSecondary,
+                    lineHeight: 20,
+                  }}
+                >
+                  Logging your first dose helps us track your medication levels accurately from day one.
+                </Text>
+              </View>
+            </View>
+          </Card>
+
+          {/* Date & Time */}
+          <Text
+            style={{
+              fontFamily: Fonts.semiBold,
+              fontSize: 15,
+              color: Colors.text,
+              marginBottom: Spacing.sm,
+            }}
+          >
+            When did you take it?
+          </Text>
+          <Card style={{ gap: Spacing.lg, marginBottom: Spacing.xl }}>
+            <View style={{ gap: Spacing.md }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: Spacing.md,
+                }}
+              >
+                <View
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 10,
+                    backgroundColor: Colors.primaryLight,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderCurve: 'continuous',
+                  }}
+                >
+                  <Ionicons name="calendar-outline" size={18} color={Colors.primary} />
+                </View>
+                <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text, flex: 1 }}>
+                  Date
+                </Text>
+                <DateTimePicker
+                  value={firstDoseDateTime}
+                  mode="date"
+                  display="default"
+                  maximumDate={new Date()}
+                  onChange={(_, date) => {
+                    if (date) {
+                      const updated = new Date(firstDoseDateTime);
+                      updated.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+                      setFirstDoseDateTime(updated);
+                    }
+                  }}
+                />
+              </View>
+            </View>
+
+            <View style={{ height: 1, backgroundColor: Colors.borderLight }} />
+
+            <View style={{ gap: Spacing.md }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: Spacing.md,
+                }}
+              >
+                <View
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 10,
+                    backgroundColor: Colors.primaryLight,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderCurve: 'continuous',
+                  }}
+                >
+                  <Ionicons name="time-outline" size={18} color={Colors.primary} />
+                </View>
+                <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text, flex: 1 }}>
+                  Time
+                </Text>
+                <DateTimePicker
+                  value={firstDoseDateTime}
+                  mode="time"
+                  display="default"
+                  onChange={(_, date) => {
+                    if (date) {
+                      const updated = new Date(firstDoseDateTime);
+                      updated.setHours(date.getHours(), date.getMinutes());
+                      setFirstDoseDateTime(updated);
+                    }
+                  }}
+                />
+              </View>
+            </View>
+          </Card>
+
+          {/* Injection Site — only for injection users */}
+          {isInjection && (
+            <>
+              <Text
+                style={{
+                  fontFamily: Fonts.semiBold,
+                  fontSize: 15,
+                  color: Colors.text,
+                  marginBottom: Spacing.sm,
+                }}
+              >
+                Where did you inject?
+              </Text>
+              <Card style={{ marginBottom: Spacing.xl, paddingVertical: Spacing.lg }}>
+                <BodyDiagram
+                  selectedSite={firstDoseInjectionSite}
+                  onSelectSite={setFirstDoseInjectionSite}
+                />
+              </Card>
+            </>
+          )}
+
+          {/* Notes */}
+          <Text
+            style={{
+              fontFamily: Fonts.semiBold,
+              fontSize: 15,
+              color: Colors.text,
+              marginBottom: Spacing.sm,
+            }}
+          >
+            Notes
+            <Text style={{ fontFamily: Fonts.regular, color: Colors.textTertiary }}>
+              {' '}(optional)
+            </Text>
+          </Text>
+          <Card>
+            <TextInput
+              value={firstDoseNotes}
+              onChangeText={setFirstDoseNotes}
+              placeholder="How did it go? Any observations..."
+              placeholderTextColor={Colors.textTertiary}
+              multiline
+              numberOfLines={3}
+              editable={!showConfetti}
+              style={{
+                fontFamily: Fonts.regular,
+                fontSize: 15,
+                color: Colors.text,
+                minHeight: 80,
+                textAlignVertical: 'top',
+                paddingTop: 0,
+              }}
+            />
+          </Card>
+        </OnboardingLayout>
+
+        {showConfetti && <ConfettiBurst onComplete={handleConfettiComplete} />}
+      </View>
     );
   }
 
