@@ -1213,6 +1213,9 @@ export default function OnboardingScreen() {
           <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.lg, lineHeight: 16 }}>
             {"Cancel anytime. You won't be charged during the free trial."}
           </Text>
+          <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.sm, lineHeight: 16 }}>
+            Subscription automatically renews unless canceled at least 24 hours before the end of the current period.
+          </Text>
 
           <Pressable onPress={handleRestorePurchases} disabled={isRestoring} hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }} style={{ paddingVertical: Spacing.md, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: Spacing.sm }}>
             {isRestoring ? <ActivityIndicator size="small" color={Colors.textTertiary} /> : <Ionicons name="refresh-outline" size={14} color={Colors.textTertiary} />}
