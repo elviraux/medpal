@@ -38,6 +38,13 @@
     "experiments": {
       "typedRoutes": true,
       "baseUrl": ""
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "4beaafee-38ac-4951-83b6-ad963fd968cb"
+      }
+    },
+    "owner": "elviraux"
   }
 }
