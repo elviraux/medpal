@@ -13,6 +13,44 @@ import { formatDate } from '@/utils/date';
 import { displayWeight, getWeightUnit, formatHeight, convertWeeklyGoal } from '@/utils/units';
 import type { UnitSystem } from '@/utils/units';
 
+function formatFrequency(frequency?: string): string {
+  switch (frequency) {
+    case 'daily': return 'Daily';
+    case 'every_7_days': return 'Weekly';
+    case 'every_14_days': return 'Bi-weekly';
+    case 'custom': return 'Custom';
+    default: return '--';
+  }
+}
+
+function formatDeliveryType(deliveryType?: string): string {
+  switch (deliveryType) {
+    case 'injection': return 'Injection';
+    case 'pill': return 'Pill';
+    default: return '--';
+  }
+}
+
+function formatActivityLevel(level?: string): string {
+  switch (level) {
+    case 'sedentary': return 'Sedentary';
+    case 'lightly_active': return 'Lightly Active';
+    case 'active': return 'Active';
+    case 'very_active': return 'Very Active';
+    default: return '--';
+  }
+}
+
+function formatDeviceType(device?: string): string {
+  switch (device) {
+    case 'single_use_pen': return 'Single-use pen';
+    case 'auto_injector': return 'Auto-injector';
+    case 'syringe_vial': return 'Syringe & vial';
+    case 'other': return 'Other';
+    default: return '--';
+  }
+}
+
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
@@ -97,12 +135,7 @@ export default function ProfileScreen() {
               Slimsy User
             </Text>
             <Text style={{ fontFamily: Fonts.regular, fontSize: 14, color: Colors.textSecondary }}>
-              {userProfile.medication ?? 'GLP-1'} {userProfile.dose ?? ''} - {
-                userProfile.frequency === 'daily' ? 'Daily'
-                : userProfile.frequency === 'every_7_days' ? 'Weekly'
-                : userProfile.frequency === 'every_14_days' ? 'Bi-weekly'
-                : 'Custom'
-              }
+              {userProfile.medication ?? 'GLP-1'} {userProfile.dose ?? ''} - {formatFrequency(userProfile.frequency)}
             </Text>
           </View>
         </View>
@@ -110,50 +143,122 @@ export default function ProfileScreen() {
 
       {/* Medication Details */}
       <Card>
-        <SectionHeader title="Medication Details" />
+        <SectionHeader
+          title="Medication Details"
+          actionLabel="Edit"
+          onAction={() => router.push('/edit-medication')}
+        />
         <View style={{ gap: Spacing.md, paddingTop: Spacing.sm }}>
-          <SettingRow label="Medication" value={userProfile.medication ?? '--'} />
-          <SettingRow label="Delivery" value={
-            userProfile.deliveryType === 'injection' ? 'Injection'
-            : userProfile.deliveryType === 'pill' ? 'Pill'
-            : '--'
-          } />
-          <SettingRow label="Dose" value={userProfile.dose ?? '--'} />
           <SettingRow
+            icon="medical-outline"
+            label="Medication"
+            value={userProfile.medication ?? '--'}
+          />
+          <SettingRow
+            icon="bandage-outline"
+            label="Delivery"
+            value={formatDeliveryType(userProfile.deliveryType)}
+          />
+          <SettingRow
+            icon="flask-outline"
+            label="Dose"
+            value={userProfile.dose ?? '--'}
+          />
+          <SettingRow
+            icon="time-outline"
+            label="Frequency"
+            value={formatFrequency(userProfile.frequency)}
+          />
+          {userProfile.deliveryType === 'injection' && (
+            <SettingRow
+              icon="construct-outline"
+              label="Device"
+              value={formatDeviceType(userProfile.deviceType)}
+            />
+          )}
+          <SettingRow
+            icon="calendar-outline"
             label="Start Date"
             value={userProfile.startDate ? formatDate(userProfile.startDate) : '--'}
           />
-          <SettingRow label="Activity Level" value={
-            userProfile.activityLevel === 'sedentary' ? 'Sedentary'
-            : userProfile.activityLevel === 'lightly_active' ? 'Lightly Active'
-            : userProfile.activityLevel === 'active' ? 'Active'
-            : userProfile.activityLevel === 'very_active' ? 'Very Active'
-            : '--'
-          } />
         </View>
       </Card>
 
       {/* Daily Targets */}
       <Card>
-        <SectionHeader title="Daily Targets" />
+        <SectionHeader
+          title="Daily Targets"
+          actionLabel="Edit"
+          onAction={() => router.push('/edit-daily-targets')}
+        />
         <View style={{ gap: Spacing.md, paddingTop: Spacing.sm }}>
-          <SettingRow label="Calories" value={`${dailyTargets.calories} kcal`} />
-          <SettingRow label="Protein" value={`${dailyTargets.protein}g`} />
-          <SettingRow label="Fiber" value={`${dailyTargets.fiber}g`} />
-          <SettingRow label="Water" value={`${dailyTargets.water} glasses`} />
+          <SettingRow
+            icon="flame-outline"
+            iconColor="#E5534B"
+            label="Calories"
+            value={`${dailyTargets.calories} kcal`}
+          />
+          <SettingRow
+            icon="fish-outline"
+            iconColor="#1A6FD4"
+            label="Protein"
+            value={`${dailyTargets.protein}g`}
+          />
+          <SettingRow
+            icon="leaf-outline"
+            iconColor="#00B4A6"
+            label="Fiber"
+            value={`${dailyTargets.fiber}g`}
+          />
+          <SettingRow
+            icon="water-outline"
+            iconColor="#4A90D9"
+            label="Water"
+            value={`${dailyTargets.water} glasses`}
+          />
         </View>
       </Card>
 
-      {/* Weight Info */}
+      {/* Weight Goals */}
       <Card>
-        <SectionHeader title="Weight Goals" />
+        <SectionHeader
+          title="Weight Goals"
+          actionLabel="Edit"
+          onAction={() => router.push('/edit-weight-goals')}
+        />
         <View style={{ gap: Spacing.md, paddingTop: Spacing.sm }}>
-          <SettingRow label="Start Weight" value={userProfile.startWeight ? `${displayWeight(userProfile.startWeight, units).toFixed(1)} ${wUnit}` : '--'} />
-          <SettingRow label="Current Weight" value={userProfile.currentWeight ? `${displayWeight(userProfile.currentWeight, units).toFixed(1)} ${wUnit}` : '--'} />
-          <SettingRow label="Goal Weight" value={userProfile.goalWeight ? `${displayWeight(userProfile.goalWeight, units).toFixed(1)} ${wUnit}` : '--'} />
-          <SettingRow label="Weekly Goal" value={userProfile.weeklyGoal ? `${userProfile.weeklyGoal} ${userProfile.weeklyGoalUnit ?? 'lbs'}/week` : '--'} />
+          <SettingRow
+            icon="trending-down-outline"
+            label="Start Weight"
+            value={userProfile.startWeight ? `${displayWeight(userProfile.startWeight, units).toFixed(1)} ${wUnit}` : '--'}
+          />
+          <SettingRow
+            icon="scale-outline"
+            label="Current Weight"
+            value={userProfile.currentWeight ? `${displayWeight(userProfile.currentWeight, units).toFixed(1)} ${wUnit}` : '--'}
+          />
+          <SettingRow
+            icon="flag-outline"
+            iconColor="#00B4A6"
+            label="Goal Weight"
+            value={userProfile.goalWeight ? `${displayWeight(userProfile.goalWeight, units).toFixed(1)} ${wUnit}` : '--'}
+          />
+          <SettingRow
+            icon="speedometer-outline"
+            label="Weekly Pace"
+            value={userProfile.weeklyGoal ? `${userProfile.weeklyGoal} ${userProfile.weeklyGoalUnit ?? 'lbs'}/week` : '--'}
+          />
+          <SettingRow
+            icon="fitness-outline"
+            label="Activity Level"
+            value={formatActivityLevel(userProfile.activityLevel)}
+          />
           {userProfile.height ? (
-            <SettingRow label="Height" value={formatHeight(userProfile.height, units)} />
+            <SettingRow
+              icon="resize-outline"
+              label="Height"
+              value={formatHeight(userProfile.height, units)}
+            />
           ) : null}
         </View>
       </Card>
@@ -337,19 +442,38 @@ export default function ProfileScreen() {
   );
 }
 
-function SettingRow({ label, value }: { label: string; value: string }) {
+function SettingRow({
+  label,
+  value,
+  icon,
+  iconColor,
+}: {
+  label: string;
+  value: string;
+  icon?: string;
+  iconColor?: string;
+}) {
   return (
     <View
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: Spacing.xs,
+        paddingVertical: Spacing.xs + 2,
       }}
     >
-      <Text style={{ fontFamily: Fonts.regular, fontSize: 15, color: Colors.textSecondary }}>
-        {label}
-      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm + 2 }}>
+        {icon && (
+          <Ionicons
+            name={icon as keyof typeof Ionicons.glyphMap}
+            size={17}
+            color={iconColor ?? Colors.textTertiary}
+          />
+        )}
+        <Text style={{ fontFamily: Fonts.regular, fontSize: 15, color: Colors.textSecondary }}>
+          {label}
+        </Text>
+      </View>
       <Text selectable style={{ fontFamily: Fonts.semiBold, fontSize: 15, color: Colors.text }}>
         {value}
       </Text>
