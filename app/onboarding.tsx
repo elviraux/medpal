@@ -24,6 +24,7 @@ import type {
   InjectionSite,
   MedicationLog,
 } from '@/store/types';
+import { generateId } from '@/utils/date';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Slider from '@react-native-community/slider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -136,7 +137,7 @@ function buildGlpCurvePath(
 export default function OnboardingScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { setUserProfile, completeOnboarding, setPreferences, addMedicationLog } = useAppStore();
+  const { setUserProfile, completeOnboarding, setPreferences, addMedicationLog, addWeightLog, weightLogs } = useAppStore();
 
   const [step, setStep] = useState(0);
 
@@ -255,6 +256,19 @@ export default function OnboardingScreen() {
       onboardingComplete: true,
     });
     completeOnboarding();
+
+    // Create initial weight log entry from onboarding data (only if no logs exist yet)
+    const currentWeightLbs = parseLbs(currentWeight);
+    if (currentWeightLbs && weightLogs.length === 0) {
+      const logDate = startDate.toISOString().split('T')[0];
+      addWeightLog({
+        id: generateId(),
+        date: logDate,
+        weight: currentWeightLbs,
+        notes: 'Initial weight from onboarding',
+      });
+    }
+
     router.replace('/(tabs)/dashboard');
   }, [
     medication, deliveryType, dose, frequency, deviceType,
@@ -262,7 +276,7 @@ export default function OnboardingScreen() {
     currentWeight, startWeight, goalWeight, startDate,
     activityLevel, motivation, sideEffects, cravingsDays,
     weeklyGoal, weeklyGoalUnit, disclaimerAccepted, shouldShowDeviceStep,
-    setUserProfile, setPreferences, completeOnboarding, router,
+    setUserProfile, setPreferences, completeOnboarding, addWeightLog, weightLogs, router,
   ]);
 
   const handleRestorePurchases = useCallback(async () => {
