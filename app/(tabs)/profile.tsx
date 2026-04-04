@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, ScrollView, Pressable, Alert, Switch, Linking } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, ScrollView, Pressable, Alert, Switch, Linking, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,6 +11,7 @@ import { Card } from '@/components/ui/card';
 import { SectionHeader } from '@/components/ui/section-header';
 import { formatDate } from '@/utils/date';
 import { displayWeight, getWeightUnit, formatHeight, convertWeeklyGoal } from '@/utils/units';
+import { exportDataAsCsv } from '@/utils/export-data';
 import type { UnitSystem } from '@/utils/units';
 
 function formatFrequency(frequency?: string): string {
@@ -58,10 +59,45 @@ export default function ProfileScreen() {
     userProfile,
     preferences,
     dailyTargets,
+    weightLogs,
+    foodLogs,
+    waterLogs,
+    medicationLogs,
+    sideEffectLogs,
     setPreferences,
     setUserProfile,
     resetStore,
   } = useAppStore();
+
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportStatus, setExportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleExportData = useCallback(async () => {
+    setIsExporting(true);
+    setExportStatus('idle');
+    try {
+      await exportDataAsCsv({
+        userProfile,
+        preferences,
+        weightLogs,
+        foodLogs,
+        waterLogs,
+        medicationLogs,
+        sideEffectLogs,
+      });
+      setExportStatus('success');
+      setTimeout(() => setExportStatus('idle'), 3000);
+    } catch {
+      setExportStatus('error');
+      Alert.alert(
+        'Export Failed',
+        'Something went wrong while exporting your data. Please try again.',
+        [{ text: 'OK', onPress: () => setExportStatus('idle') }]
+      );
+    } finally {
+      setIsExporting(false);
+    }
+  }, [userProfile, preferences, weightLogs, foodLogs, waterLogs, medicationLogs, sideEffectLogs]);
 
   const units = (preferences.units ?? 'imperial') as UnitSystem;
   const wUnit = getWeightUnit(units);
@@ -407,6 +443,85 @@ export default function ProfileScreen() {
             </View>
             <Ionicons name="open-outline" size={18} color={Colors.textTertiary} />
           </Pressable>
+        </View>
+      </Card>
+
+      {/* Data & Privacy */}
+      <Card>
+        <SectionHeader title="Data & Privacy" />
+        <View style={{ gap: Spacing.md, paddingTop: Spacing.sm }}>
+          <Text
+            style={{
+              fontFamily: Fonts.regular,
+              fontSize: 13,
+              color: Colors.textSecondary,
+              lineHeight: 18,
+            }}
+          >
+            Download a copy of all your Slimsy data including weight logs, food logs, medication history, side effects, and water intake.
+          </Text>
+
+          <Pressable
+            onPress={handleExportData}
+            disabled={isExporting}
+            style={({ pressed }) => ({
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: Spacing.sm,
+              paddingVertical: Spacing.md,
+              paddingHorizontal: Spacing.lg,
+              borderRadius: Radius.md,
+              borderCurve: 'continuous',
+              backgroundColor: isExporting
+                ? Colors.primaryLight
+                : exportStatus === 'success'
+                  ? Colors.successLight
+                  : pressed
+                    ? Colors.primaryDark
+                    : Colors.primary,
+              opacity: isExporting ? 0.85 : 1,
+              minHeight: 48,
+            })}
+          >
+            {isExporting ? (
+              <ActivityIndicator size="small" color={Colors.primary} />
+            ) : exportStatus === 'success' ? (
+              <Ionicons name="checkmark-circle" size={20} color={Colors.success} />
+            ) : (
+              <Ionicons name="download-outline" size={20} color="#fff" />
+            )}
+            <Text
+              style={{
+                fontFamily: Fonts.semiBold,
+                fontSize: 15,
+                color: isExporting
+                  ? Colors.primary
+                  : exportStatus === 'success'
+                    ? Colors.success
+                    : '#fff',
+              }}
+            >
+              {isExporting
+                ? 'Generating Export…'
+                : exportStatus === 'success'
+                  ? 'Export Complete!'
+                  : 'Export My Data (CSV)'}
+            </Text>
+          </Pressable>
+
+          {exportStatus === 'success' && (
+            <Text
+              style={{
+                fontFamily: Fonts.regular,
+                fontSize: 12,
+                color: Colors.success,
+                textAlign: 'center',
+              }}
+            >
+              Your data has been exported successfully.
+            </Text>
+          )}
         </View>
       </Card>
 
