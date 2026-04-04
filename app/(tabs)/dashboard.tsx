@@ -12,6 +12,7 @@ import { Card } from '@/components/ui/card';
 import { ProgressRing } from '@/components/ui/progress-ring';
 import { SectionHeader } from '@/components/ui/section-header';
 import { WeightChart } from '@/components/charts/weight-chart';
+import { NextDoseCard } from '@/components/dashboard/next-dose-card';
 import {
   getTodayString,
   getGreeting,
@@ -149,6 +150,9 @@ export default function DashboardScreen() {
           </View>
         </View>
       </Card>
+
+      {/* Next Dose Countdown */}
+      <NextDoseCard />
 
       {/* Daily Goals Rings */}
       <Card>
