@@ -3,7 +3,6 @@ import { View, Text, ScrollView, Pressable, useWindowDimensions } from 'react-na
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Path, Circle as SvgCircle } from 'react-native-svg';
 import { Colors } from '@/constants/Colors';
 import { Fonts } from '@/constants/Typography';
 import { Spacing, Radius } from '@/constants/Layout';
@@ -12,13 +11,11 @@ import { Card } from '@/components/ui/card';
 import { ProgressRing } from '@/components/ui/progress-ring';
 import { SectionHeader } from '@/components/ui/section-header';
 import { WeightChart } from '@/components/charts/weight-chart';
+import { Glp1LevelChart } from '@/components/charts/glp1-level-chart';
 import { NextDoseCard } from '@/components/dashboard/next-dose-card';
 import {
   getTodayString,
   getGreeting,
-  daysSince,
-  daysUntilNext,
-  getFrequencyDays,
   formatDate,
 } from '@/utils/date';
 import { displayWeight, getWeightUnit } from '@/utils/units';
@@ -51,24 +48,11 @@ export default function DashboardScreen() {
   // Water
   const todayWater = waterLogs.find((l) => l.date === today)?.glasses ?? 0;
 
-  // Medication level info
-  const lastDose = medicationLogs.length > 0 ? medicationLogs[0] : null;
-  const freqDays = getFrequencyDays(userProfile.frequency ?? 'every_7_days');
-  const daysSinceLastDose = lastDose ? daysSince(lastDose.date) : null;
-  const daysUntil = lastDose ? daysUntilNext(lastDose.date, freqDays) : null;
-
   // Weight progress (stored in lbs, convert for display)
   const currentWLbs = weightLogs.length > 0 ? weightLogs[0].weight : userProfile.currentWeight;
   const currentW = currentWLbs != null ? displayWeight(currentWLbs, units) : undefined;
   const recentWeightLogs = weightLogs.slice(0, 30);
   const chartWidth = width - Spacing.xxl * 2 - Spacing.lg * 2;
-
-  // GLP-1 level calculation (simplified)
-  const glpLevel = useMemo(() => {
-    if (daysSinceLastDose == null) return 0;
-    const halfLife = freqDays * 0.7;
-    return Math.max(0, Math.min(1, Math.exp(-0.693 * daysSinceLastDose / halfLife)));
-  }, [daysSinceLastDose, freqDays]);
 
   const quickActions = [
     { icon: 'restaurant-outline' as const, label: 'Log Food', route: '/log-food' },
@@ -99,57 +83,7 @@ export default function DashboardScreen() {
       </View>
 
       {/* GLP-1 Level Card */}
-      <Card elevated>
-        <View style={{ gap: Spacing.md }}>
-          <Text style={{ fontFamily: Fonts.semiBold, fontSize: 16, color: Colors.text }}>
-            Estimated GLP-1 Level
-          </Text>
-
-          <View style={{ height: 80, justifyContent: 'center', alignItems: 'center' }}>
-            <Svg width={chartWidth > 0 ? chartWidth : 280} height={70} viewBox="0 0 280 70">
-              <Path
-                d={daysSinceLastDose != null
-                  ? `M10,60 Q40,${60 - glpLevel * 50} 70,${60 - glpLevel * 40} Q140,${60 - glpLevel * 30} 200,${60 - glpLevel * 15} Q240,${60 - glpLevel * 8} 270,${60 - glpLevel * 5}`
-                  : 'M10,55 L270,55'}
-                stroke={Colors.primary}
-                strokeWidth={2.5}
-                fill="none"
-                strokeLinecap="round"
-              />
-              {daysSinceLastDose != null && (
-                <SvgCircle cx={10 + (daysSinceLastDose / freqDays) * 260} cy={60 - glpLevel * 50 * Math.max(0, 1 - daysSinceLastDose / freqDays)} r={5} fill={Colors.primary} />
-              )}
-            </Svg>
-          </View>
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontFamily: Fonts.bold, fontSize: 20, color: Colors.primary, fontVariant: ['tabular-nums'] }}>
-                {daysSinceLastDose ?? '--'}
-              </Text>
-              <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textSecondary }}>
-                days since dose
-              </Text>
-            </View>
-            <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontFamily: Fonts.bold, fontSize: 20, color: Colors.accent, fontVariant: ['tabular-nums'] }}>
-                {daysUntil ?? '--'}
-              </Text>
-              <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textSecondary }}>
-                next dose in
-              </Text>
-            </View>
-            <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontFamily: Fonts.bold, fontSize: 20, color: Colors.text, fontVariant: ['tabular-nums'] }}>
-                {Math.round(glpLevel * 100)}%
-              </Text>
-              <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textSecondary }}>
-                est. level
-              </Text>
-            </View>
-          </View>
-        </View>
-      </Card>
+      <Glp1LevelChart width={chartWidth > 0 ? chartWidth : 280} />
 
       {/* Next Dose Countdown */}
       <NextDoseCard />

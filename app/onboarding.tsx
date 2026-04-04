@@ -25,6 +25,7 @@ import type {
   MedicationLog,
 } from '@/store/types';
 import { generateId } from '@/utils/date';
+import { computeOnboardingPkCurve } from '@/utils/pharmacokinetics';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Slider from '@react-native-community/slider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -77,62 +78,7 @@ const sideEffectsOptions = [
 
 const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Unknown', 'Other'];
 
-// Generate a smooth SVG path for the GLP-1 level curve based on frequency
-function buildGlpCurvePath(
-  freq: Frequency | undefined,
-  chartW: number,
-  chartH: number,
-  padX: number,
-  padY: number,
-): { path: string; peakPoints: { x: number; y: number }[]; troughPoints: { x: number; y: number }[]; doseLabels: string[] } {
-  const w = chartW - padX * 2;
-  const h = chartH - padY * 2;
-  const peakY = padY + h * 0.08;
-  const troughY = padY + h * 0.72;
-  const baseY = padY + h;
-
-  let cycles: number;
-  let doseLabels: string[];
-  if (freq === 'every_14_days') {
-    cycles = 2;
-    doseLabels = ['Day 1', 'Day 14', 'Day 28'];
-  } else if (freq === 'daily') {
-    cycles = 5;
-    doseLabels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'];
-  } else {
-    // Default to weekly
-    cycles = 3;
-    doseLabels = ['Wk 1', 'Wk 2', 'Wk 3'];
-  }
-
-  const cycleW = w / cycles;
-  const peakPoints: { x: number; y: number }[] = [];
-  const troughPoints: { x: number; y: number }[] = [];
-  let d = `M ${padX},${baseY}`;
-
-  for (let i = 0; i < cycles; i++) {
-    const x0 = padX + i * cycleW;
-    const xPeak = x0 + cycleW * 0.25;
-    const xMid = x0 + cycleW * 0.55;
-    const xEnd = x0 + cycleW;
-
-    // Steady-state builds: each cycle peak is slightly higher
-    const buildFactor = Math.min(1, 0.65 + i * 0.18);
-    const thisPeakY = baseY - (baseY - peakY) * buildFactor;
-    const thisTroughY = baseY - (baseY - troughY) * buildFactor * 0.6;
-
-    const startY = i === 0 ? baseY : troughPoints[troughPoints.length - 1]?.y ?? baseY;
-
-    d += ` C ${x0 + cycleW * 0.08},${startY - (startY - thisPeakY) * 0.7} ${xPeak - cycleW * 0.08},${thisPeakY} ${xPeak},${thisPeakY}`;
-    d += ` C ${xPeak + cycleW * 0.12},${thisPeakY} ${xMid},${thisTroughY - (thisTroughY - thisPeakY) * 0.15} ${xMid},${thisTroughY}`;
-    d += ` C ${xMid + cycleW * 0.1},${thisTroughY + (baseY - thisTroughY) * 0.08} ${xEnd - cycleW * 0.05},${thisTroughY + (baseY - thisTroughY) * 0.04} ${xEnd},${thisTroughY}`;
-
-    peakPoints.push({ x: xPeak, y: thisPeakY });
-    troughPoints.push({ x: xEnd, y: thisTroughY });
-  }
-
-  return { path: d, peakPoints, troughPoints, doseLabels };
-}
+// PK model imported from utils/pharmacokinetics
 
 export default function OnboardingScreen() {
   const router = useRouter();
@@ -353,12 +299,12 @@ export default function OnboardingScreen() {
     }
   }, []);
 
-  // Memoised GLP-1 chart data based on user's frequency
+  // Memoised GLP-1 chart data based on user's medication & frequency
   const glpChartData = useMemo(() => {
     const chartW = 300;
     const chartH = 170;
-    return buildGlpCurvePath(frequency, chartW, chartH, 20, 16);
-  }, [frequency]);
+    return computeOnboardingPkCurve(medication, deliveryType, frequency, chartW, chartH, 20, 16);
+  }, [medication, deliveryType, frequency]);
 
   const getFrequencyLabel = (): string => {
     switch (frequency) {
@@ -1020,7 +966,7 @@ export default function OnboardingScreen() {
 
               {/* Area fill under curve */}
               <Path
-                d={`${glpChartData.path} L ${chartW - padX},${chartH - padY} L ${padX},${chartH - padY} Z`}
+                d={glpChartData.areaPath}
                 fill="url(#curveFill)"
               />
 
