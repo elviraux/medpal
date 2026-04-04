@@ -147,7 +147,7 @@ export default function ProfileScreen() {
     >
       {/* Header */}
       <Text style={{ fontFamily: Fonts.bold, fontSize: 26, color: Colors.text }}>
-        Profile
+        Settings
       </Text>
 
       {/* User Info */}
