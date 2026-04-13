@@ -9,7 +9,11 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.fastshotai.slimsy",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -36,8 +40,7 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "baseUrl": ""
+      "typedRoutes": true
     },
     "extra": {
       "router": {},
