@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { View, Text, Pressable, ScrollView, Linking, ActivityIndicator, Alert, TextInput } from 'react-native';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import { View, Text, Pressable, ScrollView, Linking, ActivityIndicator, Alert, TextInput, BackHandler, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -83,6 +83,7 @@ const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Unknown', 
 export default function OnboardingScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { height: windowHeight } = useWindowDimensions();
   const { setUserProfile, completeOnboarding, setPreferences, addMedicationLog, addWeightLog, weightLogs } = useAppStore();
 
   const [step, setStep] = useState(0);
@@ -120,6 +121,13 @@ export default function OnboardingScreen() {
 
   // Rating
   const [appRating, setAppRating] = useState(0);
+
+  // Block Android hardware back button on paywall step
+  useEffect(() => {
+    if (step !== 23) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => true);
+    return () => sub.remove();
+  }, [step]);
 
   const shouldShowDeviceStep = deliveryType === 'injection';
 
@@ -1071,113 +1079,189 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 23: Paywall
+  const paywallFeatures = [
+    { icon: 'camera-outline' as keyof typeof Ionicons.glyphMap, label: 'AI Food\nAnalysis' },
+    { icon: 'analytics-outline' as keyof typeof Ionicons.glyphMap, label: 'Weight\nCharts' },
+    { icon: 'notifications-outline' as keyof typeof Ionicons.glyphMap, label: 'Smart\nReminders' },
+    { icon: 'body-outline' as keyof typeof Ionicons.glyphMap, label: 'Site\nTracker' },
+    { icon: 'pulse-outline' as keyof typeof Ionicons.glyphMap, label: 'GLP-1\nEstimator' },
+  ];
+
   if (step === 23) {
+    const isCompact = windowHeight < 700;
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
-        <ScrollView contentContainerStyle={{ padding: Spacing.xxl, paddingBottom: insets.bottom + 100 }} showsVerticalScrollIndicator={false}>
-          <View style={{ alignItems: 'center', gap: Spacing.md, paddingVertical: Spacing.xxl }}>
-            <View style={{ width: 72, height: 72, borderRadius: 20, backgroundColor: Colors.primary, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous', boxShadow: '0px 6px 24px rgba(26, 111, 212, 0.3)' }}>
-              <Ionicons name="diamond-outline" size={36} color="#fff" />
-            </View>
-            <Text style={{ fontFamily: Fonts.bold, fontSize: 26, color: Colors.text, textAlign: 'center' }}>Unlock Slimsy Pro</Text>
-            <Text style={{ fontFamily: Fonts.regular, fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 }}>
-              Get the full experience with unlimited tracking, AI food analysis, and personalized insights
-            </Text>
+        {/* Header — icon, title, subtitle */}
+        <View style={{ alignItems: 'center', gap: isCompact ? 4 : 6, paddingTop: isCompact ? 8 : 14, paddingHorizontal: Spacing.xl }}>
+          <View style={{
+            width: isCompact ? 48 : 56,
+            height: isCompact ? 48 : 56,
+            borderRadius: isCompact ? 14 : 16,
+            backgroundColor: Colors.primary,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderCurve: 'continuous',
+            boxShadow: '0px 4px 16px rgba(26, 111, 212, 0.3)',
+          }}>
+            <Ionicons name="diamond-outline" size={isCompact ? 24 : 28} color="#fff" />
           </View>
-
-          <View style={{ gap: Spacing.md, paddingBottom: Spacing.xxl }}>
-            {[
-              { icon: 'camera-outline', text: 'AI Food Photo Analysis' },
-              { icon: 'analytics-outline', text: 'Advanced Weight Charts' },
-              { icon: 'notifications-outline', text: 'Smart Dose Reminders' },
-              { icon: 'body-outline', text: 'Injection Site Tracker' },
-              { icon: 'pulse-outline', text: 'GLP-1 Level Estimator' },
-            ].map((f) => (
-              <View key={f.text} style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
-                <View style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: Colors.primaryLight, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous' }}>
-                  <Ionicons name={f.icon as keyof typeof Ionicons.glyphMap} size={20} color={Colors.primary} />
-                </View>
-                <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text }}>{f.text}</Text>
-              </View>
-            ))}
-          </View>
-
-          <View style={{ gap: Spacing.md }}>
-            <Pressable onPress={() => setSelectedPlan('yearly')}>
-              <Card elevated={selectedPlan === 'yearly'} style={{ borderWidth: 2, borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border, gap: Spacing.sm }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
-                  <View style={{ width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border, justifyContent: 'center', alignItems: 'center' }}>
-                    {selectedPlan === 'yearly' && <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: Colors.primary }} />}
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <View>
-                        <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Yearly</Text>
-                        <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>7-day free trial</Text>
-                      </View>
-                      <View style={{ alignItems: 'flex-end' }}>
-                        <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: selectedPlan === 'yearly' ? Colors.primary : Colors.text }}>$39.99</Text>
-                        <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textSecondary }}>$3.33/mo</Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-                <View style={{ backgroundColor: Colors.accent, paddingVertical: 4, paddingHorizontal: Spacing.md, borderRadius: Radius.full, alignSelf: 'flex-start', marginLeft: 34, borderCurve: 'continuous' }}>
-                  <Text style={{ fontFamily: Fonts.semiBold, fontSize: 11, color: '#fff' }}>BEST VALUE - SAVE 67%</Text>
-                </View>
-              </Card>
-            </Pressable>
-
-            <Pressable onPress={() => setSelectedPlan('monthly')}>
-              <Card elevated={selectedPlan === 'monthly'} style={{ borderWidth: 2, borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border, gap: Spacing.sm }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
-                  <View style={{ width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border, justifyContent: 'center', alignItems: 'center' }}>
-                    {selectedPlan === 'monthly' && <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: Colors.primary }} />}
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <View>
-                        <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Monthly</Text>
-                        <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>7-day free trial</Text>
-                      </View>
-                      <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: selectedPlan === 'monthly' ? Colors.primary : Colors.text }}>$9.99</Text>
-                    </View>
-                  </View>
-                </View>
-              </Card>
-            </Pressable>
-          </View>
-
-          <View style={{ paddingTop: Spacing.xxl, gap: Spacing.md }}>
-            <PrimaryButton title="Start Free Trial" onPress={handleComplete} />
-            <Pressable onPress={handleComplete}>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.textTertiary, textAlign: 'center', paddingVertical: Spacing.md }}>Maybe later</Text>
-            </Pressable>
-          </View>
-
-          <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.lg, lineHeight: 16 }}>
-            {"Cancel anytime. You won't be charged during the free trial."}
+          <Text style={{ fontFamily: Fonts.bold, fontSize: isCompact ? 20 : 22, color: Colors.text, textAlign: 'center' }}>
+            Unlock Slimsy Pro
           </Text>
-          <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.sm, lineHeight: 16 }}>
+          <Text style={{ fontFamily: Fonts.regular, fontSize: isCompact ? 12 : 13, color: Colors.textSecondary, textAlign: 'center', lineHeight: isCompact ? 17 : 19, paddingHorizontal: Spacing.md }}>
+            {'Unlimited tracking, AI food analysis & personalized insights'}
+          </Text>
+        </View>
+
+        {/* Features — horizontal scroll carousel */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: Spacing.xl, gap: Spacing.sm, paddingVertical: isCompact ? 10 : 14 }}
+        >
+          {paywallFeatures.map((f) => (
+            <View key={f.label} style={{
+              alignItems: 'center',
+              backgroundColor: Colors.surface,
+              borderRadius: Radius.md,
+              borderCurve: 'continuous',
+              paddingVertical: isCompact ? 8 : 10,
+              paddingHorizontal: isCompact ? 10 : 12,
+              width: isCompact ? 80 : 88,
+              gap: 4,
+              boxShadow: Colors.cardShadow,
+            }}>
+              <View style={{
+                width: isCompact ? 32 : 36,
+                height: isCompact ? 32 : 36,
+                borderRadius: isCompact ? 9 : 10,
+                backgroundColor: Colors.primaryLight,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderCurve: 'continuous',
+              }}>
+                <Ionicons name={f.icon} size={isCompact ? 16 : 18} color={Colors.primary} />
+              </View>
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 10, color: Colors.text, textAlign: 'center', lineHeight: 13 }}>
+                {f.label}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
+
+        {/* Bottom pinned content — plans, CTA, disclaimers */}
+        <View style={{ flex: 1, justifyContent: 'flex-end', paddingHorizontal: Spacing.xl }}>
+          {/* Plan selection */}
+          <View style={{ gap: Spacing.sm }}>
+            {/* Yearly plan */}
+            <Pressable onPress={() => setSelectedPlan('yearly')}>
+              <View style={{
+                backgroundColor: Colors.surface,
+                borderRadius: Radius.md,
+                borderCurve: 'continuous',
+                padding: isCompact ? 10 : 12,
+                borderWidth: 2,
+                borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border,
+                boxShadow: selectedPlan === 'yearly' ? Colors.cardShadowElevated : Colors.cardShadow,
+              }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm }}>
+                  <View style={{
+                    width: 20, height: 20, borderRadius: 10,
+                    borderWidth: 2,
+                    borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border,
+                    justifyContent: 'center', alignItems: 'center',
+                  }}>
+                    {selectedPlan === 'yearly' && <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: Colors.primary }} />}
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                          <Text style={{ fontFamily: Fonts.bold, fontSize: isCompact ? 14 : 15, color: Colors.text }}>Yearly</Text>
+                          <View style={{ backgroundColor: Colors.accent, paddingVertical: 2, paddingHorizontal: 6, borderRadius: Radius.full, borderCurve: 'continuous' }}>
+                            <Text style={{ fontFamily: Fonts.semiBold, fontSize: 9, color: '#fff' }}>SAVE 67%</Text>
+                          </View>
+                        </View>
+                        <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textSecondary }}>7-day free trial · $3.33/mo</Text>
+                      </View>
+                      <Text style={{ fontFamily: Fonts.bold, fontSize: isCompact ? 17 : 18, color: selectedPlan === 'yearly' ? Colors.primary : Colors.text }}>$39.99<Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textSecondary }}>/yr</Text></Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </Pressable>
+
+            {/* Monthly plan */}
+            <Pressable onPress={() => setSelectedPlan('monthly')}>
+              <View style={{
+                backgroundColor: Colors.surface,
+                borderRadius: Radius.md,
+                borderCurve: 'continuous',
+                padding: isCompact ? 10 : 12,
+                borderWidth: 2,
+                borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border,
+                boxShadow: selectedPlan === 'monthly' ? Colors.cardShadowElevated : Colors.cardShadow,
+              }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm }}>
+                  <View style={{
+                    width: 20, height: 20, borderRadius: 10,
+                    borderWidth: 2,
+                    borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border,
+                    justifyContent: 'center', alignItems: 'center',
+                  }}>
+                    {selectedPlan === 'monthly' && <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: Colors.primary }} />}
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <View>
+                        <Text style={{ fontFamily: Fonts.bold, fontSize: isCompact ? 14 : 15, color: Colors.text }}>Monthly</Text>
+                        <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textSecondary }}>7-day free trial</Text>
+                      </View>
+                      <Text style={{ fontFamily: Fonts.bold, fontSize: isCompact ? 17 : 18, color: selectedPlan === 'monthly' ? Colors.primary : Colors.text }}>$9.99<Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textSecondary }}>/mo</Text></Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </Pressable>
+          </View>
+
+          {/* CTA button */}
+          <View style={{ paddingTop: isCompact ? 10 : 14 }}>
+            <PrimaryButton title="Start Free Trial" onPress={handleComplete} style={{ height: isCompact ? 48 : 52 }} />
+          </View>
+
+          {/* Cancel anytime */}
+          <Text style={{ fontFamily: Fonts.regular, fontSize: 10, color: Colors.textTertiary, textAlign: 'center', paddingTop: isCompact ? 6 : 8, lineHeight: 14 }}>
+            {"Cancel anytime · You won't be charged during the free trial"}
+          </Text>
+
+          {/* Auto-renewal disclaimer */}
+          <Text style={{ fontFamily: Fonts.regular, fontSize: 9, color: Colors.textTertiary, textAlign: 'center', paddingTop: 3, lineHeight: 12 }}>
             Subscription automatically renews unless canceled at least 24 hours before the end of the current period.
           </Text>
 
-          <Pressable onPress={handleRestorePurchases} disabled={isRestoring} hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }} style={{ paddingVertical: Spacing.md, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: Spacing.sm }}>
-            {isRestoring ? <ActivityIndicator size="small" color={Colors.textTertiary} /> : <Ionicons name="refresh-outline" size={14} color={Colors.textTertiary} />}
-            <Text style={{ fontFamily: Fonts.medium, fontSize: 13, color: Colors.textTertiary }}>{isRestoring ? 'Restoring...' : 'Restore Purchases'}</Text>
+          {/* Restore purchases */}
+          <Pressable
+            onPress={handleRestorePurchases}
+            disabled={isRestoring}
+            hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }}
+            style={{ paddingVertical: isCompact ? 6 : 8, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 4 }}
+          >
+            {isRestoring ? <ActivityIndicator size="small" color={Colors.textTertiary} /> : <Ionicons name="refresh-outline" size={12} color={Colors.textTertiary} />}
+            <Text style={{ fontFamily: Fonts.medium, fontSize: 11, color: Colors.textTertiary }}>{isRestoring ? 'Restoring...' : 'Restore Purchases'}</Text>
           </Pressable>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: Spacing.lg }}>
-            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/terms')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.sm }}>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 12, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Terms of Service</Text>
+          {/* Terms & Privacy */}
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: Spacing.md, paddingBottom: Math.max(insets.bottom, 8) + 4 }}>
+            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/terms')} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 10, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Terms of Service</Text>
             </Pressable>
-            <Text style={{ fontSize: 12, color: Colors.borderLight }}>|</Text>
-            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/privacy')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.sm }}>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 12, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Privacy Policy</Text>
+            <Text style={{ fontSize: 10, color: Colors.border }}>·</Text>
+            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/privacy')} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 10, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Privacy Policy</Text>
             </Pressable>
           </View>
-        </ScrollView>
+        </View>
       </View>
     );
   }
