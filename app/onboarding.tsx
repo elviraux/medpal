@@ -33,7 +33,7 @@ import Svg, { Path, Circle, Line, Text as SvgText, Defs, LinearGradient, Stop } 
 import { adapty } from 'react-native-adapty';
 import * as StoreReview from 'expo-store-review';
 
-const TOTAL_STEPS = 23;
+const TOTAL_STEPS = 28;
 
 const medications: MedicationType[] = [
   'Wegovy', 'Ozempic', 'Zepbound', 'Mounjaro',
@@ -80,33 +80,150 @@ const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Unknown', 
 
 // PK model imported from utils/pharmacokinetics
 
-function InsightTip({ text }: { text: string }) {
+function StatScreen({
+  step,
+  icon,
+  iconBg,
+  iconColor,
+  stat,
+  headline,
+  description,
+  onNext,
+  onBack,
+}: {
+  step: number;
+  icon: keyof typeof Ionicons.glyphMap;
+  iconBg: string;
+  iconColor: string;
+  stat: string;
+  headline: string;
+  description: string;
+  onNext: () => void;
+  onBack: () => void;
+}) {
+  const insets = useSafeAreaInsets();
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: Spacing.sm,
-        backgroundColor: Colors.accentLight,
-        paddingVertical: 10,
-        paddingHorizontal: Spacing.md,
-        borderRadius: Radius.sm,
-        borderCurve: 'continuous',
-        marginTop: Spacing.lg,
-      }}
-    >
-      <Ionicons name="sparkles" size={14} color={Colors.accent} style={{ flexShrink: 0 }} />
-      <Text
+    <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
+      {/* Progress bar */}
+      <View
         style={{
-          fontFamily: Fonts.medium,
-          fontSize: 12,
-          color: '#00857A',
-          flex: 1,
-          lineHeight: 17,
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: Spacing.xl,
+          paddingVertical: Spacing.md,
+          gap: Spacing.md,
         }}
       >
-        {text}
-      </Text>
+        <Text
+          onPress={onBack}
+          style={{
+            fontFamily: Fonts.medium,
+            fontSize: 16,
+            color: Colors.primary,
+            paddingRight: Spacing.sm,
+          }}
+        >
+          Back
+        </Text>
+        <View
+          style={{
+            flex: 1,
+            height: 4,
+            backgroundColor: Colors.borderLight,
+            borderRadius: 2,
+            overflow: 'hidden',
+          }}
+        >
+          <View
+            style={{
+              width: `${(step / TOTAL_STEPS) * 100}%`,
+              height: '100%',
+              backgroundColor: Colors.primary,
+              borderRadius: 2,
+            }}
+          />
+        </View>
+        <Text
+          style={{
+            fontFamily: Fonts.medium,
+            fontSize: 13,
+            color: Colors.textTertiary,
+            fontVariant: ['tabular-nums'],
+          }}
+        >
+          {step}/{TOTAL_STEPS}
+        </Text>
+      </View>
+
+      {/* Centered content */}
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: Spacing.xxl }}>
+        <View style={{ alignItems: 'center', gap: Spacing.xl }}>
+          <View
+            style={{
+              width: 120,
+              height: 120,
+              borderRadius: 36,
+              backgroundColor: iconBg,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderCurve: 'continuous',
+              boxShadow: `0px 8px 32px ${iconColor}20`,
+            }}
+          >
+            <Ionicons name={icon} size={52} color={iconColor} />
+          </View>
+
+          <Text
+            style={{
+              fontFamily: Fonts.bold,
+              fontSize: 68,
+              color: Colors.primary,
+              textAlign: 'center',
+              lineHeight: 80,
+              fontVariant: ['tabular-nums'],
+            }}
+          >
+            {stat}
+          </Text>
+
+          <Text
+            style={{
+              fontFamily: Fonts.bold,
+              fontSize: 24,
+              color: Colors.text,
+              textAlign: 'center',
+              lineHeight: 32,
+            }}
+          >
+            {headline}
+          </Text>
+
+          <Text
+            style={{
+              fontFamily: Fonts.regular,
+              fontSize: 16,
+              color: Colors.textSecondary,
+              textAlign: 'center',
+              lineHeight: 24,
+              paddingHorizontal: Spacing.md,
+            }}
+          >
+            {description}
+          </Text>
+        </View>
+      </View>
+
+      {/* Bottom button */}
+      <View
+        style={{
+          paddingHorizontal: Spacing.xxl,
+          paddingTop: Spacing.md,
+          paddingBottom: Math.max(insets.bottom, Spacing.lg) + Spacing.sm,
+          backgroundColor: Colors.background,
+        }}
+      >
+        <PrimaryButton title="Continue" onPress={onNext} />
+      </View>
     </View>
   );
 }
@@ -154,7 +271,7 @@ export default function OnboardingScreen() {
 
   // Block Android hardware back button on paywall step
   useEffect(() => {
-    if (step !== 22) return;
+    if (step !== 27) return;
     const sub = BackHandler.addEventListener('hardwareBackPress', () => true);
     return () => sub.remove();
   }, [step]);
@@ -192,16 +309,16 @@ export default function OnboardingScreen() {
 
   const handleNext = useCallback(() => {
     let nextStep = step + 1;
-    if (step === 4 && !shouldShowDeviceStep) {
-      nextStep = 6; // Skip device type step (step 5)
+    if (step === 5 && !shouldShowDeviceStep) {
+      nextStep = 7; // Skip device type step (step 6)
     }
     setStep(nextStep);
   }, [step, shouldShowDeviceStep]);
 
   const handleBack = useCallback(() => {
     let prevStep = step - 1;
-    if (step === 6 && !shouldShowDeviceStep) {
-      prevStep = 4;
+    if (step === 7 && !shouldShowDeviceStep) {
+      prevStep = 5;
     }
     if (prevStep >= 0) setStep(prevStep);
   }, [step, shouldShowDeviceStep]);
@@ -407,16 +524,32 @@ export default function OnboardingScreen() {
             />
           ))}
         </View>
-        <InsightTip text="Users who track their GLP-1 consistently lose 3x more weight" />
       </OnboardingLayout>
     );
   }
 
-  // Step 3: Current dose
+  // Step 3: Stat — 3x More Weight Lost
   if (step === 3) {
     return (
-      <OnboardingLayout
+      <StatScreen
         step={3}
+        icon="medical-outline"
+        iconBg={Colors.primaryLight}
+        iconColor={Colors.primary}
+        stat="3x"
+        headline="More Weight Lost"
+        description="Users who consistently track their GLP-1 medication lose 3x more weight than those who don't."
+        onNext={handleNext}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  // Step 4: Current dose
+  if (step === 4) {
+    return (
+      <OnboardingLayout
+        step={4}
         totalSteps={TOTAL_STEPS}
         title="What's your current dose?"
         subtitle="Select the dose you're currently taking"
@@ -438,11 +571,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 4: Frequency
-  if (step === 4) {
+  // Step 5: Frequency
+  if (step === 5) {
     return (
       <OnboardingLayout
-        step={4}
+        step={5}
         totalSteps={TOTAL_STEPS}
         title="How often do you take it?"
         subtitle="Select your dosing frequency"
@@ -464,11 +597,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 5: Device type (injection only)
-  if (step === 5) {
+  // Step 6: Device type (injection only)
+  if (step === 6) {
     return (
       <OnboardingLayout
-        step={5}
+        step={6}
         totalSteps={TOTAL_STEPS}
         title="What type of device?"
         subtitle="How do you administer your injection?"
@@ -490,11 +623,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 6: Health Disclaimer
-  if (step === 6) {
+  // Step 7: Health Disclaimer
+  if (step === 7) {
     return (
       <OnboardingLayout
-        step={6}
+        step={7}
         totalSteps={TOTAL_STEPS}
         title="Health Disclaimer"
         subtitle="Please read carefully before continuing"
@@ -555,11 +688,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 7: Unit System Selection
-  if (step === 7) {
+  // Step 8: Unit System Selection
+  if (step === 8) {
     return (
       <OnboardingLayout
-        step={7}
+        step={8}
         totalSteps={TOTAL_STEPS}
         title="Choose your units"
         subtitle="This will be used throughout the app"
@@ -605,10 +738,10 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 8: Height
-  if (step === 8) {
+  // Step 9: Height
+  if (step === 9) {
     return (
-      <OnboardingLayout step={8} totalSteps={TOTAL_STEPS} title="What's your height?" onNext={handleNext} onBack={handleBack} nextDisabled={heightUnit === 'cm' ? !heightCm : !heightFt}>
+      <OnboardingLayout step={9} totalSteps={TOTAL_STEPS} title="What's your height?" onNext={handleNext} onBack={handleBack} nextDisabled={heightUnit === 'cm' ? !heightCm : !heightFt}>
         <View style={{ gap: Spacing.xxl, alignItems: 'center', paddingTop: Spacing.xxl }}>
           {heightUnit === 'cm' ? (
             <NumericInput value={heightCm} onChangeText={setHeightCm} unit="cm" large />
@@ -623,10 +756,10 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 9: Current weight
-  if (step === 9) {
+  // Step 10: Current weight
+  if (step === 10) {
     return (
-      <OnboardingLayout step={9} totalSteps={TOTAL_STEPS} title="What's your current weight?" onNext={handleNext} onBack={handleBack} nextDisabled={!currentWeight}>
+      <OnboardingLayout step={10} totalSteps={TOTAL_STEPS} title="What's your current weight?" onNext={handleNext} onBack={handleBack} nextDisabled={!currentWeight}>
         <View style={{ alignItems: 'center', paddingTop: Spacing.xxl }}>
           <NumericInput value={currentWeight} onChangeText={setCurrentWeight} unit={weightUnitLabel} large />
         </View>
@@ -634,10 +767,10 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 10: Starting weight
-  if (step === 10) {
+  // Step 11: Starting weight
+  if (step === 11) {
     return (
-      <OnboardingLayout step={10} totalSteps={TOTAL_STEPS} title="What was your starting weight?" subtitle="Your weight when you started GLP-1 medication" onNext={handleNext} onBack={handleBack} nextDisabled={!startWeight}>
+      <OnboardingLayout step={11} totalSteps={TOTAL_STEPS} title="What was your starting weight?" subtitle="Your weight when you started GLP-1 medication" onNext={handleNext} onBack={handleBack} nextDisabled={!startWeight}>
         <View style={{ alignItems: 'center', paddingTop: Spacing.xxl }}>
           <NumericInput value={startWeight} onChangeText={setStartWeight} unit={weightUnitLabel} large />
         </View>
@@ -645,10 +778,10 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 11: Start date
-  if (step === 11) {
+  // Step 12: Start date
+  if (step === 12) {
     return (
-      <OnboardingLayout step={11} totalSteps={TOTAL_STEPS} title="When did you start?" subtitle="When did you begin taking your GLP-1 medication?" onNext={handleNext} onBack={handleBack}>
+      <OnboardingLayout step={12} totalSteps={TOTAL_STEPS} title="When did you start?" subtitle="When did you begin taking your GLP-1 medication?" onNext={handleNext} onBack={handleBack}>
         <View style={{ alignItems: 'center', paddingTop: Spacing.xl }}>
           <DateTimePicker value={startDate} mode="date" display="spinner" maximumDate={new Date()} onChange={(_, date) => { if (date) setStartDate(date); }} style={{ height: 200 }} />
         </View>
@@ -656,20 +789,36 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 12: Goal weight
-  if (step === 12) {
+  // Step 13: Goal weight
+  if (step === 13) {
     return (
-      <OnboardingLayout step={12} totalSteps={TOTAL_STEPS} title="What's your goal weight?" subtitle="Don't worry, you can change this anytime" onNext={handleNext} onBack={handleBack} nextDisabled={!goalWeight}>
+      <OnboardingLayout step={13} totalSteps={TOTAL_STEPS} title="What's your goal weight?" subtitle="Don't worry, you can change this anytime" onNext={handleNext} onBack={handleBack} nextDisabled={!goalWeight}>
         <View style={{ alignItems: 'center', paddingTop: Spacing.xxl }}>
           <NumericInput value={goalWeight} onChangeText={setGoalWeight} unit={weightUnitLabel} large />
         </View>
-        <InsightTip text="Slimsy users are 2x more likely to reach their weight goal" />
       </OnboardingLayout>
     );
   }
 
-  // Step 13: Goal pace (slider)
-  if (step === 13) {
+  // Step 14: Stat — 2x More Likely to Reach Your Goal
+  if (step === 14) {
+    return (
+      <StatScreen
+        step={14}
+        icon="trophy-outline"
+        iconBg={Colors.accentLight}
+        iconColor={Colors.accent}
+        stat="2x"
+        headline="More Likely to Reach Your Goal"
+        description="Slimsy users who set a clear weight goal are 2x more likely to achieve it."
+        onNext={handleNext}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  // Step 15: Goal pace (slider)
+  if (step === 15) {
     const isKg = weeklyGoalUnit === 'kg';
     const sliderMin = isKg ? 0.25 : 0.5;
     const sliderMax = isKg ? 1.0 : 2.5;
@@ -679,7 +828,7 @@ export default function OnboardingScreen() {
     const maxLabel = isKg ? '1.0 kg' : '2.5 lbs';
 
     return (
-      <OnboardingLayout step={13} totalSteps={TOTAL_STEPS} title="Set your pace" subtitle="How much weight would you like to lose per week?" onNext={handleNext} onBack={handleBack}>
+      <OnboardingLayout step={15} totalSteps={TOTAL_STEPS} title="Set your pace" subtitle="How much weight would you like to lose per week?" onNext={handleNext} onBack={handleBack}>
         <View style={{ alignItems: 'center', paddingTop: Spacing.xxl, gap: Spacing.xxl }}>
           <Text style={{ fontFamily: Fonts.bold, fontSize: 48, color: Colors.primary, fontVariant: ['tabular-nums'] }}>
             {displayValue} {weeklyGoalUnit}
@@ -692,16 +841,32 @@ export default function OnboardingScreen() {
               <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textTertiary }}>{maxLabel}</Text>
             </View>
           </View>
-          <InsightTip text="Users who log their food daily are 2x more likely to hit their protein goals" />
         </View>
       </OnboardingLayout>
     );
   }
 
-  // Step 14: Activity level
-  if (step === 14) {
+  // Step 16: Stat — 2x Better Protein Results
+  if (step === 16) {
     return (
-      <OnboardingLayout step={14} totalSteps={TOTAL_STEPS} title="Activity level" subtitle="How active are you in a typical week?" onNext={handleNext} onBack={handleBack} nextDisabled={!activityLevel}>
+      <StatScreen
+        step={16}
+        icon="nutrition-outline"
+        iconBg={Colors.warningLight}
+        iconColor={Colors.warning}
+        stat="2x"
+        headline="Better Protein Results"
+        description="Users who log their food daily are 2x more likely to hit their daily protein goals."
+        onNext={handleNext}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  // Step 17: Activity level
+  if (step === 17) {
+    return (
+      <OnboardingLayout step={17} totalSteps={TOTAL_STEPS} title="Activity level" subtitle="How active are you in a typical week?" onNext={handleNext} onBack={handleBack} nextDisabled={!activityLevel}>
         <View style={{ gap: Spacing.md }}>
           {activityLevels.map((al) => (
             <Pressable key={al.value} onPress={() => setActivityLevel(al.value)} style={{ flexDirection: 'row', alignItems: 'center', padding: Spacing.lg, borderRadius: Radius.md, borderWidth: 1.5, borderColor: activityLevel === al.value ? Colors.primary : Colors.border, backgroundColor: activityLevel === al.value ? Colors.primaryLight : Colors.surface, gap: Spacing.md, borderCurve: 'continuous' }}>
@@ -715,15 +880,31 @@ export default function OnboardingScreen() {
             </Pressable>
           ))}
         </View>
-        <InsightTip text="Combining activity tracking with GLP-1 medication doubles long-term success rates" />
       </OnboardingLayout>
     );
   }
 
-  // Step 15: Tough days (informational)
-  if (step === 15) {
+  // Step 18: Stat — 2x Long-Term Success
+  if (step === 18) {
     return (
-      <OnboardingLayout step={15} totalSteps={TOTAL_STEPS} title="Tough days happen" subtitle="And that's completely normal" onNext={handleNext} onBack={handleBack}>
+      <StatScreen
+        step={18}
+        icon="fitness-outline"
+        iconBg="#ECFDF5"
+        iconColor="#22C55E"
+        stat="2x"
+        headline="Long-Term Success"
+        description="Combining activity tracking with GLP-1 medication doubles your chances of long-term success."
+        onNext={handleNext}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  // Step 19: Tough days (informational)
+  if (step === 19) {
+    return (
+      <OnboardingLayout step={19} totalSteps={TOTAL_STEPS} title="Tough days happen" subtitle="And that's completely normal" onNext={handleNext} onBack={handleBack}>
         <View style={{ gap: Spacing.xxl, paddingTop: Spacing.lg }}>
           <Card elevated style={{ gap: Spacing.md }}>
             <View style={{ width: 52, height: 52, borderRadius: 16, backgroundColor: Colors.primaryLight, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous' }}>
@@ -748,10 +929,10 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 16: Cravings day
-  if (step === 16) {
+  // Step 20: Cravings day
+  if (step === 20) {
     return (
-      <OnboardingLayout step={16} totalSteps={TOTAL_STEPS} title="When do cravings hit?" subtitle="Select the days you tend to crave food most" onNext={handleNext} onBack={handleBack}>
+      <OnboardingLayout step={20} totalSteps={TOTAL_STEPS} title="When do cravings hit?" subtitle="Select the days you tend to crave food most" onNext={handleNext} onBack={handleBack}>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.md }}>
           {daysOfWeek.map((day) => (
             <PillButton key={day} label={day} selected={cravingsDays.includes(day)} onPress={() => toggleCravingsDay(day)} style={{ minWidth: 80 }} />
@@ -761,24 +942,40 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 17: Side effects
-  if (step === 17) {
+  // Step 21: Side effects
+  if (step === 21) {
     return (
-      <OnboardingLayout step={17} totalSteps={TOTAL_STEPS} title="Any concerns?" subtitle="Select side effects you're experiencing or worried about" onNext={handleNext} onBack={handleBack}>
+      <OnboardingLayout step={21} totalSteps={TOTAL_STEPS} title="Any concerns?" subtitle="Select side effects you're experiencing or worried about" onNext={handleNext} onBack={handleBack}>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.md }}>
           {sideEffectsOptions.map((se) => (
             <PillButton key={se} label={se} selected={sideEffects.includes(se)} onPress={() => toggleSideEffect(se)} />
           ))}
         </View>
-        <InsightTip text="Slimsy users report 68% fewer side effects by tracking patterns early" />
       </OnboardingLayout>
     );
   }
 
-  // Step 18: Motivation
-  if (step === 18) {
+  // Step 22: Stat — 68% Fewer Side Effects
+  if (step === 22) {
     return (
-      <OnboardingLayout step={18} totalSteps={TOTAL_STEPS} title="What motivates you?" subtitle="Understanding your 'why' helps us support you better" onNext={handleNext} onBack={handleBack} nextDisabled={!motivation}>
+      <StatScreen
+        step={22}
+        icon="shield-checkmark-outline"
+        iconBg="#F3EEFF"
+        iconColor="#8B5CF6"
+        stat="68%"
+        headline="Fewer Side Effects Reported"
+        description="Slimsy users who track side effects report 68% fewer surprises by catching patterns early."
+        onNext={handleNext}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  // Step 23: Motivation
+  if (step === 23) {
+    return (
+      <OnboardingLayout step={23} totalSteps={TOTAL_STEPS} title="What motivates you?" subtitle="Understanding your 'why' helps us support you better" onNext={handleNext} onBack={handleBack} nextDisabled={!motivation}>
         <View style={{ gap: Spacing.md }}>
           {motivations.map((m) => (
             <Pressable key={m.value} onPress={() => setMotivation(m.value)} style={{ flexDirection: 'row', alignItems: 'center', padding: Spacing.lg, borderRadius: Radius.md, borderWidth: 1.5, borderColor: motivation === m.value ? Colors.primary : Colors.border, backgroundColor: motivation === m.value ? Colors.primaryLight : Colors.surface, gap: Spacing.md, borderCurve: 'continuous' }}>
@@ -791,13 +988,13 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 19: Record First Dose (milestone moment with confetti)
-  if (step === 19) {
+  // Step 24: Record First Dose (milestone moment with confetti)
+  if (step === 24) {
     const isInjection = deliveryType === 'injection';
     return (
       <View style={{ flex: 1 }}>
         <OnboardingLayout
-          step={19}
+          step={24}
           totalSteps={TOTAL_STEPS}
           title="Record Your Starting Dose"
           subtitle="Mark the beginning of your tracking journey"
@@ -865,11 +1062,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 20: Rate the App
-  if (step === 20) {
+  // Step 25: Rate the App
+  if (step === 25) {
     return (
       <OnboardingLayout
-        step={20}
+        step={25}
         totalSteps={TOTAL_STEPS}
         title="Enjoying Slimsy so far?"
         subtitle={"You\u2019re off to a great start! \uD83C\uDF89"}
@@ -944,8 +1141,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 21: GLP-1 Level Chart (personalised)
-  if (step === 21) {
+  // Step 26: GLP-1 Level Chart (personalised)
+  if (step === 26) {
     const medName = medication && medication !== "I don't know" && medication !== 'Other' ? medication : 'your medication';
     const doseLabel = dose && dose !== "I don't know" && dose !== 'Other' ? dose : '';
     const chartW = 300;
@@ -955,7 +1152,7 @@ export default function OnboardingScreen() {
 
     return (
       <OnboardingLayout
-        step={21}
+        step={26}
         totalSteps={TOTAL_STEPS}
         title="Your Estimated GLP-1 Levels"
         subtitle={`How ${medName}${doseLabel ? ` (${doseLabel})` : ''} works in your body`}
@@ -1083,8 +1280,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 22: Hard Paywall
-  if (step === 22) {
+  // Step 27: Hard Paywall
+  if (step === 27) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
         {/* Fixed header — title with inline icon, subtitle */}
