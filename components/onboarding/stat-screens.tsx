@@ -8,6 +8,14 @@ import { PrimaryButton } from '@/components/ui/primary-button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 
+// Pre-require all illustration images at module scope so React Native
+// bundles them at build time — eliminates per-render async loads.
+const IMG_MEDICATION = require('@/assets/illustrations/sp_medication.png');
+const IMG_GOAL = require('@/assets/illustrations/sp_goal.png');
+const IMG_WEIGHTLOSS = require('@/assets/illustrations/sp_weightloss.png');
+const IMG_SIDEEFFECTS = require('@/assets/illustrations/sp_sideeffects.png');
+const IMG_NUTRITION = require('@/assets/illustrations/sp_nutrition.png');
+
 const TOTAL_STEPS = 28;
 
 interface StatScreenProps {
@@ -124,7 +132,7 @@ export function StatScreen3x({ step, onNext, onBack }: StatScreenProps) {
           }}
         >
           <Image
-            source={require('@/assets/illustrations/social_proof_medication.png')}
+            source={IMG_MEDICATION}
             style={{ width: 260, height: 220 }}
             contentFit="contain"
           />
@@ -204,7 +212,7 @@ export function StatScreen87({ step, onNext, onBack }: StatScreenProps) {
           }}
         >
           <Image
-            source={require('@/assets/illustrations/social_proof_goal.png')}
+            source={IMG_GOAL}
             style={{ width: 240, height: 200 }}
             contentFit="contain"
           />
@@ -287,7 +295,7 @@ export function StatScreen18lbs({ step, onNext, onBack }: StatScreenProps) {
           }}
         >
           <Image
-            source={require('@/assets/illustrations/social_proof_weightloss.png')}
+            source={IMG_WEIGHTLOSS}
             style={{ width: 260, height: 210 }}
             contentFit="contain"
           />
@@ -394,7 +402,7 @@ export function StatScreen68({ step, onNext, onBack }: StatScreenProps) {
           }}
         >
           <Image
-            source={require('@/assets/illustrations/social_proof_sideeffects.png')}
+            source={IMG_SIDEEFFECTS}
             style={{ width: 240, height: 210 }}
             contentFit="contain"
           />
@@ -515,7 +523,7 @@ export function StatScreen5min({ step, onNext, onBack }: StatScreenProps) {
           }}
         >
           <Image
-            source={require('@/assets/illustrations/social_proof_nutrition.png')}
+            source={IMG_NUTRITION}
             style={{ width: 260, height: 210 }}
             contentFit="contain"
           />
