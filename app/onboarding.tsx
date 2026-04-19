@@ -8,6 +8,13 @@ import { Spacing, Radius } from '@/constants/Layout';
 import { useAppStore } from '@/store/useAppStore';
 import { StepWelcome } from '@/components/onboarding/step-welcome';
 import { OnboardingLayout } from '@/components/onboarding/onboarding-layout';
+import {
+  StatScreen3x,
+  StatScreen87,
+  StatScreen18lbs,
+  StatScreen68,
+  StatScreen5min,
+} from '@/components/onboarding/stat-screens';
 import { PillButton } from '@/components/ui/pill-button';
 import { NumericInput } from '@/components/ui/numeric-input';
 import { Card } from '@/components/ui/card';
@@ -80,153 +87,7 @@ const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Unknown', 
 
 // PK model imported from utils/pharmacokinetics
 
-function StatScreen({
-  step,
-  icon,
-  iconBg,
-  iconColor,
-  stat,
-  headline,
-  description,
-  onNext,
-  onBack,
-}: {
-  step: number;
-  icon: keyof typeof Ionicons.glyphMap;
-  iconBg: string;
-  iconColor: string;
-  stat: string;
-  headline: string;
-  description: string;
-  onNext: () => void;
-  onBack: () => void;
-}) {
-  const insets = useSafeAreaInsets();
-  return (
-    <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
-      {/* Progress bar */}
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingHorizontal: Spacing.xl,
-          paddingVertical: Spacing.md,
-          gap: Spacing.md,
-        }}
-      >
-        <Text
-          onPress={onBack}
-          style={{
-            fontFamily: Fonts.medium,
-            fontSize: 16,
-            color: Colors.primary,
-            paddingRight: Spacing.sm,
-          }}
-        >
-          Back
-        </Text>
-        <View
-          style={{
-            flex: 1,
-            height: 4,
-            backgroundColor: Colors.borderLight,
-            borderRadius: 2,
-            overflow: 'hidden',
-          }}
-        >
-          <View
-            style={{
-              width: `${(step / TOTAL_STEPS) * 100}%`,
-              height: '100%',
-              backgroundColor: Colors.primary,
-              borderRadius: 2,
-            }}
-          />
-        </View>
-        <Text
-          style={{
-            fontFamily: Fonts.medium,
-            fontSize: 13,
-            color: Colors.textTertiary,
-            fontVariant: ['tabular-nums'],
-          }}
-        >
-          {step}/{TOTAL_STEPS}
-        </Text>
-      </View>
-
-      {/* Centered content */}
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: Spacing.xxl }}>
-        <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-          <View
-            style={{
-              width: 120,
-              height: 120,
-              borderRadius: 36,
-              backgroundColor: iconBg,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderCurve: 'continuous',
-              boxShadow: `0px 8px 32px ${iconColor}20`,
-            }}
-          >
-            <Ionicons name={icon} size={52} color={iconColor} />
-          </View>
-
-          <Text
-            style={{
-              fontFamily: Fonts.bold,
-              fontSize: 68,
-              color: Colors.primary,
-              textAlign: 'center',
-              lineHeight: 80,
-              fontVariant: ['tabular-nums'],
-            }}
-          >
-            {stat}
-          </Text>
-
-          <Text
-            style={{
-              fontFamily: Fonts.bold,
-              fontSize: 24,
-              color: Colors.text,
-              textAlign: 'center',
-              lineHeight: 32,
-            }}
-          >
-            {headline}
-          </Text>
-
-          <Text
-            style={{
-              fontFamily: Fonts.regular,
-              fontSize: 16,
-              color: Colors.textSecondary,
-              textAlign: 'center',
-              lineHeight: 24,
-              paddingHorizontal: Spacing.md,
-            }}
-          >
-            {description}
-          </Text>
-        </View>
-      </View>
-
-      {/* Bottom button */}
-      <View
-        style={{
-          paddingHorizontal: Spacing.xxl,
-          paddingTop: Spacing.md,
-          paddingBottom: Math.max(insets.bottom, Spacing.lg) + Spacing.sm,
-          backgroundColor: Colors.background,
-        }}
-      >
-        <PrimaryButton title="Continue" onPress={onNext} />
-      </View>
-    </View>
-  );
-}
+// Individual stat screens are now in @/components/onboarding/stat-screens.tsx
 
 export default function OnboardingScreen() {
   const router = useRouter();
@@ -530,19 +391,7 @@ export default function OnboardingScreen() {
 
   // Step 3: Stat — 3x More Weight Lost
   if (step === 3) {
-    return (
-      <StatScreen
-        step={3}
-        icon="medical-outline"
-        iconBg={Colors.primaryLight}
-        iconColor={Colors.primary}
-        stat="3x"
-        headline="More Weight Lost"
-        description="Users who consistently track their GLP-1 medication lose 3x more weight than those who don't."
-        onNext={handleNext}
-        onBack={handleBack}
-      />
-    );
+    return <StatScreen3x step={3} onNext={handleNext} onBack={handleBack} />;
   }
 
   // Step 4: Current dose
@@ -800,21 +649,9 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 14: Stat — 2x More Likely to Reach Your Goal
+  // Step 14: Stat — 87% Say Tracking Changed Everything
   if (step === 14) {
-    return (
-      <StatScreen
-        step={14}
-        icon="trophy-outline"
-        iconBg={Colors.accentLight}
-        iconColor={Colors.accent}
-        stat="2x"
-        headline="More Likely to Reach Your Goal"
-        description="Slimsy users who set a clear weight goal are 2x more likely to achieve it."
-        onNext={handleNext}
-        onBack={handleBack}
-      />
-    );
+    return <StatScreen87 step={14} onNext={handleNext} onBack={handleBack} />;
   }
 
   // Step 15: Goal pace (slider)
@@ -846,21 +683,9 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 16: Stat — 2x Better Protein Results
+  // Step 16: Stat — 18 lbs Average Lost in 3 Months
   if (step === 16) {
-    return (
-      <StatScreen
-        step={16}
-        icon="nutrition-outline"
-        iconBg={Colors.warningLight}
-        iconColor={Colors.warning}
-        stat="2x"
-        headline="Better Protein Results"
-        description="Users who log their food daily are 2x more likely to hit their daily protein goals."
-        onNext={handleNext}
-        onBack={handleBack}
-      />
-    );
+    return <StatScreen18lbs step={16} onNext={handleNext} onBack={handleBack} />;
   }
 
   // Step 17: Activity level
@@ -884,21 +709,9 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 18: Stat — 2x Long-Term Success
+  // Step 18: Stat — 5 min A Day Is All It Takes
   if (step === 18) {
-    return (
-      <StatScreen
-        step={18}
-        icon="fitness-outline"
-        iconBg="#ECFDF5"
-        iconColor="#22C55E"
-        stat="2x"
-        headline="Long-Term Success"
-        description="Combining activity tracking with GLP-1 medication doubles your chances of long-term success."
-        onNext={handleNext}
-        onBack={handleBack}
-      />
-    );
+    return <StatScreen5min step={18} onNext={handleNext} onBack={handleBack} />;
   }
 
   // Step 19: Tough days (informational)
@@ -955,21 +768,9 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 22: Stat — 68% Fewer Side Effects
+  // Step 22: Stat — 68% Fewer Surprise Side Effects
   if (step === 22) {
-    return (
-      <StatScreen
-        step={22}
-        icon="shield-checkmark-outline"
-        iconBg="#F3EEFF"
-        iconColor="#8B5CF6"
-        stat="68%"
-        headline="Fewer Side Effects Reported"
-        description="Slimsy users who track side effects report 68% fewer surprises by catching patterns early."
-        onNext={handleNext}
-        onBack={handleBack}
-      />
-    );
+    return <StatScreen68 step={22} onNext={handleNext} onBack={handleBack} />;
   }
 
   // Step 23: Motivation
