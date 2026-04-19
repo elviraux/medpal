@@ -33,7 +33,7 @@ import Svg, { Path, Circle, Line, Text as SvgText, Defs, LinearGradient, Stop } 
 import { adapty } from 'react-native-adapty';
 import * as StoreReview from 'expo-store-review';
 
-const TOTAL_STEPS = 24;
+const TOTAL_STEPS = 23;
 
 const medications: MedicationType[] = [
   'Wegovy', 'Ozempic', 'Zepbound', 'Mounjaro',
@@ -80,6 +80,37 @@ const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Unknown', 
 
 // PK model imported from utils/pharmacokinetics
 
+function InsightTip({ text }: { text: string }) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: Spacing.sm,
+        backgroundColor: Colors.accentLight,
+        paddingVertical: 10,
+        paddingHorizontal: Spacing.md,
+        borderRadius: Radius.sm,
+        borderCurve: 'continuous',
+        marginTop: Spacing.lg,
+      }}
+    >
+      <Ionicons name="sparkles" size={14} color={Colors.accent} style={{ flexShrink: 0 }} />
+      <Text
+        style={{
+          fontFamily: Fonts.medium,
+          fontSize: 12,
+          color: '#00857A',
+          flex: 1,
+          lineHeight: 17,
+        }}
+      >
+        {text}
+      </Text>
+    </View>
+  );
+}
+
 export default function OnboardingScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -123,7 +154,7 @@ export default function OnboardingScreen() {
 
   // Block Android hardware back button on paywall step
   useEffect(() => {
-    if (step !== 23) return;
+    if (step !== 22) return;
     const sub = BackHandler.addEventListener('hardwareBackPress', () => true);
     return () => sub.remove();
   }, [step]);
@@ -376,6 +407,7 @@ export default function OnboardingScreen() {
             />
           ))}
         </View>
+        <InsightTip text="Users who track their GLP-1 consistently lose 3x more weight" />
       </OnboardingLayout>
     );
   }
@@ -631,6 +663,7 @@ export default function OnboardingScreen() {
         <View style={{ alignItems: 'center', paddingTop: Spacing.xxl }}>
           <NumericInput value={goalWeight} onChangeText={setGoalWeight} unit={weightUnitLabel} large />
         </View>
+        <InsightTip text="Slimsy users are 2x more likely to reach their weight goal" />
       </OnboardingLayout>
     );
   }
@@ -659,6 +692,7 @@ export default function OnboardingScreen() {
               <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textTertiary }}>{maxLabel}</Text>
             </View>
           </View>
+          <InsightTip text="Users who log their food daily are 2x more likely to hit their protein goals" />
         </View>
       </OnboardingLayout>
     );
@@ -681,6 +715,7 @@ export default function OnboardingScreen() {
             </Pressable>
           ))}
         </View>
+        <InsightTip text="Combining activity tracking with GLP-1 medication doubles long-term success rates" />
       </OnboardingLayout>
     );
   }
@@ -735,6 +770,7 @@ export default function OnboardingScreen() {
             <PillButton key={se} label={se} selected={sideEffects.includes(se)} onPress={() => toggleSideEffect(se)} />
           ))}
         </View>
+        <InsightTip text="Slimsy users report 68% fewer side effects by tracking patterns early" />
       </OnboardingLayout>
     );
   }
@@ -755,125 +791,13 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 19: Motivational statistics
+  // Step 19: Record First Dose (milestone moment with confetti)
   if (step === 19) {
-    const stats: {
-      stat: string;
-      headline: string;
-      description: string;
-      icon: keyof typeof Ionicons.glyphMap;
-      accentColor: string;
-      accentBg: string;
-    }[] = [
-      {
-        stat: '2x',
-        headline: 'more likely to reach your goal',
-        description: 'People who use a dedicated tracker are twice as likely to hit their target weight.',
-        icon: 'trending-up-outline',
-        accentColor: Colors.primary,
-        accentBg: Colors.primaryLight,
-      },
-      {
-        stat: '3x',
-        headline: 'more weight lost with consistency',
-        description: 'Users who track their doses consistently lose significantly more weight over time.',
-        icon: 'calendar-outline',
-        accentColor: Colors.accent,
-        accentBg: Colors.accentLight,
-      },
-      {
-        stat: '68%',
-        headline: 'fewer side effects reported',
-        description: 'Tracking patterns early helps identify and manage side effects before they escalate.',
-        icon: 'shield-checkmark-outline',
-        accentColor: '#8B5CF6',
-        accentBg: '#F3EEFF',
-      },
-      {
-        stat: '2x',
-        headline: 'more likely to hit protein goals',
-        description: 'Daily food logging keeps you accountable and on track with your nutrition targets.',
-        icon: 'nutrition-outline',
-        accentColor: Colors.warning,
-        accentBg: Colors.warningLight,
-      },
-    ];
-
-    return (
-      <OnboardingLayout step={19} totalSteps={TOTAL_STEPS} title="Tracking changes everything" showProgress={false} onNext={handleNext} onBack={handleBack} nextLabel="Continue">
-        <View style={{ gap: Spacing.lg, paddingTop: Spacing.sm }}>
-          <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 }}>
-            The data is clear — people who track their GLP-1 journey see better results.
-          </Text>
-          <View style={{ gap: Spacing.md, paddingTop: Spacing.sm }}>
-            {stats.map((item) => (
-              <Card key={item.headline} style={{ gap: 0, padding: 0, overflow: 'hidden' }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.lg, padding: Spacing.lg }}>
-                  <View
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: 16,
-                      backgroundColor: item.accentBg,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderCurve: 'continuous',
-                    }}
-                  >
-                    <Ionicons name={item.icon} size={24} color={item.accentColor} />
-                  </View>
-                  <View style={{ flex: 1, gap: Spacing.xs }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: Spacing.sm, flexWrap: 'wrap' }}>
-                      <Text
-                        style={{
-                          fontFamily: Fonts.bold,
-                          fontSize: 28,
-                          color: item.accentColor,
-                          lineHeight: 32,
-                          fontVariant: ['tabular-nums'],
-                        }}
-                      >
-                        {item.stat}
-                      </Text>
-                      <Text
-                        style={{
-                          fontFamily: Fonts.semiBold,
-                          fontSize: 14,
-                          color: Colors.text,
-                          flex: 1,
-                          lineHeight: 19,
-                        }}
-                      >
-                        {item.headline}
-                      </Text>
-                    </View>
-                    <Text
-                      style={{
-                        fontFamily: Fonts.regular,
-                        fontSize: 13,
-                        color: Colors.textSecondary,
-                        lineHeight: 18,
-                      }}
-                    >
-                      {item.description}
-                    </Text>
-                  </View>
-                </View>
-              </Card>
-            ))}
-          </View>
-        </View>
-      </OnboardingLayout>
-    );
-  }
-
-  // Step 20: Record First Dose (milestone moment with confetti)
-  if (step === 20) {
     const isInjection = deliveryType === 'injection';
     return (
       <View style={{ flex: 1 }}>
         <OnboardingLayout
-          step={20}
+          step={19}
           totalSteps={TOTAL_STEPS}
           title="Record Your Starting Dose"
           subtitle="Mark the beginning of your tracking journey"
@@ -941,11 +865,11 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 21: Rate the App
-  if (step === 21) {
+  // Step 20: Rate the App
+  if (step === 20) {
     return (
       <OnboardingLayout
-        step={21}
+        step={20}
         totalSteps={TOTAL_STEPS}
         title="Enjoying Slimsy so far?"
         subtitle={"You\u2019re off to a great start! \uD83C\uDF89"}
@@ -1020,8 +944,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 22: GLP-1 Level Chart (personalised)
-  if (step === 22) {
+  // Step 21: GLP-1 Level Chart (personalised)
+  if (step === 21) {
     const medName = medication && medication !== "I don't know" && medication !== 'Other' ? medication : 'your medication';
     const doseLabel = dose && dose !== "I don't know" && dose !== 'Other' ? dose : '';
     const chartW = 300;
@@ -1031,7 +955,7 @@ export default function OnboardingScreen() {
 
     return (
       <OnboardingLayout
-        step={22}
+        step={21}
         totalSteps={TOTAL_STEPS}
         title="Your Estimated GLP-1 Levels"
         subtitle={`How ${medName}${doseLabel ? ` (${doseLabel})` : ''} works in your body`}
@@ -1159,8 +1083,8 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 23: Hard Paywall
-  if (step === 23) {
+  // Step 22: Hard Paywall
+  if (step === 22) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
         {/* Fixed header — title with inline icon, subtitle */}
