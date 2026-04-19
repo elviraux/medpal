@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": 1776623700409,
+  "generatedAt": 1776624092594,
   "entries": {
     "LogFoodScreen@app/log-food.tsx:145": {
       "element": {
@@ -11887,6 +11887,38 @@
               "col": 24,
               "endCol": 26,
               "raw": "24"
+            }
+          }
+        }
+      ]
+    },
+    "Index@app/index.tsx:23": {
+      "element": {
+        "file": "app/index.tsx",
+        "line": 23
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/index.tsx",
+          "properties": {
+            "flex": {
+              "line": 25,
+              "col": 14,
+              "endCol": 15,
+              "raw": "1"
+            },
+            "justifyContent": {
+              "line": 26,
+              "col": 24,
+              "endCol": 32,
+              "raw": "'center'"
+            },
+            "alignItems": {
+              "line": 27,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
             }
           }
         }
