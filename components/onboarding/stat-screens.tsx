@@ -242,7 +242,7 @@ export function StatScreen3x({ step, onNext, onBack }: StatScreenProps) {
 
 // =================================================================
 // Screen 2: "87% Say Tracking Changed Everything"
-// Visual: SVG donut/arc chart with stat centered inside + star row
+// Visual: SVG donut/arc chart with stat centered inside
 // Color: Teal / Accent
 // =================================================================
 export function StatScreen87({ step, onNext, onBack }: StatScreenProps) {
@@ -340,23 +340,6 @@ export function StatScreen87({ step, onNext, onBack }: StatScreenProps) {
               percent
             </Text>
           </View>
-        </View>
-
-        {/* Star rating row */}
-        <View style={{ flexDirection: 'row', gap: 3 }}>
-          {[1, 2, 3, 4, 5].map((i) => (
-            <Ionicons key={i} name="star" size={18} color="#FBBF24" />
-          ))}
-          <Text
-            style={{
-              fontFamily: Fonts.medium,
-              fontSize: 13,
-              color: Colors.textTertiary,
-              marginLeft: Spacing.xs,
-            }}
-          >
-            4.9 avg rating
-          </Text>
         </View>
 
         <Text
