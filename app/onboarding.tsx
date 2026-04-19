@@ -1082,12 +1082,12 @@ export default function OnboardingScreen() {
   if (step === 23) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
-        {/* Fixed header — icon, title, subtitle */}
+        {/* Fixed header — title with inline icon, subtitle */}
         <View style={{ alignItems: 'center', gap: Spacing.md, paddingVertical: Spacing.xxl, paddingHorizontal: Spacing.xxl }}>
-          <View style={{ width: 72, height: 72, borderRadius: 20, backgroundColor: Colors.primary, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous', boxShadow: '0px 6px 24px rgba(26, 111, 212, 0.3)' }}>
-            <Ionicons name="diamond-outline" size={36} color="#fff" />
-          </View>
-          <Text style={{ fontFamily: Fonts.bold, fontSize: 26, color: Colors.text, textAlign: 'center' }}>Unlock Slimsy Pro</Text>
+          <Text style={{ fontFamily: Fonts.bold, fontSize: 26, color: Colors.text, textAlign: 'center' }}>
+            <Ionicons name="diamond" size={28} color={Colors.primary} />
+            {'  Unlock Slimsy Pro'}
+          </Text>
           <Text style={{ fontFamily: Fonts.regular, fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 }}>
             Get the full experience with unlimited tracking, AI food analysis, and personalized insights
           </Text>

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": 1776619126857,
+  "generatedAt": 1776619401054,
   "entries": {
     "DashboardScreen@app/(tabs)/dashboard.tsx:65": {
       "element": {
@@ -12404,70 +12404,14 @@
           "origin": "inline",
           "file": "app/onboarding.tsx",
           "properties": {
-            "width": {
-              "line": 1087,
-              "col": 32,
-              "endCol": 34,
-              "raw": "72"
-            },
-            "height": {
-              "line": 1087,
-              "col": 44,
-              "endCol": 46,
-              "raw": "72"
-            },
-            "borderRadius": {
-              "line": 1087,
-              "col": 62,
-              "endCol": 64,
-              "raw": "20"
-            },
-            "justifyContent": {
-              "line": 1087,
-              "col": 115,
-              "endCol": 123,
-              "raw": "'center'"
-            },
-            "alignItems": {
-              "line": 1087,
-              "col": 137,
-              "endCol": 145,
-              "raw": "'center'"
-            },
-            "borderCurve": {
-              "line": 1087,
-              "col": 160,
-              "endCol": 172,
-              "raw": "'continuous'"
-            },
-            "boxShadow": {
-              "line": 1087,
-              "col": 185,
-              "endCol": 223,
-              "raw": "'0px 6px 24px rgba(26, 111, 212, 0.3)'"
-            }
-          }
-        }
-      ]
-    },
-    "OnboardingScreen@app/onboarding.tsx:1090": {
-      "element": {
-        "file": "app/onboarding.tsx",
-        "line": 1090
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/onboarding.tsx",
-          "properties": {
             "fontSize": {
-              "line": 1090,
+              "line": 1087,
               "col": 59,
               "endCol": 61,
               "raw": "26"
             },
             "textAlign": {
-              "line": 1090,
+              "line": 1087,
               "col": 94,
               "endCol": 102,
               "raw": "'center'"
