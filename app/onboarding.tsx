@@ -1082,31 +1082,42 @@ export default function OnboardingScreen() {
   if (step === 23) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
-        <ScrollView contentContainerStyle={{ padding: Spacing.xxl, paddingBottom: insets.bottom + 100 }} showsVerticalScrollIndicator={false}>
-          <View style={{ alignItems: 'center', gap: Spacing.md, paddingVertical: Spacing.xxl }}>
-            <Text style={{ fontFamily: Fonts.bold, fontSize: 26, color: Colors.text, textAlign: 'center' }}>Unlock Slimsy Pro</Text>
-            <Text style={{ fontFamily: Fonts.regular, fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 }}>
-              Get the full experience with unlimited tracking, AI food analysis, and personalized insights
-            </Text>
+        {/* Fixed header — icon, title, subtitle */}
+        <View style={{ alignItems: 'center', gap: Spacing.md, paddingVertical: Spacing.xxl, paddingHorizontal: Spacing.xxl }}>
+          <View style={{ width: 72, height: 72, borderRadius: 20, backgroundColor: Colors.primary, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous', boxShadow: '0px 6px 24px rgba(26, 111, 212, 0.3)' }}>
+            <Ionicons name="diamond-outline" size={36} color="#fff" />
           </View>
+          <Text style={{ fontFamily: Fonts.bold, fontSize: 26, color: Colors.text, textAlign: 'center' }}>Unlock Slimsy Pro</Text>
+          <Text style={{ fontFamily: Fonts.regular, fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 }}>
+            Get the full experience with unlimited tracking, AI food analysis, and personalized insights
+          </Text>
+        </View>
 
-          <View style={{ gap: Spacing.md, paddingBottom: Spacing.xxl }}>
-            {[
-              { icon: 'camera-outline', text: 'AI Food Photo Analysis' },
-              { icon: 'analytics-outline', text: 'Advanced Weight Charts' },
-              { icon: 'notifications-outline', text: 'Smart Dose Reminders' },
-              { icon: 'body-outline', text: 'Injection Site Tracker' },
-              { icon: 'pulse-outline', text: 'GLP-1 Level Estimator' },
-            ].map((f) => (
-              <View key={f.text} style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
-                <View style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: Colors.primaryLight, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous' }}>
-                  <Ionicons name={f.icon as keyof typeof Ionicons.glyphMap} size={20} color={Colors.primary} />
-                </View>
-                <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text }}>{f.text}</Text>
+        {/* Scrollable features list — fills available space between header and pinned bottom */}
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingHorizontal: Spacing.xxl, gap: Spacing.md, paddingBottom: Spacing.md }}
+          showsVerticalScrollIndicator={false}
+        >
+          {[
+            { icon: 'camera-outline', text: 'AI Food Photo Analysis' },
+            { icon: 'analytics-outline', text: 'Advanced Weight Charts' },
+            { icon: 'notifications-outline', text: 'Smart Dose Reminders' },
+            { icon: 'body-outline', text: 'Injection Site Tracker' },
+            { icon: 'pulse-outline', text: 'GLP-1 Level Estimator' },
+          ].map((f) => (
+            <View key={f.text} style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
+              <View style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: Colors.primaryLight, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous' }}>
+                <Ionicons name={f.icon as keyof typeof Ionicons.glyphMap} size={20} color={Colors.primary} />
               </View>
-            ))}
-          </View>
+              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text }}>{f.text}</Text>
+            </View>
+          ))}
+        </ScrollView>
 
+        {/* Pinned bottom — plans, CTA, disclaimers (always visible) */}
+        <View style={{ paddingHorizontal: Spacing.xxl, paddingTop: Spacing.lg, paddingBottom: Math.max(insets.bottom, Spacing.md) + Spacing.sm, backgroundColor: Colors.background }}>
+          {/* Plan selection */}
           <View style={{ gap: Spacing.md }}>
             <Pressable onPress={() => setSelectedPlan('yearly')}>
               <Card elevated={selectedPlan === 'yearly'} style={{ borderWidth: 2, borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border, gap: Spacing.sm }}>
@@ -1153,32 +1164,36 @@ export default function OnboardingScreen() {
             </Pressable>
           </View>
 
-          <View style={{ paddingTop: Spacing.xxl }}>
+          {/* CTA */}
+          <View style={{ paddingTop: Spacing.lg }}>
             <PrimaryButton title="Start Free Trial" onPress={handleComplete} />
           </View>
 
-          <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.lg, lineHeight: 16 }}>
+          {/* Disclaimers */}
+          <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.md, lineHeight: 16 }}>
             {"Cancel anytime. You won't be charged during the free trial."}
           </Text>
           <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.sm, lineHeight: 16 }}>
             Subscription automatically renews unless canceled at least 24 hours before the end of the current period.
           </Text>
 
-          <Pressable onPress={handleRestorePurchases} disabled={isRestoring} hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }} style={{ paddingVertical: Spacing.md, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: Spacing.sm }}>
+          {/* Restore purchases */}
+          <Pressable onPress={handleRestorePurchases} disabled={isRestoring} hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }} style={{ paddingVertical: Spacing.sm, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: Spacing.sm }}>
             {isRestoring ? <ActivityIndicator size="small" color={Colors.textTertiary} /> : <Ionicons name="refresh-outline" size={14} color={Colors.textTertiary} />}
             <Text style={{ fontFamily: Fonts.medium, fontSize: 13, color: Colors.textTertiary }}>{isRestoring ? 'Restoring...' : 'Restore Purchases'}</Text>
           </Pressable>
 
+          {/* Terms & Privacy */}
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: Spacing.lg }}>
-            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/terms')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.sm }}>
+            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/terms')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.xs }}>
               <Text style={{ fontFamily: Fonts.medium, fontSize: 12, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Terms of Service</Text>
             </Pressable>
             <Text style={{ fontSize: 12, color: Colors.borderLight }}>|</Text>
-            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/privacy')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.sm }}>
+            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/privacy')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.xs }}>
               <Text style={{ fontFamily: Fonts.medium, fontSize: 12, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Privacy Policy</Text>
             </Pressable>
           </View>
-        </ScrollView>
+        </View>
       </View>
     );
   }
