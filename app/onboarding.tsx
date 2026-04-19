@@ -755,29 +755,110 @@ export default function OnboardingScreen() {
     );
   }
 
-  // Step 19: Social proof
+  // Step 19: Motivational statistics
   if (step === 19) {
+    const stats: {
+      stat: string;
+      headline: string;
+      description: string;
+      icon: keyof typeof Ionicons.glyphMap;
+      accentColor: string;
+      accentBg: string;
+    }[] = [
+      {
+        stat: '2x',
+        headline: 'more likely to reach your goal',
+        description: 'People who use a dedicated tracker are twice as likely to hit their target weight.',
+        icon: 'trending-up-outline',
+        accentColor: Colors.primary,
+        accentBg: Colors.primaryLight,
+      },
+      {
+        stat: '3x',
+        headline: 'more weight lost with consistency',
+        description: 'Users who track their doses consistently lose significantly more weight over time.',
+        icon: 'calendar-outline',
+        accentColor: Colors.accent,
+        accentBg: Colors.accentLight,
+      },
+      {
+        stat: '68%',
+        headline: 'fewer side effects reported',
+        description: 'Tracking patterns early helps identify and manage side effects before they escalate.',
+        icon: 'shield-checkmark-outline',
+        accentColor: '#8B5CF6',
+        accentBg: '#F3EEFF',
+      },
+      {
+        stat: '2x',
+        headline: 'more likely to hit protein goals',
+        description: 'Daily food logging keeps you accountable and on track with your nutrition targets.',
+        icon: 'nutrition-outline',
+        accentColor: Colors.warning,
+        accentBg: Colors.warningLight,
+      },
+    ];
+
     return (
-      <OnboardingLayout step={19} totalSteps={TOTAL_STEPS} title="You're not alone" showProgress={false} onNext={handleNext} onBack={handleBack} nextLabel="Continue">
-        <View style={{ gap: Spacing.xxl, alignItems: 'center', paddingTop: Spacing.xl }}>
-          <Text style={{ fontFamily: Fonts.bold, fontSize: 42, color: Colors.primary, textAlign: 'center' }}>50,000+</Text>
-          <Text style={{ fontFamily: Fonts.medium, fontSize: 17, color: Colors.textSecondary, textAlign: 'center', lineHeight: 24 }}>
-            people tracking their{'\n'}GLP-1 journey with Slimsy
+      <OnboardingLayout step={19} totalSteps={TOTAL_STEPS} title="Tracking changes everything" showProgress={false} onNext={handleNext} onBack={handleBack} nextLabel="Continue">
+        <View style={{ gap: Spacing.lg, paddingTop: Spacing.sm }}>
+          <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 }}>
+            The data is clear — people who track their GLP-1 journey see better results.
           </Text>
-          <View style={{ gap: Spacing.lg, width: '100%', paddingTop: Spacing.lg }}>
-            {[
-              { name: 'Sarah M.', text: "Down 35 lbs in 4 months. Slimsy helped me stay consistent.", rating: 5 },
-              { name: 'Mike R.', text: 'The injection tracker is a game-changer. Never miss a dose.', rating: 5 },
-              { name: 'Jessica L.', text: 'Love the food tracking with AI. So easy to log meals!', rating: 5 },
-            ].map((review) => (
-              <Card key={review.name} style={{ gap: Spacing.sm }}>
-                <View style={{ flexDirection: 'row', gap: 2 }}>
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <Ionicons key={i} name="star" size={14} color={Colors.warning} />
-                  ))}
+          <View style={{ gap: Spacing.md, paddingTop: Spacing.sm }}>
+            {stats.map((item) => (
+              <Card key={item.headline} style={{ gap: 0, padding: 0, overflow: 'hidden' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.lg, padding: Spacing.lg }}>
+                  <View
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: 16,
+                      backgroundColor: item.accentBg,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderCurve: 'continuous',
+                    }}
+                  >
+                    <Ionicons name={item.icon} size={24} color={item.accentColor} />
+                  </View>
+                  <View style={{ flex: 1, gap: Spacing.xs }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: Spacing.sm, flexWrap: 'wrap' }}>
+                      <Text
+                        style={{
+                          fontFamily: Fonts.bold,
+                          fontSize: 28,
+                          color: item.accentColor,
+                          lineHeight: 32,
+                          fontVariant: ['tabular-nums'],
+                        }}
+                      >
+                        {item.stat}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: Fonts.semiBold,
+                          fontSize: 14,
+                          color: Colors.text,
+                          flex: 1,
+                          lineHeight: 19,
+                        }}
+                      >
+                        {item.headline}
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        fontFamily: Fonts.regular,
+                        fontSize: 13,
+                        color: Colors.textSecondary,
+                        lineHeight: 18,
+                      }}
+                    >
+                      {item.description}
+                    </Text>
+                  </View>
                 </View>
-                <Text style={{ fontFamily: Fonts.regular, fontSize: 14, color: Colors.text, lineHeight: 20 }}>{`"${review.text}"`}</Text>
-                <Text style={{ fontFamily: Fonts.medium, fontSize: 13, color: Colors.textTertiary }}>{review.name}</Text>
               </Card>
             ))}
           </View>
