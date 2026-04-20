@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": 1776705781645,
+  "generatedAt": 1776705993222,
   "entries": {
     "EditWeightGoalsScreen@app/edit-weight-goals.tsx:90": {
       "element": {
@@ -13492,340 +13492,6 @@
         }
       ]
     },
-    "StepWelcome@components/onboarding/step-welcome.tsx:19": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 19
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "flex": {
-              "line": 21,
-              "col": 14,
-              "endCol": 15,
-              "raw": "1"
-            },
-            "justifyContent": {
-              "line": 23,
-              "col": 24,
-              "endCol": 32,
-              "raw": "'center'"
-            },
-            "alignItems": {
-              "line": 24,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:30": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 30
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "flex": {
-              "line": 30,
-              "col": 27,
-              "endCol": 28,
-              "raw": "1"
-            },
-            "justifyContent": {
-              "line": 30,
-              "col": 46,
-              "endCol": 54,
-              "raw": "'center'"
-            },
-            "alignItems": {
-              "line": 30,
-              "col": 68,
-              "endCol": 76,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:32": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 32
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "width": {
-              "line": 34,
-              "col": 19,
-              "endCol": 22,
-              "raw": "110"
-            },
-            "height": {
-              "line": 35,
-              "col": 20,
-              "endCol": 23,
-              "raw": "110"
-            },
-            "borderRadius": {
-              "line": 36,
-              "col": 26,
-              "endCol": 28,
-              "raw": "30"
-            },
-            "borderCurve": {
-              "line": 37,
-              "col": 25,
-              "endCol": 37,
-              "raw": "'continuous'"
-            },
-            "overflow": {
-              "line": 38,
-              "col": 22,
-              "endCol": 30,
-              "raw": "'hidden'"
-            },
-            "boxShadow": {
-              "line": 39,
-              "col": 23,
-              "endCol": 62,
-              "raw": "'0px 8px 32px rgba(26, 111, 212, 0.35)'"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:42": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 42
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "width": {
-              "line": 44,
-              "col": 28,
-              "endCol": 31,
-              "raw": "110"
-            },
-            "height": {
-              "line": 44,
-              "col": 41,
-              "endCol": 44,
-              "raw": "110"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:49": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 49
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "alignItems": {
-              "line": 49,
-              "col": 35,
-              "endCol": 43,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:50": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 50
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 53,
-              "col": 24,
-              "endCol": 26,
-              "raw": "38"
-            },
-            "letterSpacing": {
-              "line": 55,
-              "col": 29,
-              "endCol": 31,
-              "raw": "-1"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:60": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 60
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 63,
-              "col": 24,
-              "endCol": 26,
-              "raw": "17"
-            },
-            "textAlign": {
-              "line": 65,
-              "col": 25,
-              "endCol": 33,
-              "raw": "'center'"
-            },
-            "lineHeight": {
-              "line": 66,
-              "col": 26,
-              "endCol": 28,
-              "raw": "24"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:80": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 80
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "flexDirection": {
-              "line": 80,
-              "col": 58,
-              "endCol": 63,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 80,
-              "col": 77,
-              "endCol": 85,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:81": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 81
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "width": {
-              "line": 83,
-              "col": 25,
-              "endCol": 27,
-              "raw": "40"
-            },
-            "height": {
-              "line": 84,
-              "col": 26,
-              "endCol": 28,
-              "raw": "40"
-            },
-            "borderRadius": {
-              "line": 85,
-              "col": 32,
-              "endCol": 34,
-              "raw": "12"
-            },
-            "justifyContent": {
-              "line": 87,
-              "col": 34,
-              "endCol": 42,
-              "raw": "'center'"
-            },
-            "alignItems": {
-              "line": 88,
-              "col": 30,
-              "endCol": 38,
-              "raw": "'center'"
-            },
-            "borderCurve": {
-              "line": 89,
-              "col": 31,
-              "endCol": 43,
-              "raw": "'continuous'"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:94": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 94
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 94,
-              "col": 65,
-              "endCol": 67,
-              "raw": "15"
-            }
-          }
-        }
-      ]
-    },
-    "StepWelcome@components/onboarding/step-welcome.tsx:102": {
-      "element": {
-        "file": "components/onboarding/step-welcome.tsx",
-        "line": 102
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/step-welcome.tsx",
-          "properties": {
-            "width": {
-              "line": 102,
-              "col": 28,
-              "endCol": 34,
-              "raw": "'100%'"
-            }
-          }
-        }
-      ]
-    },
     "NumericInput@components/ui/numeric-input.tsx:29": {
       "element": {
         "file": "components/ui/numeric-input.tsx",
@@ -15315,6 +14981,340 @@
               "col": 24,
               "endCol": 26,
               "raw": "24"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:19": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 19
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "flex": {
+              "line": 21,
+              "col": 14,
+              "endCol": 15,
+              "raw": "1"
+            },
+            "justifyContent": {
+              "line": 23,
+              "col": 24,
+              "endCol": 32,
+              "raw": "'center'"
+            },
+            "alignItems": {
+              "line": 24,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:30": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 30
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "flex": {
+              "line": 30,
+              "col": 27,
+              "endCol": 28,
+              "raw": "1"
+            },
+            "justifyContent": {
+              "line": 30,
+              "col": 46,
+              "endCol": 54,
+              "raw": "'center'"
+            },
+            "alignItems": {
+              "line": 30,
+              "col": 68,
+              "endCol": 76,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:32": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 32
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "width": {
+              "line": 34,
+              "col": 19,
+              "endCol": 22,
+              "raw": "110"
+            },
+            "height": {
+              "line": 35,
+              "col": 20,
+              "endCol": 23,
+              "raw": "110"
+            },
+            "borderRadius": {
+              "line": 36,
+              "col": 26,
+              "endCol": 28,
+              "raw": "30"
+            },
+            "borderCurve": {
+              "line": 37,
+              "col": 25,
+              "endCol": 37,
+              "raw": "'continuous'"
+            },
+            "overflow": {
+              "line": 38,
+              "col": 22,
+              "endCol": 30,
+              "raw": "'hidden'"
+            },
+            "boxShadow": {
+              "line": 39,
+              "col": 23,
+              "endCol": 62,
+              "raw": "'0px 8px 32px rgba(26, 111, 212, 0.35)'"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:42": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 42
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "width": {
+              "line": 44,
+              "col": 28,
+              "endCol": 31,
+              "raw": "110"
+            },
+            "height": {
+              "line": 44,
+              "col": 41,
+              "endCol": 44,
+              "raw": "110"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:49": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 49
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "alignItems": {
+              "line": 49,
+              "col": 35,
+              "endCol": 43,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:50": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 50
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 53,
+              "col": 24,
+              "endCol": 26,
+              "raw": "38"
+            },
+            "letterSpacing": {
+              "line": 55,
+              "col": 29,
+              "endCol": 31,
+              "raw": "-1"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:60": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 60
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 63,
+              "col": 24,
+              "endCol": 26,
+              "raw": "17"
+            },
+            "textAlign": {
+              "line": 65,
+              "col": 25,
+              "endCol": 33,
+              "raw": "'center'"
+            },
+            "lineHeight": {
+              "line": 66,
+              "col": 26,
+              "endCol": 28,
+              "raw": "24"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:80": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 80
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "flexDirection": {
+              "line": 80,
+              "col": 58,
+              "endCol": 63,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 80,
+              "col": 77,
+              "endCol": 85,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:81": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 81
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "width": {
+              "line": 83,
+              "col": 25,
+              "endCol": 27,
+              "raw": "40"
+            },
+            "height": {
+              "line": 84,
+              "col": 26,
+              "endCol": 28,
+              "raw": "40"
+            },
+            "borderRadius": {
+              "line": 85,
+              "col": 32,
+              "endCol": 34,
+              "raw": "12"
+            },
+            "justifyContent": {
+              "line": 87,
+              "col": 34,
+              "endCol": 42,
+              "raw": "'center'"
+            },
+            "alignItems": {
+              "line": 88,
+              "col": 30,
+              "endCol": 38,
+              "raw": "'center'"
+            },
+            "borderCurve": {
+              "line": 89,
+              "col": 31,
+              "endCol": 43,
+              "raw": "'continuous'"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:94": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 94
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 94,
+              "col": 65,
+              "endCol": 67,
+              "raw": "15"
+            }
+          }
+        }
+      ]
+    },
+    "StepWelcome@components/onboarding/step-welcome.tsx:102": {
+      "element": {
+        "file": "components/onboarding/step-welcome.tsx",
+        "line": 102
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/step-welcome.tsx",
+          "properties": {
+            "width": {
+              "line": 102,
+              "col": 28,
+              "endCol": 34,
+              "raw": "'100%'"
             }
           }
         }

@@ -40,7 +40,7 @@ export function StepWelcome({ onNext }: StepWelcomeProps) {
           }}
         >
           <Image
-            source={require('@/assets/images/slimsy_logo.png')}
+            source={require('../../assets/images/lose.png')}
             style={{ width: 110, height: 110 }}
             contentFit="cover"
           />
