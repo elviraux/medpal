@@ -12,7 +12,7 @@ const TOTAL_STEPS = 28;
 
 // Static image requires — loaded at bundle time so images render instantly
 // with zero network delay or decode flash.
-const IMG_PROGRESS = require('@/assets/onboarding_progress.png');
+const IMG_PROGRESS = require('../../assets/images/Untitleddesign18.png');
 const IMG_FITNESS = require('../../assets/images/Untitleddesign18.png');
 const IMG_LADDER = require('../../assets/images/Untitleddesign17.png');
 
