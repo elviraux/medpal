@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": 1776703693301,
+  "generatedAt": 1776705484128,
   "entries": {
     "Index@app/index.tsx:23": {
       "element": {
@@ -13770,36 +13770,36 @@
         }
       ]
     },
-    "IconCircle@components/onboarding/stat-screens.tsx:30": {
+    "HeroImage@components/onboarding/stat-screens.tsx:23": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 30
+        "line": 23
       },
       "styles": [
         {
           "origin": "inline",
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
-            "alignItems": {
-              "line": 36,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
+            "height": {
+              "line": 25,
+              "col": 23,
+              "endCol": 26,
+              "raw": "200"
             },
-            "justifyContent": {
-              "line": 37,
-              "col": 24,
-              "endCol": 32,
-              "raw": "'center'"
+            "width": {
+              "line": 25,
+              "col": 35,
+              "endCol": 38,
+              "raw": "260"
             }
           }
         }
       ]
     },
-    "StatShell@components/onboarding/stat-screens.tsx:73": {
+    "StatShell@components/onboarding/stat-screens.tsx:47": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 73
+        "line": 47
       },
       "styles": [
         {
@@ -13807,7 +13807,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flex": {
-              "line": 73,
+              "line": 47,
               "col": 25,
               "endCol": 26,
               "raw": "1"
@@ -13816,10 +13816,10 @@
         }
       ]
     },
-    "StatShell@components/onboarding/stat-screens.tsx:75": {
+    "StatShell@components/onboarding/stat-screens.tsx:49": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 75
+        "line": 49
       },
       "styles": [
         {
@@ -13827,13 +13827,13 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flexDirection": {
-              "line": 77,
+              "line": 51,
               "col": 25,
               "endCol": 30,
               "raw": "'row'"
             },
             "alignItems": {
-              "line": 78,
+              "line": 52,
               "col": 22,
               "endCol": 30,
               "raw": "'center'"
@@ -13842,10 +13842,10 @@
         }
       ]
     },
-    "StatShell@components/onboarding/stat-screens.tsx:84": {
+    "StatShell@components/onboarding/stat-screens.tsx:58": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 84
+        "line": 58
       },
       "styles": [
         {
@@ -13853,7 +13853,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 88,
+              "line": 62,
               "col": 22,
               "endCol": 24,
               "raw": "16"
@@ -13862,10 +13862,10 @@
         }
       ]
     },
-    "StatShell@components/onboarding/stat-screens.tsx:95": {
+    "StatShell@components/onboarding/stat-screens.tsx:69": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 95
+        "line": 69
       },
       "styles": [
         {
@@ -13873,25 +13873,25 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flex": {
-              "line": 97,
+              "line": 71,
               "col": 18,
               "endCol": 19,
               "raw": "1"
             },
             "height": {
-              "line": 98,
+              "line": 72,
               "col": 20,
               "endCol": 21,
               "raw": "4"
             },
             "borderRadius": {
-              "line": 100,
+              "line": 74,
               "col": 26,
               "endCol": 27,
               "raw": "2"
             },
             "overflow": {
-              "line": 101,
+              "line": 75,
               "col": 22,
               "endCol": 30,
               "raw": "'hidden'"
@@ -13900,10 +13900,10 @@
         }
       ]
     },
-    "StatShell@components/onboarding/stat-screens.tsx:104": {
+    "StatShell@components/onboarding/stat-screens.tsx:78": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 104
+        "line": 78
       },
       "styles": [
         {
@@ -13911,13 +13911,13 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "height": {
-              "line": 107,
+              "line": 81,
               "col": 22,
               "endCol": 28,
               "raw": "'100%'"
             },
             "borderRadius": {
-              "line": 109,
+              "line": 83,
               "col": 28,
               "endCol": 29,
               "raw": "2"
@@ -13926,10 +13926,10 @@
         }
       ]
     },
-    "StatShell@components/onboarding/stat-screens.tsx:113": {
+    "StatShell@components/onboarding/stat-screens.tsx:87": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 113
+        "line": 87
       },
       "styles": [
         {
@@ -13937,7 +13937,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 116,
+              "line": 90,
               "col": 22,
               "endCol": 24,
               "raw": "13"
@@ -13946,10 +13946,10 @@
         }
       ]
     },
-    "StatShell@components/onboarding/stat-screens.tsx:126": {
+    "StatShell@components/onboarding/stat-screens.tsx:100": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 126
+        "line": 100
       },
       "styles": [
         {
@@ -13957,25 +13957,25 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flex": {
-              "line": 128,
+              "line": 102,
               "col": 16,
               "endCol": 17,
               "raw": "1"
             },
             "alignItems": {
-              "line": 129,
+              "line": 103,
               "col": 22,
               "endCol": 30,
               "raw": "'center'"
             },
             "justifyContent": {
-              "line": 130,
+              "line": 104,
               "col": 26,
               "endCol": 34,
               "raw": "'center'"
             },
             "overflow": {
-              "line": 132,
+              "line": 106,
               "col": 20,
               "endCol": 28,
               "raw": "'hidden'"
@@ -13984,10 +13984,10 @@
         }
       ]
     },
-    "StatScreen3x@components/onboarding/stat-screens.tsx:161": {
+    "StatScreen3x@components/onboarding/stat-screens.tsx:134": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 161
+        "line": 134
       },
       "styles": [
         {
@@ -13995,7 +13995,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "alignItems": {
-              "line": 161,
+              "line": 134,
               "col": 33,
               "endCol": 41,
               "raw": "'center'"
@@ -14004,10 +14004,10 @@
         }
       ]
     },
-    "StatScreen3x@components/onboarding/stat-screens.tsx:173": {
+    "StatScreen3x@components/onboarding/stat-screens.tsx:138": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 173
+        "line": 138
       },
       "styles": [
         {
@@ -14015,16 +14015,100 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flexDirection": {
-              "line": 173,
+              "line": 138,
               "col": 38,
               "endCol": 43,
               "raw": "'row'"
             },
             "alignItems": {
-              "line": 173,
+              "line": 138,
               "col": 57,
               "endCol": 67,
               "raw": "'baseline'"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen3x@components/onboarding/stat-screens.tsx:139": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 139
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 142,
+              "col": 24,
+              "endCol": 26,
+              "raw": "88"
+            },
+            "lineHeight": {
+              "line": 144,
+              "col": 26,
+              "endCol": 28,
+              "raw": "96"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen3x@components/onboarding/stat-screens.tsx:150": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 150
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 153,
+              "col": 24,
+              "endCol": 26,
+              "raw": "52"
+            },
+            "lineHeight": {
+              "line": 155,
+              "col": 26,
+              "endCol": 28,
+              "raw": "60"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen3x@components/onboarding/stat-screens.tsx:162": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 162
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 165,
+              "col": 22,
+              "endCol": 24,
+              "raw": "24"
+            },
+            "textAlign": {
+              "line": 167,
+              "col": 23,
+              "endCol": 31,
+              "raw": "'center'"
+            },
+            "lineHeight": {
+              "line": 168,
+              "col": 24,
+              "endCol": 26,
+              "raw": "32"
             }
           }
         }
@@ -14042,102 +14126,18 @@
           "properties": {
             "fontSize": {
               "line": 177,
-              "col": 24,
-              "endCol": 26,
-              "raw": "88"
-            },
-            "lineHeight": {
-              "line": 179,
-              "col": 26,
-              "endCol": 28,
-              "raw": "96"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen3x@components/onboarding/stat-screens.tsx:185": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 185
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 188,
-              "col": 24,
-              "endCol": 26,
-              "raw": "52"
-            },
-            "lineHeight": {
-              "line": 190,
-              "col": 26,
-              "endCol": 28,
-              "raw": "60"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen3x@components/onboarding/stat-screens.tsx:197": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 197
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 200,
-              "col": 22,
-              "endCol": 24,
-              "raw": "24"
-            },
-            "textAlign": {
-              "line": 202,
-              "col": 23,
-              "endCol": 31,
-              "raw": "'center'"
-            },
-            "lineHeight": {
-              "line": 203,
-              "col": 24,
-              "endCol": 26,
-              "raw": "32"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen3x@components/onboarding/stat-screens.tsx:209": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 209
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 212,
               "col": 22,
               "endCol": 24,
               "raw": "16"
             },
             "textAlign": {
-              "line": 214,
+              "line": 179,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 215,
+              "line": 180,
               "col": 24,
               "endCol": 26,
               "raw": "24"
@@ -14146,10 +14146,10 @@
         }
       ]
     },
-    "StatScreen87@components/onboarding/stat-screens.tsx:235": {
+    "StatScreen87@components/onboarding/stat-screens.tsx:199": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 235
+        "line": 199
       },
       "styles": [
         {
@@ -14157,7 +14157,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "alignItems": {
-              "line": 235,
+              "line": 199,
               "col": 33,
               "endCol": 41,
               "raw": "'center'"
@@ -14166,10 +14166,10 @@
         }
       ]
     },
-    "StatScreen87@components/onboarding/stat-screens.tsx:247": {
+    "StatScreen87@components/onboarding/stat-screens.tsx:203": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 247
+        "line": 203
       },
       "styles": [
         {
@@ -14177,13 +14177,13 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flexDirection": {
-              "line": 247,
+              "line": 203,
               "col": 38,
               "endCol": 43,
               "raw": "'row'"
             },
             "alignItems": {
-              "line": 247,
+              "line": 203,
               "col": 57,
               "endCol": 67,
               "raw": "'baseline'"
@@ -14192,10 +14192,10 @@
         }
       ]
     },
-    "StatScreen87@components/onboarding/stat-screens.tsx:248": {
+    "StatScreen87@components/onboarding/stat-screens.tsx:204": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 248
+        "line": 204
       },
       "styles": [
         {
@@ -14203,13 +14203,13 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 251,
+              "line": 207,
               "col": 24,
               "endCol": 26,
               "raw": "72"
             },
             "lineHeight": {
-              "line": 253,
+              "line": 209,
               "col": 26,
               "endCol": 28,
               "raw": "80"
@@ -14218,10 +14218,10 @@
         }
       ]
     },
-    "StatScreen87@components/onboarding/stat-screens.tsx:259": {
+    "StatScreen87@components/onboarding/stat-screens.tsx:215": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 259
+        "line": 215
       },
       "styles": [
         {
@@ -14229,7 +14229,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 262,
+              "line": 218,
               "col": 24,
               "endCol": 26,
               "raw": "36"
@@ -14238,10 +14238,10 @@
         }
       ]
     },
-    "StatScreen87@components/onboarding/stat-screens.tsx:270": {
+    "StatScreen87@components/onboarding/stat-screens.tsx:226": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 270
+        "line": 226
       },
       "styles": [
         {
@@ -14249,19 +14249,19 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 273,
+              "line": 229,
               "col": 22,
               "endCol": 24,
               "raw": "24"
             },
             "textAlign": {
-              "line": 275,
+              "line": 231,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 276,
+              "line": 232,
               "col": 24,
               "endCol": 26,
               "raw": "32"
@@ -14270,10 +14270,10 @@
         }
       ]
     },
-    "StatScreen87@components/onboarding/stat-screens.tsx:282": {
+    "StatScreen87@components/onboarding/stat-screens.tsx:238": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 282
+        "line": 238
       },
       "styles": [
         {
@@ -14281,19 +14281,19 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 285,
+              "line": 241,
               "col": 22,
               "endCol": 24,
               "raw": "16"
             },
             "textAlign": {
-              "line": 287,
+              "line": 243,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 288,
+              "line": 244,
               "col": 24,
               "endCol": 26,
               "raw": "24"
@@ -14302,10 +14302,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:312": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:267": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 312
+        "line": 267
       },
       "styles": [
         {
@@ -14313,7 +14313,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "alignItems": {
-              "line": 312,
+              "line": 267,
               "col": 33,
               "endCol": 41,
               "raw": "'center'"
@@ -14322,10 +14322,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:324": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:271": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 324
+        "line": 271
       },
       "styles": [
         {
@@ -14333,7 +14333,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "alignItems": {
-              "line": 324,
+              "line": 271,
               "col": 35,
               "endCol": 43,
               "raw": "'center'"
@@ -14342,10 +14342,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:325": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:272": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 325
+        "line": 272
       },
       "styles": [
         {
@@ -14353,19 +14353,19 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flexDirection": {
-              "line": 325,
+              "line": 272,
               "col": 40,
               "endCol": 45,
               "raw": "'row'"
             },
             "alignItems": {
-              "line": 325,
+              "line": 272,
               "col": 59,
               "endCol": 69,
               "raw": "'baseline'"
             },
             "gap": {
-              "line": 325,
+              "line": 272,
               "col": 76,
               "endCol": 77,
               "raw": "4"
@@ -14374,10 +14374,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:326": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:273": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 326
+        "line": 273
       },
       "styles": [
         {
@@ -14385,13 +14385,13 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 329,
+              "line": 276,
               "col": 26,
               "endCol": 28,
               "raw": "72"
             },
             "lineHeight": {
-              "line": 331,
+              "line": 278,
               "col": 28,
               "endCol": 30,
               "raw": "80"
@@ -14400,10 +14400,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:337": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:284": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 337
+        "line": 284
       },
       "styles": [
         {
@@ -14411,7 +14411,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 340,
+              "line": 287,
               "col": 26,
               "endCol": 28,
               "raw": "28"
@@ -14420,10 +14420,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:348": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:295": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 348
+        "line": 295
       },
       "styles": [
         {
@@ -14431,31 +14431,31 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "backgroundColor": {
-              "line": 350,
+              "line": 297,
               "col": 31,
               "endCol": 40,
               "raw": "'#FEF3C7'"
             },
             "paddingVertical": {
-              "line": 352,
+              "line": 299,
               "col": 31,
               "endCol": 32,
               "raw": "6"
             },
             "borderRadius": {
-              "line": 353,
+              "line": 300,
               "col": 28,
               "endCol": 31,
               "raw": "999"
             },
             "flexDirection": {
-              "line": 354,
+              "line": 301,
               "col": 29,
               "endCol": 34,
               "raw": "'row'"
             },
             "alignItems": {
-              "line": 355,
+              "line": 302,
               "col": 26,
               "endCol": 34,
               "raw": "'center'"
@@ -14464,10 +14464,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:360": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:307": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 360
+        "line": 307
       },
       "styles": [
         {
@@ -14475,7 +14475,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 363,
+              "line": 310,
               "col": 26,
               "endCol": 28,
               "raw": "13"
@@ -14484,10 +14484,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:372": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:319": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 372
+        "line": 319
       },
       "styles": [
         {
@@ -14495,19 +14495,19 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 375,
+              "line": 322,
               "col": 22,
               "endCol": 24,
               "raw": "24"
             },
             "textAlign": {
-              "line": 377,
+              "line": 324,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 378,
+              "line": 325,
               "col": 24,
               "endCol": 26,
               "raw": "32"
@@ -14516,10 +14516,10 @@
         }
       ]
     },
-    "StatScreen18lbs@components/onboarding/stat-screens.tsx:384": {
+    "StatScreen18lbs@components/onboarding/stat-screens.tsx:331": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 384
+        "line": 331
       },
       "styles": [
         {
@@ -14527,19 +14527,19 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 387,
+              "line": 334,
               "col": 22,
               "endCol": 24,
               "raw": "16"
             },
             "textAlign": {
-              "line": 389,
+              "line": 336,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 390,
+              "line": 337,
               "col": 24,
               "endCol": 26,
               "raw": "24"
@@ -14548,10 +14548,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:413": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:359": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 413
+        "line": 359
       },
       "styles": [
         {
@@ -14559,7 +14559,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "alignItems": {
-              "line": 413,
+              "line": 359,
               "col": 33,
               "endCol": 41,
               "raw": "'center'"
@@ -14568,10 +14568,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:425": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:363": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 425
+        "line": 363
       },
       "styles": [
         {
@@ -14579,13 +14579,13 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 428,
+              "line": 366,
               "col": 22,
               "endCol": 24,
               "raw": "72"
             },
             "lineHeight": {
-              "line": 430,
+              "line": 368,
               "col": 24,
               "endCol": 26,
               "raw": "80"
@@ -14594,10 +14594,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:438": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:376": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 438
+        "line": 376
       },
       "styles": [
         {
@@ -14605,7 +14605,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "flexDirection": {
-              "line": 438,
+              "line": 376,
               "col": 38,
               "endCol": 43,
               "raw": "'row'"
@@ -14614,10 +14614,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:439": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:377": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 439
+        "line": 377
       },
       "styles": [
         {
@@ -14625,25 +14625,25 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "paddingVertical": {
-              "line": 443,
+              "line": 381,
               "col": 31,
               "endCol": 32,
               "raw": "5"
             },
             "borderRadius": {
-              "line": 444,
+              "line": 382,
               "col": 28,
               "endCol": 31,
               "raw": "999"
             },
             "flexDirection": {
-              "line": 445,
+              "line": 383,
               "col": 29,
               "endCol": 34,
               "raw": "'row'"
             },
             "alignItems": {
-              "line": 446,
+              "line": 384,
               "col": 26,
               "endCol": 34,
               "raw": "'center'"
@@ -14652,10 +14652,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:451": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:389": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 451
+        "line": 389
       },
       "styles": [
         {
@@ -14663,7 +14663,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 454,
+              "line": 392,
               "col": 26,
               "endCol": 28,
               "raw": "12"
@@ -14672,10 +14672,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:461": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:399": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 461
+        "line": 399
       },
       "styles": [
         {
@@ -14683,25 +14683,25 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "paddingVertical": {
-              "line": 465,
+              "line": 403,
               "col": 31,
               "endCol": 32,
               "raw": "5"
             },
             "borderRadius": {
-              "line": 466,
+              "line": 404,
               "col": 28,
               "endCol": 31,
               "raw": "999"
             },
             "flexDirection": {
-              "line": 467,
+              "line": 405,
               "col": 29,
               "endCol": 34,
               "raw": "'row'"
             },
             "alignItems": {
-              "line": 468,
+              "line": 406,
               "col": 26,
               "endCol": 34,
               "raw": "'center'"
@@ -14710,10 +14710,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:473": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:411": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 473
+        "line": 411
       },
       "styles": [
         {
@@ -14721,7 +14721,7 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 476,
+              "line": 414,
               "col": 26,
               "endCol": 28,
               "raw": "12"
@@ -14730,10 +14730,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:485": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:423": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 485
+        "line": 423
       },
       "styles": [
         {
@@ -14741,19 +14741,19 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 488,
+              "line": 426,
               "col": 22,
               "endCol": 24,
               "raw": "24"
             },
             "textAlign": {
-              "line": 490,
+              "line": 428,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 491,
+              "line": 429,
               "col": 24,
               "endCol": 26,
               "raw": "32"
@@ -14762,10 +14762,10 @@
         }
       ]
     },
-    "StatScreen68@components/onboarding/stat-screens.tsx:497": {
+    "StatScreen68@components/onboarding/stat-screens.tsx:435": {
       "element": {
         "file": "components/onboarding/stat-screens.tsx",
-        "line": 497
+        "line": 435
       },
       "styles": [
         {
@@ -14773,22 +14773,210 @@
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
             "fontSize": {
-              "line": 500,
+              "line": 438,
               "col": 22,
               "endCol": 24,
               "raw": "16"
             },
             "textAlign": {
-              "line": 502,
+              "line": 440,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 503,
+              "line": 441,
               "col": 24,
               "endCol": 26,
               "raw": "24"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen5min@components/onboarding/stat-screens.tsx:465": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 465
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "alignItems": {
+              "line": 465,
+              "col": 33,
+              "endCol": 41,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen5min@components/onboarding/stat-screens.tsx:469": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 469
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "flexDirection": {
+              "line": 469,
+              "col": 38,
+              "endCol": 43,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 469,
+              "col": 57,
+              "endCol": 67,
+              "raw": "'baseline'"
+            },
+            "gap": {
+              "line": 469,
+              "col": 74,
+              "endCol": 75,
+              "raw": "6"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen5min@components/onboarding/stat-screens.tsx:470": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 470
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 473,
+              "col": 24,
+              "endCol": 26,
+              "raw": "72"
+            },
+            "lineHeight": {
+              "line": 475,
+              "col": 26,
+              "endCol": 28,
+              "raw": "80"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen5min@components/onboarding/stat-screens.tsx:481": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 481
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 484,
+              "col": 24,
+              "endCol": 26,
+              "raw": "32"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen5min@components/onboarding/stat-screens.tsx:493": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 493
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "flexDirection": {
+              "line": 495,
+              "col": 27,
+              "endCol": 32,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 496,
+              "col": 24,
+              "endCol": 32,
+              "raw": "'center'"
+            },
+            "paddingVertical": {
+              "line": 500,
+              "col": 29,
+              "endCol": 30,
+              "raw": "6"
+            },
+            "borderRadius": {
+              "line": 501,
+              "col": 26,
+              "endCol": 29,
+              "raw": "999"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen5min@components/onboarding/stat-screens.tsx:505": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 505
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 508,
+              "col": 24,
+              "endCol": 26,
+              "raw": "13"
+            }
+          }
+        }
+      ]
+    },
+    "StatScreen5min@components/onboarding/stat-screens.tsx:516": {
+      "element": {
+        "file": "components/onboarding/stat-screens.tsx",
+        "line": 516
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "components/onboarding/stat-screens.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 519,
+              "col": 22,
+              "endCol": 24,
+              "raw": "24"
+            },
+            "textAlign": {
+              "line": 521,
+              "col": 23,
+              "endCol": 31,
+              "raw": "'center'"
+            },
+            "lineHeight": {
+              "line": 522,
+              "col": 24,
+              "endCol": 26,
+              "raw": "32"
             }
           }
         }
@@ -14804,208 +14992,20 @@
           "origin": "inline",
           "file": "components/onboarding/stat-screens.tsx",
           "properties": {
-            "alignItems": {
-              "line": 528,
-              "col": 33,
-              "endCol": 41,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen5min@components/onboarding/stat-screens.tsx:540": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 540
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "flexDirection": {
-              "line": 540,
-              "col": 38,
-              "endCol": 43,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 540,
-              "col": 57,
-              "endCol": 67,
-              "raw": "'baseline'"
-            },
-            "gap": {
-              "line": 540,
-              "col": 74,
-              "endCol": 75,
-              "raw": "6"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen5min@components/onboarding/stat-screens.tsx:541": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 541
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
             "fontSize": {
-              "line": 544,
-              "col": 24,
-              "endCol": 26,
-              "raw": "72"
-            },
-            "lineHeight": {
-              "line": 546,
-              "col": 26,
-              "endCol": 28,
-              "raw": "80"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen5min@components/onboarding/stat-screens.tsx:552": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 552
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 555,
-              "col": 24,
-              "endCol": 26,
-              "raw": "32"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen5min@components/onboarding/stat-screens.tsx:564": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 564
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "flexDirection": {
-              "line": 566,
-              "col": 27,
-              "endCol": 32,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 567,
-              "col": 24,
-              "endCol": 32,
-              "raw": "'center'"
-            },
-            "paddingVertical": {
-              "line": 571,
-              "col": 29,
-              "endCol": 30,
-              "raw": "6"
-            },
-            "borderRadius": {
-              "line": 572,
-              "col": 26,
-              "endCol": 29,
-              "raw": "999"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen5min@components/onboarding/stat-screens.tsx:576": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 576
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 579,
-              "col": 24,
-              "endCol": 26,
-              "raw": "13"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen5min@components/onboarding/stat-screens.tsx:587": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 587
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 590,
-              "col": 22,
-              "endCol": 24,
-              "raw": "24"
-            },
-            "textAlign": {
-              "line": 592,
-              "col": 23,
-              "endCol": 31,
-              "raw": "'center'"
-            },
-            "lineHeight": {
-              "line": 593,
-              "col": 24,
-              "endCol": 26,
-              "raw": "32"
-            }
-          }
-        }
-      ]
-    },
-    "StatScreen5min@components/onboarding/stat-screens.tsx:599": {
-      "element": {
-        "file": "components/onboarding/stat-screens.tsx",
-        "line": 599
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "components/onboarding/stat-screens.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 602,
+              "line": 531,
               "col": 22,
               "endCol": 24,
               "raw": "16"
             },
             "textAlign": {
-              "line": 604,
+              "line": 533,
               "col": 23,
               "endCol": 31,
               "raw": "'center'"
             },
             "lineHeight": {
-              "line": 605,
+              "line": 534,
               "col": 24,
               "endCol": 26,
               "raw": "24"

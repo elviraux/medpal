@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Fonts } from '@/constants/Typography';
 import { Spacing } from '@/constants/Layout';
@@ -9,49 +10,22 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const TOTAL_STEPS = 28;
 
-// Reusable circular icon badge — renders a vector icon centered in a
-// soft-colored circle. Pure vector, no images, instant render.
-function IconCircle({
-  icon,
-  family = 'ionicons',
-  size = 88,
-  circleSize = 152,
-  iconColor = Colors.primary,
-  bgColor = Colors.primaryLight,
-}: {
-  icon: string;
-  family?: 'ionicons' | 'material-community';
-  size?: number;
-  circleSize?: number;
-  iconColor?: string;
-  bgColor?: string;
-}) {
+// Static image requires — loaded at bundle time so images render instantly
+// with zero network delay or decode flash.
+const IMG_PROGRESS = require('@/assets/onboarding_progress.png');
+const IMG_FITNESS = require('@/assets/onboarding_fitness.png');
+const IMG_LADDER = require('@/assets/onboarding_ladder.png');
+
+// Reusable hero illustration — displays a PNG at a fixed height with
+// auto width (aspect ratio preserved via contentFit="contain").
+function HeroImage({ source }: { source: number }) {
   return (
-    <View
-      style={{
-        width: circleSize,
-        height: circleSize,
-        borderRadius: circleSize / 2,
-        backgroundColor: bgColor,
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: `0 4px 16px ${bgColor}80`,
-      }}
-    >
-      {family === 'material-community' ? (
-        <MaterialCommunityIcons
-          name={icon as keyof typeof MaterialCommunityIcons.glyphMap}
-          size={size}
-          color={iconColor}
-        />
-      ) : (
-        <Ionicons
-          name={icon as keyof typeof Ionicons.glyphMap}
-          size={size}
-          color={iconColor}
-        />
-      )}
-    </View>
+    <Image
+      source={source}
+      style={{ height: 200, width: 260 }}
+      contentFit="contain"
+      transition={0}
+    />
   );
 }
 
@@ -151,23 +125,14 @@ function StatShell({
 }
 
 // =================================================================
-// Screen 1: "3x More Weight Lost"
-// Visual: Concentric orbital rings with medical icon + floating dots
-// Color: Primary blue
+// Screen 1: "3x More Weight Lost" — shown after Medication Selection
+// Illustration: progress/climbing bars
 // =================================================================
 export function StatScreen3x({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Vector icon */}
-        <IconCircle
-          icon="medical"
-          family="ionicons"
-          size={88}
-          circleSize={152}
-          iconColor={Colors.primary}
-          bgColor={Colors.primaryLight}
-        />
+        <HeroImage source={IMG_PROGRESS} />
 
         {/* Large stat — "3" massive, "x" accent */}
         <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
@@ -225,23 +190,14 @@ export function StatScreen3x({ step, onNext, onBack }: StatScreenProps) {
 }
 
 // =================================================================
-// Screen 2: "87% Say Tracking Changed Everything"
-// Visual: SVG donut/arc chart with stat centered inside
-// Color: Teal / Accent
+// Screen 2: "87% Say Tracking Changed Everything" — after Goal Weight
+// Illustration: person with measuring tape (fitness/body theme)
 // =================================================================
 export function StatScreen87({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Vector icon */}
-        <IconCircle
-          icon="trophy"
-          family="ionicons"
-          size={84}
-          circleSize={148}
-          iconColor={Colors.accent}
-          bgColor={Colors.accentLight}
-        />
+        <HeroImage source={IMG_FITNESS} />
 
         {/* Large stat */}
         <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
@@ -298,9 +254,8 @@ export function StatScreen87({ step, onNext, onBack }: StatScreenProps) {
 }
 
 // =================================================================
-// Screen 3: "18 lbs Average Lost in 3 Months"
-// Visual: Ascending bar chart for 3 months + "in 3 months" pill badge
-// Color: Warm amber / gold
+// Screen 3: "18 lbs Average Lost in 3 Months" — after Goal Pace
+// Illustration: two people climbing a ladder together (step-by-step)
 // =================================================================
 export function StatScreen18lbs({ step, onNext, onBack }: StatScreenProps) {
   const barColor = '#F59E0B';
@@ -310,15 +265,7 @@ export function StatScreen18lbs({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Vector icon */}
-        <IconCircle
-          icon="trending-down"
-          family="ionicons"
-          size={84}
-          circleSize={148}
-          iconColor="#D97706"
-          bgColor="#FEF3C7"
-        />
+        <HeroImage source={IMG_LADDER} />
 
         {/* Large stat with unit */}
         <View style={{ alignItems: 'center', gap: Spacing.sm }}>
@@ -400,9 +347,8 @@ export function StatScreen18lbs({ step, onNext, onBack }: StatScreenProps) {
 }
 
 // =================================================================
-// Screen 4: "68% Fewer Surprise Side Effects"
-// Visual: Gradient shield silhouette with stat + checkmark overlaid
-// Color: Purple / Violet
+// Screen 4: "68% Fewer Surprise Side Effects" — after Side Effects
+// Illustration: person with measuring tape (wellness/body theme)
 // =================================================================
 export function StatScreen68({ step, onNext, onBack }: StatScreenProps) {
   const purple = '#7C3AED';
@@ -411,15 +357,7 @@ export function StatScreen68({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Vector icon */}
-        <IconCircle
-          icon="shield-checkmark"
-          family="ionicons"
-          size={84}
-          circleSize={148}
-          iconColor={purple}
-          bgColor={purpleBg}
-        />
+        <HeroImage source={IMG_FITNESS} />
 
         {/* Large stat */}
         <Text
@@ -513,9 +451,8 @@ export function StatScreen68({ step, onNext, onBack }: StatScreenProps) {
 }
 
 // =================================================================
-// Screen 5: "5 min A Day Is All It Takes"
-// Visual: Clock face with highlighted 5-min arc + tick marks
-// Color: Fresh green
+// Screen 5: "5 min A Day Is All It Takes" — after Activity Level
+// Illustration: progress/achievement theme
 // =================================================================
 export function StatScreen5min({ step, onNext, onBack }: StatScreenProps) {
   const green = '#16A34A';
@@ -526,15 +463,7 @@ export function StatScreen5min({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Vector icon */}
-        <IconCircle
-          icon="nutrition"
-          family="ionicons"
-          size={84}
-          circleSize={148}
-          iconColor={green}
-          bgColor={greenBg}
-        />
+        <HeroImage source={IMG_PROGRESS} />
 
         {/* Large stat */}
         <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 6 }}>
