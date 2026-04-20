@@ -14,7 +14,7 @@ const TOTAL_STEPS = 28;
 // with zero network delay or decode flash.
 const IMG_PROGRESS = require('@/assets/onboarding_progress.png');
 const IMG_FITNESS = require('@/assets/onboarding_fitness.png');
-const IMG_LADDER = require('@/assets/onboarding_ladder.png');
+const IMG_LADDER = require('../../assets/images/Untitleddesign17.png');
 
 // Reusable hero illustration — displays a PNG at a fixed height with
 // auto width (aspect ratio preserved via contentFit="contain").
