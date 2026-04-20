@@ -12,9 +12,9 @@ const TOTAL_STEPS = 28;
 
 // Static image requires — loaded at bundle time so images render instantly
 // with zero network delay or decode flash.
-const IMG_PROGRESS = require('../../assets/images/Untitleddesign17.png');
-const IMG_FITNESS = require('../../assets/images/Untitleddesign17.png');
-const IMG_LADDER = require('../../assets/images/Untitleddesign17.png');
+const IMG_PROGRESS = require('../../assets/images/goal.png');
+const IMG_FITNESS = require('../../assets/images/goal.png');
+const IMG_LADDER = require('../../assets/images/goal.png');
 
 // Reusable hero illustration — displays a PNG at a fixed height with
 // auto width (aspect ratio preserved via contentFit="contain").
