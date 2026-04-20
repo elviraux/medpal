@@ -1,22 +1,59 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Fonts } from '@/constants/Typography';
 import { Spacing } from '@/constants/Layout';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Image } from 'expo-image';
-
-// Pre-require all illustration images at module scope so React Native
-// bundles them at build time — eliminates per-render async loads.
-const IMG_MEDICATION = require('@/assets/illustrations/sp_medication.png');
-const IMG_GOAL = require('@/assets/illustrations/sp_goal.png');
-const IMG_WEIGHTLOSS = require('@/assets/illustrations/sp_weightloss.png');
-const IMG_SIDEEFFECTS = require('@/assets/illustrations/sp_sideeffects.png');
-const IMG_NUTRITION = require('@/assets/illustrations/sp_nutrition.png');
 
 const TOTAL_STEPS = 28;
+
+// Reusable circular icon badge — renders a vector icon centered in a
+// soft-colored circle. Pure vector, no images, instant render.
+function IconCircle({
+  icon,
+  family = 'ionicons',
+  size = 88,
+  circleSize = 152,
+  iconColor = Colors.primary,
+  bgColor = Colors.primaryLight,
+}: {
+  icon: string;
+  family?: 'ionicons' | 'material-community';
+  size?: number;
+  circleSize?: number;
+  iconColor?: string;
+  bgColor?: string;
+}) {
+  return (
+    <View
+      style={{
+        width: circleSize,
+        height: circleSize,
+        borderRadius: circleSize / 2,
+        backgroundColor: bgColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: `0 4px 16px ${bgColor}80`,
+      }}
+    >
+      {family === 'material-community' ? (
+        <MaterialCommunityIcons
+          name={icon as keyof typeof MaterialCommunityIcons.glyphMap}
+          size={size}
+          color={iconColor}
+        />
+      ) : (
+        <Ionicons
+          name={icon as keyof typeof Ionicons.glyphMap}
+          size={size}
+          color={iconColor}
+        />
+      )}
+    </View>
+  );
+}
 
 interface StatScreenProps {
   step: number;
@@ -122,21 +159,15 @@ export function StatScreen3x({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Illustration */}
-        <View
-          style={{
-            width: 260,
-            height: 220,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Image
-            source={IMG_MEDICATION}
-            style={{ width: 260, height: 220 }}
-            contentFit="contain"
-          />
-        </View>
+        {/* Vector icon */}
+        <IconCircle
+          icon="medical"
+          family="ionicons"
+          size={88}
+          circleSize={152}
+          iconColor={Colors.primary}
+          bgColor={Colors.primaryLight}
+        />
 
         {/* Large stat — "3" massive, "x" accent */}
         <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
@@ -202,21 +233,15 @@ export function StatScreen87({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Illustration */}
-        <View
-          style={{
-            width: 240,
-            height: 200,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Image
-            source={IMG_GOAL}
-            style={{ width: 240, height: 200 }}
-            contentFit="contain"
-          />
-        </View>
+        {/* Vector icon */}
+        <IconCircle
+          icon="trophy"
+          family="ionicons"
+          size={84}
+          circleSize={148}
+          iconColor={Colors.accent}
+          bgColor={Colors.accentLight}
+        />
 
         {/* Large stat */}
         <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
@@ -285,21 +310,15 @@ export function StatScreen18lbs({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Illustration */}
-        <View
-          style={{
-            width: 260,
-            height: 210,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Image
-            source={IMG_WEIGHTLOSS}
-            style={{ width: 260, height: 210 }}
-            contentFit="contain"
-          />
-        </View>
+        {/* Vector icon */}
+        <IconCircle
+          icon="trending-down"
+          family="ionicons"
+          size={84}
+          circleSize={148}
+          iconColor="#D97706"
+          bgColor="#FEF3C7"
+        />
 
         {/* Large stat with unit */}
         <View style={{ alignItems: 'center', gap: Spacing.sm }}>
@@ -392,21 +411,15 @@ export function StatScreen68({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Illustration */}
-        <View
-          style={{
-            width: 240,
-            height: 210,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Image
-            source={IMG_SIDEEFFECTS}
-            style={{ width: 240, height: 210 }}
-            contentFit="contain"
-          />
-        </View>
+        {/* Vector icon */}
+        <IconCircle
+          icon="shield-checkmark"
+          family="ionicons"
+          size={84}
+          circleSize={148}
+          iconColor={purple}
+          bgColor={purpleBg}
+        />
 
         {/* Large stat */}
         <Text
@@ -513,21 +526,15 @@ export function StatScreen5min({ step, onNext, onBack }: StatScreenProps) {
   return (
     <StatShell step={step} onNext={onNext} onBack={onBack}>
       <View style={{ alignItems: 'center', gap: Spacing.xl }}>
-        {/* Illustration */}
-        <View
-          style={{
-            width: 260,
-            height: 210,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Image
-            source={IMG_NUTRITION}
-            style={{ width: 260, height: 210 }}
-            contentFit="contain"
-          />
-        </View>
+        {/* Vector icon */}
+        <IconCircle
+          icon="nutrition"
+          family="ionicons"
+          size={84}
+          circleSize={148}
+          iconColor={green}
+          bgColor={greenBg}
+        />
 
         {/* Large stat */}
         <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 6 }}>
