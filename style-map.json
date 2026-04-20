@@ -1,39 +1,7 @@
 {
   "version": 1,
-  "generatedAt": 1776705484128,
+  "generatedAt": 1776705772541,
   "entries": {
-    "Index@app/index.tsx:23": {
-      "element": {
-        "file": "app/index.tsx",
-        "line": 23
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/index.tsx",
-          "properties": {
-            "flex": {
-              "line": 25,
-              "col": 14,
-              "endCol": 15,
-              "raw": "1"
-            },
-            "justifyContent": {
-              "line": 26,
-              "col": 24,
-              "endCol": 32,
-              "raw": "'center'"
-            },
-            "alignItems": {
-              "line": 27,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
     "EditDailyTargetsScreen@app/edit-daily-targets.tsx:123": {
       "element": {
         "file": "app/edit-daily-targets.tsx",
@@ -6357,548 +6325,6 @@
               "col": 59,
               "endCol": 61,
               "raw": "14"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:65": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 65
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "flex": {
-              "line": 66,
-              "col": 21,
-              "endCol": 22,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:77": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 77
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 77,
-              "col": 57,
-              "endCol": 59,
-              "raw": "26"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:80": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 80
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 80,
-              "col": 60,
-              "endCol": 62,
-              "raw": "14"
-            },
-            "marginTop": {
-              "line": 80,
-              "col": 104,
-              "endCol": 105,
-              "raw": "2"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:94": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 94
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "flexDirection": {
-              "line": 96,
-              "col": 27,
-              "endCol": 32,
-              "raw": "'row'"
-            },
-            "justifyContent": {
-              "line": 97,
-              "col": 28,
-              "endCol": 42,
-              "raw": "'space-around'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:150": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 150
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "flexDirection": {
-              "line": 152,
-              "col": 31,
-              "endCol": 36,
-              "raw": "'row'"
-            },
-            "justifyContent": {
-              "line": 153,
-              "col": 32,
-              "endCol": 47,
-              "raw": "'space-between'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:158": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 158
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 158,
-              "col": 68,
-              "endCol": 70,
-              "raw": "12"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:161": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 161
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 161,
-              "col": 69,
-              "endCol": 71,
-              "raw": "16"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:165": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 165
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "alignItems": {
-              "line": 165,
-              "col": 41,
-              "endCol": 51,
-              "raw": "'flex-end'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:166": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 166
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 166,
-              "col": 68,
-              "endCol": 70,
-              "raw": "12"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:169": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 169
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 169,
-              "col": 69,
-              "endCol": 71,
-              "raw": "16"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:176": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 176
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "alignItems": {
-              "line": 176,
-              "col": 67,
-              "endCol": 75,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:178": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 178
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 178,
-              "col": 64,
-              "endCol": 66,
-              "raw": "14"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:186": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 186
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "flexDirection": {
-              "line": 188,
-              "col": 25,
-              "endCol": 30,
-              "raw": "'row'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:193": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 193
-      },
-      "styles": [
-        {
-          "origin": "dynamic",
-          "resolvable": false
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:208": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 208
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "width": {
-              "line": 210,
-              "col": 23,
-              "endCol": 25,
-              "raw": "44"
-            },
-            "height": {
-              "line": 211,
-              "col": 24,
-              "endCol": 26,
-              "raw": "44"
-            },
-            "borderRadius": {
-              "line": 212,
-              "col": 30,
-              "endCol": 32,
-              "raw": "12"
-            },
-            "justifyContent": {
-              "line": 214,
-              "col": 32,
-              "endCol": 40,
-              "raw": "'center'"
-            },
-            "alignItems": {
-              "line": 215,
-              "col": 28,
-              "endCol": 36,
-              "raw": "'center'"
-            },
-            "borderCurve": {
-              "line": 216,
-              "col": 29,
-              "endCol": 41,
-              "raw": "'continuous'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:221": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 221
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 221,
-              "col": 63,
-              "endCol": 65,
-              "raw": "11"
-            },
-            "textAlign": {
-              "line": 221,
-              "col": 98,
-              "endCol": 106,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:232": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 232
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "alignItems": {
-              "line": 232,
-              "col": 66,
-              "endCol": 74,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:233": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 233
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 233,
-              "col": 64,
-              "endCol": 66,
-              "raw": "14"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:263": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 263
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "flexDirection": {
-              "line": 263,
-              "col": 72,
-              "endCol": 77,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 263,
-              "col": 91,
-              "endCol": 99,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:264": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 264
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "width": {
-              "line": 266,
-              "col": 29,
-              "endCol": 31,
-              "raw": "36"
-            },
-            "height": {
-              "line": 267,
-              "col": 30,
-              "endCol": 32,
-              "raw": "36"
-            },
-            "borderRadius": {
-              "line": 268,
-              "col": 36,
-              "endCol": 38,
-              "raw": "10"
-            },
-            "justifyContent": {
-              "line": 270,
-              "col": 38,
-              "endCol": 46,
-              "raw": "'center'"
-            },
-            "alignItems": {
-              "line": 271,
-              "col": 34,
-              "endCol": 42,
-              "raw": "'center'"
-            },
-            "borderCurve": {
-              "line": 272,
-              "col": 35,
-              "endCol": 47,
-              "raw": "'continuous'"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:277": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 277
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "flex": {
-              "line": 277,
-              "col": 39,
-              "endCol": 40,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:278": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 278
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 278,
-              "col": 71,
-              "endCol": 73,
-              "raw": "14"
-            }
-          }
-        }
-      ]
-    },
-    "DashboardScreen@app/(tabs)/dashboard.tsx:281": {
-      "element": {
-        "file": "app/(tabs)/dashboard.tsx",
-        "line": 281
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/dashboard.tsx",
-          "properties": {
-            "fontSize": {
-              "line": 281,
-              "col": 72,
-              "endCol": 74,
-              "raw": "12"
             }
           }
         }
@@ -15009,6 +14435,580 @@
               "col": 24,
               "endCol": 26,
               "raw": "24"
+            }
+          }
+        }
+      ]
+    },
+    "Index@app/index.tsx:23": {
+      "element": {
+        "file": "app/index.tsx",
+        "line": 23
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/index.tsx",
+          "properties": {
+            "flex": {
+              "line": 25,
+              "col": 14,
+              "endCol": 15,
+              "raw": "1"
+            },
+            "justifyContent": {
+              "line": 26,
+              "col": 24,
+              "endCol": 32,
+              "raw": "'center'"
+            },
+            "alignItems": {
+              "line": 27,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:65": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 65
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "flex": {
+              "line": 66,
+              "col": 21,
+              "endCol": 22,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:77": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 77
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 77,
+              "col": 57,
+              "endCol": 59,
+              "raw": "26"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:80": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 80
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 80,
+              "col": 60,
+              "endCol": 62,
+              "raw": "14"
+            },
+            "marginTop": {
+              "line": 80,
+              "col": 104,
+              "endCol": 105,
+              "raw": "2"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:94": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 94
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "flexDirection": {
+              "line": 96,
+              "col": 27,
+              "endCol": 32,
+              "raw": "'row'"
+            },
+            "justifyContent": {
+              "line": 97,
+              "col": 28,
+              "endCol": 42,
+              "raw": "'space-around'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:150": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 150
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "flexDirection": {
+              "line": 152,
+              "col": 31,
+              "endCol": 36,
+              "raw": "'row'"
+            },
+            "justifyContent": {
+              "line": 153,
+              "col": 32,
+              "endCol": 47,
+              "raw": "'space-between'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:158": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 158
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 158,
+              "col": 68,
+              "endCol": 70,
+              "raw": "12"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:161": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 161
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 161,
+              "col": 69,
+              "endCol": 71,
+              "raw": "16"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:165": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 165
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "alignItems": {
+              "line": 165,
+              "col": 41,
+              "endCol": 51,
+              "raw": "'flex-end'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:166": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 166
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 166,
+              "col": 68,
+              "endCol": 70,
+              "raw": "12"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:169": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 169
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 169,
+              "col": 69,
+              "endCol": 71,
+              "raw": "16"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:176": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 176
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "alignItems": {
+              "line": 176,
+              "col": 67,
+              "endCol": 75,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:178": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 178
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 178,
+              "col": 64,
+              "endCol": 66,
+              "raw": "14"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:186": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 186
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "flexDirection": {
+              "line": 188,
+              "col": 25,
+              "endCol": 30,
+              "raw": "'row'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:193": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 193
+      },
+      "styles": [
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:208": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 208
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "width": {
+              "line": 210,
+              "col": 23,
+              "endCol": 25,
+              "raw": "44"
+            },
+            "height": {
+              "line": 211,
+              "col": 24,
+              "endCol": 26,
+              "raw": "44"
+            },
+            "borderRadius": {
+              "line": 212,
+              "col": 30,
+              "endCol": 32,
+              "raw": "12"
+            },
+            "justifyContent": {
+              "line": 214,
+              "col": 32,
+              "endCol": 40,
+              "raw": "'center'"
+            },
+            "alignItems": {
+              "line": 215,
+              "col": 28,
+              "endCol": 36,
+              "raw": "'center'"
+            },
+            "borderCurve": {
+              "line": 216,
+              "col": 29,
+              "endCol": 41,
+              "raw": "'continuous'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:221": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 221
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 221,
+              "col": 63,
+              "endCol": 65,
+              "raw": "11"
+            },
+            "textAlign": {
+              "line": 221,
+              "col": 98,
+              "endCol": 106,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:232": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 232
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "alignItems": {
+              "line": 232,
+              "col": 66,
+              "endCol": 74,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:233": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 233
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 233,
+              "col": 64,
+              "endCol": 66,
+              "raw": "14"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:263": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 263
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "flexDirection": {
+              "line": 263,
+              "col": 72,
+              "endCol": 77,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 263,
+              "col": 91,
+              "endCol": 99,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:264": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 264
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "width": {
+              "line": 266,
+              "col": 29,
+              "endCol": 31,
+              "raw": "36"
+            },
+            "height": {
+              "line": 267,
+              "col": 30,
+              "endCol": 32,
+              "raw": "36"
+            },
+            "borderRadius": {
+              "line": 268,
+              "col": 36,
+              "endCol": 38,
+              "raw": "10"
+            },
+            "justifyContent": {
+              "line": 270,
+              "col": 38,
+              "endCol": 46,
+              "raw": "'center'"
+            },
+            "alignItems": {
+              "line": 271,
+              "col": 34,
+              "endCol": 42,
+              "raw": "'center'"
+            },
+            "borderCurve": {
+              "line": 272,
+              "col": 35,
+              "endCol": 47,
+              "raw": "'continuous'"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:277": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 277
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "flex": {
+              "line": 277,
+              "col": 39,
+              "endCol": 40,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:278": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 278
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 278,
+              "col": 71,
+              "endCol": 73,
+              "raw": "14"
+            }
+          }
+        }
+      ]
+    },
+    "DashboardScreen@app/(tabs)/dashboard.tsx:281": {
+      "element": {
+        "file": "app/(tabs)/dashboard.tsx",
+        "line": 281
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/dashboard.tsx",
+          "properties": {
+            "fontSize": {
+              "line": 281,
+              "col": 72,
+              "endCol": 74,
+              "raw": "12"
             }
           }
         }
