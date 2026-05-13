@@ -25,6 +25,7 @@ interface AppState {
   // Profile actions
   setPreferences: (p: Partial<Preferences>) => void;
   setUserProfile: (p: Partial<UserProfile>) => void;
+  setPremiumStatus: (isPremium: boolean) => void;
   completeOnboarding: () => void;
 
   // Weight actions
@@ -63,7 +64,7 @@ const defaultTargets: DailyTargets = {
 
 const initialState = {
   preferences: { units: 'imperial' as const, notifications: true },
-  userProfile: {},
+  userProfile: { isPremium: false },
   weightLogs: [],
   foodLogs: [],
   waterLogs: [],
@@ -82,6 +83,9 @@ export const useAppStore = create<AppState>()(
 
       setUserProfile: (p) =>
         set((s) => ({ userProfile: { ...s.userProfile, ...p } })),
+
+      setPremiumStatus: (isPremium) => 
+        set((s) => ({ userProfile: { ...s.userProfile, isPremium } })),
 
       completeOnboarding: () =>
         set((s) => ({

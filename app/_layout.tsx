@@ -5,6 +5,7 @@ import { FontMap } from "@/constants/Typography";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { adapty } from "react-native-adapty";
+import { useAppStore } from "@/store/useAppStore";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,13 +21,19 @@ export default function RootLayout() {
   }, [loaded, error]);
 
   useEffect(() => {
-    adapty
-      .activate(ADAPTY_API_KEY, {
-        __ignoreActivationOnFastRefresh: __DEV__,
-      })
-      .catch(() => {
-        // Activation may fail in dev/web — mock mode handles this gracefully
-      });
+    const initAdapty = async () => {
+      try {
+        await adapty.activate(ADAPTY_API_KEY, {
+          __ignoreActivationOnFastRefresh: __DEV__,
+        });
+        const profile = await adapty.getProfile();
+        const isPremium = profile?.accessLevels?.['premium']?.isActive ?? false;
+        useAppStore.getState().setPremiumStatus(isPremium);
+      } catch (error) {
+        // Activation or profile fetch may fail in dev/web
+      }
+    };
+    initAdapty();
   }, []);
 
   if (!loaded && !error) {
@@ -72,6 +79,14 @@ export default function RootLayout() {
         <Stack.Screen
           name="edit-weight-goals"
           options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+        />
+        <Stack.Screen
+          name="paywall"
+          options={{
+            presentation: 'modal',
+            animation: 'slide_from_bottom',
+            headerShown: false,
+          }}
         />
       </Stack>
     </>

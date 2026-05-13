@@ -88,6 +88,7 @@ export interface UserProfile {
   weeklyGoalUnit?: 'lbs' | 'kg';
   onboardingComplete?: boolean;
   disclaimerAccepted?: boolean;
+  isPremium?: boolean;
 }
 
 export interface WeightLog {

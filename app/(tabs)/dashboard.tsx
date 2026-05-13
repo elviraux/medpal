@@ -20,6 +20,25 @@ import {
 } from '@/utils/date';
 import { displayWeight, getWeightUnit } from '@/utils/units';
 
+
+const PremiumOverlay = ({ onUnlock }: { onUnlock: () => void }) => (
+  <View style={{
+    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: 'rgba(255,255,255,0.85)',
+    justifyContent: 'center', alignItems: 'center',
+    borderRadius: Radius.lg, zIndex: 10
+  }}>
+    <Ionicons name="lock-closed" size={32} color={Colors.primary} />
+    <Text style={{ fontFamily: Fonts.bold, fontSize: 16, color: Colors.text, marginVertical: Spacing.xs }}>Pro Feature</Text>
+    <Pressable
+      onPress={onUnlock}
+      style={{ backgroundColor: Colors.primary, paddingHorizontal: Spacing.md, paddingVertical: Spacing.sm, borderRadius: Radius.full, marginTop: Spacing.xs }}
+    >
+      <Text style={{ color: '#fff', fontFamily: Fonts.semiBold, fontSize: 14 }}>Unlock Pro</Text>
+    </Pressable>
+  </View>
+);
+
 export default function DashboardScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
@@ -83,7 +102,10 @@ export default function DashboardScreen() {
       </View>
 
       {/* GLP-1 Level Card */}
-      <Glp1LevelChart width={chartWidth > 0 ? chartWidth : 280} />
+      <View style={{ position: 'relative' }}>
+        <Glp1LevelChart width={chartWidth > 0 ? chartWidth : 280} />
+        {!userProfile.isPremium && <PremiumOverlay onUnlock={() => router.push('/paywall')} />}
+      </View>
 
       {/* Next Dose Countdown */}
       <NextDoseCard />
@@ -136,7 +158,8 @@ export default function DashboardScreen() {
       </Card>
 
       {/* Weight Progress */}
-      <Card>
+      <Card style={{ position: 'relative', overflow: 'hidden' }}>
+        {!userProfile.isPremium && <PremiumOverlay onUnlock={() => router.push('/paywall')} />}
         <SectionHeader title="Weight Progress" actionLabel="See all" onAction={() => router.push('/(tabs)/weight')} />
         {recentWeightLogs.length > 0 ? (
           <View style={{ paddingTop: Spacing.sm }}>

@@ -18,6 +18,8 @@ import {
 import { PillButton } from '@/components/ui/pill-button';
 import { NumericInput } from '@/components/ui/numeric-input';
 import { Card } from '@/components/ui/card';
+import { Paywall } from '@/components/Paywall';
+
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { BodyDiagram } from '@/components/medication/body-diagram';
 import { ConfettiBurst } from '@/components/ui/confetti-burst';
@@ -114,12 +116,10 @@ export default function OnboardingScreen() {
   const [startDate, setStartDate] = useState(new Date());
   const [goalWeight, setGoalWeight] = useState('');
   const [weeklyGoal, setWeeklyGoal] = useState(1.0);
-  const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
   const [activityLevel, setActivityLevel] = useState<ActivityLevel | undefined>();
   const [cravingsDays, setCravingsDays] = useState<string[]>([]);
   const [sideEffects, setSideEffects] = useState<string[]>([]);
   const [motivation, setMotivation] = useState<Motivation | undefined>();
-  const [isRestoring, setIsRestoring] = useState(false);
 
   // First dose logging
   const [firstDoseDateTime, setFirstDoseDateTime] = useState(new Date());
@@ -241,34 +241,7 @@ export default function OnboardingScreen() {
     setUserProfile, setPreferences, completeOnboarding, addWeightLog, weightLogs, router,
   ]);
 
-  const handleRestorePurchases = useCallback(async () => {
-    setIsRestoring(true);
-    try {
-      const profile = await adapty.restorePurchases();
-      const isPremium = profile?.accessLevels?.['premium']?.isActive ?? false;
-      if (isPremium) {
-        Alert.alert(
-          'Purchases Restored',
-          'Your Pro subscription has been restored successfully.',
-          [{ text: 'Continue', onPress: handleComplete }]
-        );
-      } else {
-        Alert.alert(
-          'No Purchases Found',
-          'We couldn\'t find any active subscriptions linked to your account.',
-          [{ text: 'OK' }]
-        );
-      }
-    } catch {
-      Alert.alert(
-        'Restore Failed',
-        'Something went wrong while restoring purchases. Please try again.',
-        [{ text: 'OK' }]
-      );
-    } finally {
-      setIsRestoring(false);
-    }
-  }, [handleComplete]);
+  // removed handleRestorePurchases
 
   const toggleCravingsDay = (day: string) => {
     setCravingsDays((prev) =>
@@ -1083,122 +1056,7 @@ export default function OnboardingScreen() {
 
   // Step 27: Hard Paywall
   if (step === 27) {
-    return (
-      <View style={{ flex: 1, backgroundColor: Colors.background, paddingTop: insets.top }}>
-        {/* Fixed header — title with inline icon, subtitle */}
-        <View style={{ alignItems: 'center', gap: Spacing.md, paddingVertical: Spacing.xxl, paddingHorizontal: Spacing.xxl }}>
-          <Text style={{ fontFamily: Fonts.bold, fontSize: 26, color: Colors.text, textAlign: 'center' }}>
-            <Ionicons name="diamond" size={28} color={Colors.primary} />
-            {'  Unlock Slimsy Pro'}
-          </Text>
-          <Text style={{ fontFamily: Fonts.regular, fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 }}>
-            Get the full experience with unlimited tracking, AI food analysis, and personalized insights
-          </Text>
-        </View>
-
-        {/* Scrollable features list — fills available space between header and pinned bottom */}
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ paddingHorizontal: Spacing.xxl, gap: Spacing.md, paddingBottom: Spacing.md }}
-          showsVerticalScrollIndicator={false}
-        >
-          {[
-            { icon: 'camera-outline', text: 'AI Food Photo Analysis' },
-            { icon: 'analytics-outline', text: 'Advanced Weight Charts' },
-            { icon: 'notifications-outline', text: 'Smart Dose Reminders' },
-            { icon: 'body-outline', text: 'Injection Site Tracker' },
-            { icon: 'pulse-outline', text: 'GLP-1 Level Estimator' },
-          ].map((f) => (
-            <View key={f.text} style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
-              <View style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: Colors.primaryLight, justifyContent: 'center', alignItems: 'center', borderCurve: 'continuous' }}>
-                <Ionicons name={f.icon as keyof typeof Ionicons.glyphMap} size={20} color={Colors.primary} />
-              </View>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 15, color: Colors.text }}>{f.text}</Text>
-            </View>
-          ))}
-        </ScrollView>
-
-        {/* Pinned bottom — plans, CTA, disclaimers (always visible) */}
-        <View style={{ paddingHorizontal: Spacing.xxl, paddingTop: Spacing.lg, paddingBottom: Math.max(insets.bottom, Spacing.md) + Spacing.sm, backgroundColor: Colors.background }}>
-          {/* Plan selection */}
-          <View style={{ gap: Spacing.md }}>
-            <Pressable onPress={() => setSelectedPlan('yearly')}>
-              <Card elevated={selectedPlan === 'yearly'} style={{ borderWidth: 2, borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border, gap: Spacing.sm }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
-                  <View style={{ width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: selectedPlan === 'yearly' ? Colors.primary : Colors.border, justifyContent: 'center', alignItems: 'center' }}>
-                    {selectedPlan === 'yearly' && <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: Colors.primary }} />}
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <View>
-                        <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Yearly</Text>
-                        <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>7-day free trial</Text>
-                      </View>
-                      <View style={{ alignItems: 'flex-end' }}>
-                        <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: selectedPlan === 'yearly' ? Colors.primary : Colors.text }}>$39.99</Text>
-                        <Text style={{ fontFamily: Fonts.regular, fontSize: 12, color: Colors.textSecondary }}>$3.33/mo</Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-                <View style={{ backgroundColor: Colors.accent, paddingVertical: 4, paddingHorizontal: Spacing.md, borderRadius: Radius.full, alignSelf: 'flex-start', marginLeft: 34, borderCurve: 'continuous' }}>
-                  <Text style={{ fontFamily: Fonts.semiBold, fontSize: 11, color: '#fff' }}>BEST VALUE - SAVE 67%</Text>
-                </View>
-              </Card>
-            </Pressable>
-
-            <Pressable onPress={() => setSelectedPlan('monthly')}>
-              <Card elevated={selectedPlan === 'monthly'} style={{ borderWidth: 2, borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border, gap: Spacing.sm }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.md }}>
-                  <View style={{ width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: selectedPlan === 'monthly' ? Colors.primary : Colors.border, justifyContent: 'center', alignItems: 'center' }}>
-                    {selectedPlan === 'monthly' && <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: Colors.primary }} />}
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <View>
-                        <Text style={{ fontFamily: Fonts.bold, fontSize: 18, color: Colors.text }}>Monthly</Text>
-                        <Text style={{ fontFamily: Fonts.regular, fontSize: 13, color: Colors.textSecondary }}>7-day free trial</Text>
-                      </View>
-                      <Text style={{ fontFamily: Fonts.bold, fontSize: 22, color: selectedPlan === 'monthly' ? Colors.primary : Colors.text }}>$9.99</Text>
-                    </View>
-                  </View>
-                </View>
-              </Card>
-            </Pressable>
-          </View>
-
-          {/* CTA */}
-          <View style={{ paddingTop: Spacing.lg }}>
-            <PrimaryButton title="Start Free Trial" onPress={handleComplete} />
-          </View>
-
-          {/* Disclaimers */}
-          <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.md, lineHeight: 16 }}>
-            {"Cancel anytime. You won't be charged during the free trial."}
-          </Text>
-          <Text style={{ fontFamily: Fonts.regular, fontSize: 11, color: Colors.textTertiary, textAlign: 'center', paddingTop: Spacing.sm, lineHeight: 16 }}>
-            Subscription automatically renews unless canceled at least 24 hours before the end of the current period.
-          </Text>
-
-          {/* Restore purchases */}
-          <Pressable onPress={handleRestorePurchases} disabled={isRestoring} hitSlop={{ top: 8, bottom: 8, left: 16, right: 16 }} style={{ paddingVertical: Spacing.sm, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: Spacing.sm }}>
-            {isRestoring ? <ActivityIndicator size="small" color={Colors.textTertiary} /> : <Ionicons name="refresh-outline" size={14} color={Colors.textTertiary} />}
-            <Text style={{ fontFamily: Fonts.medium, fontSize: 13, color: Colors.textTertiary }}>{isRestoring ? 'Restoring...' : 'Restore Purchases'}</Text>
-          </Pressable>
-
-          {/* Terms & Privacy */}
-          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: Spacing.lg }}>
-            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/terms')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.xs }}>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 12, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Terms of Service</Text>
-            </Pressable>
-            <Text style={{ fontSize: 12, color: Colors.borderLight }}>|</Text>
-            <Pressable onPress={() => Linking.openURL('https://slimsy.lovable.app/privacy')} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} style={{ paddingVertical: Spacing.xs }}>
-              <Text style={{ fontFamily: Fonts.medium, fontSize: 12, color: Colors.textTertiary, textDecorationLine: 'underline' }}>Privacy Policy</Text>
-            </Pressable>
-          </View>
-        </View>
-      </View>
-    );
+    return <Paywall onComplete={handleComplete} />;
   }
 
   return (

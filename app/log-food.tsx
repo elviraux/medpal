@@ -36,6 +36,7 @@ export default function LogFoodScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const addFoodLog = useAppStore((s) => s.addFoodLog);
+  const isPremium = useAppStore((s) => s.userProfile.isPremium);
 
   const [mealType, setMealType] = useState<MealType>('lunch');
   const [photoUri, setPhotoUri] = useState<string | null>(null);
@@ -48,6 +49,10 @@ export default function LogFoodScreen() {
   const { analyzeImage } = useImageAnalysis();
 
   const takePhoto = async () => {
+    if (!isPremium) {
+      router.push('/paywall');
+      return;
+    }
     try {
       const permResult = await ImagePicker.requestCameraPermissionsAsync();
       if (!permResult.granted) {
@@ -72,6 +77,10 @@ export default function LogFoodScreen() {
   };
 
   const pickImage = async () => {
+    if (!isPremium) {
+      router.push('/paywall');
+      return;
+    }
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
