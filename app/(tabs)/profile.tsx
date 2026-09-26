@@ -11,7 +11,7 @@ import { Card } from '@/components/ui/card';
 import { SectionHeader } from '@/components/ui/section-header';
 import { formatDate } from '@/utils/date';
 import { displayWeight, getWeightUnit, formatHeight, convertWeeklyGoal } from '@/utils/units';
-import { exportDataAsCsv } from '@/utils/export-data';
+import { exportDataAsCsv, exportNativeBackup } from '@/utils/export-data';
 import type { UnitSystem } from '@/utils/units';
 
 function formatFrequency(frequency?: string): string {
@@ -70,6 +70,7 @@ export default function ProfileScreen() {
   } = useAppStore();
 
   const [isExporting, setIsExporting] = useState(false);
+  const [isBackingUp, setIsBackingUp] = useState(false);
   const [exportStatus, setExportStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleExportData = useCallback(async () => {
@@ -463,7 +464,7 @@ export default function ProfileScreen() {
 
           <Pressable
             onPress={handleExportData}
-            disabled={isExporting}
+            disabled={isExporting || isBackingUp}
             style={({ pressed }) => ({
               flexDirection: 'row',
               alignItems: 'center',
@@ -507,6 +508,27 @@ export default function ProfileScreen() {
                 : exportStatus === 'success'
                   ? 'Export Complete!'
                   : 'Export My Data (CSV)'}
+            </Text>
+          </Pressable>
+
+          <Pressable
+            accessibilityRole="button"
+            disabled={isBackingUp || isExporting}
+            onPress={async () => {
+              setIsBackingUp(true);
+              try {
+                await exportNativeBackup({ userProfile, preferences, dailyTargets, weightLogs, foodLogs, waterLogs, medicationLogs, sideEffectLogs });
+              } catch (error) {
+                Alert.alert('Backup failed', error instanceof Error ? error.message : 'Please try again.');
+              } finally {
+                setIsBackingUp(false);
+              }
+            }}
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: Spacing.sm, paddingVertical: Spacing.md, borderRadius: Radius.md, borderWidth: 1, borderColor: Colors.border, minHeight: 48 }}
+          >
+            {isBackingUp ? <ActivityIndicator size="small" color={Colors.primary} /> : <Ionicons name="archive-outline" size={20} color={Colors.primary} />}
+            <Text style={{ fontFamily: Fonts.semiBold, fontSize: 14, color: Colors.primary }}>
+              {isBackingUp ? 'Creating Backup…' : 'Save Backup for Native iOS'}
             </Text>
           </Pressable>
 

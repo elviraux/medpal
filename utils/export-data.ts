@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import type {
   UserProfile,
   WeightLog,
@@ -7,6 +7,7 @@ import type {
   MedicationLog,
   SideEffectLog,
   Preferences,
+  DailyTargets,
 } from '@/store/types';
 import { displayWeight, getWeightUnit, formatHeight } from '@/utils/units';
 import type { UnitSystem } from '@/utils/units';
@@ -114,6 +115,7 @@ export interface ExportDataParams {
   waterLogs: WaterLog[];
   medicationLogs: MedicationLog[];
   sideEffectLogs: SideEffectLog[];
+  dailyTargets?: DailyTargets;
 }
 
 /** Generate a single combined CSV string with all user data separated by section markers */
@@ -162,8 +164,8 @@ function downloadCsvWeb(csvContent: string, filename: string): void {
 
 /** Native: write to file system and open native share sheet */
 async function shareCsvNative(csvContent: string, filename: string): Promise<void> {
-  const { File, Paths } = require('expo-file-system') as typeof import('expo-file-system');
-  const { isAvailableAsync, shareAsync } = require('expo-sharing') as typeof import('expo-sharing');
+  const { File, Paths } = await import('expo-file-system');
+  const { isAvailableAsync, shareAsync } = await import('expo-sharing');
 
   const file = new File(Paths.cache, filename);
   file.write(csvContent);
@@ -190,5 +192,83 @@ export async function exportDataAsCsv(params: ExportDataParams): Promise<void> {
     downloadCsvWeb(csvContent, filename);
   } else {
     await shareCsvNative(csvContent, filename);
+  }
+}
+
+/** A portable backup understood by the native SwiftUI app. */
+export async function exportNativeBackup(params: ExportDataParams): Promise<void> {
+  const photos: Record<string, string> = {};
+  const foodLogs: FoodLog[] = [];
+  let missingPhotos = 0;
+
+  for (const log of params.foodLogs) {
+    const copy = { ...log, photoUri: undefined as string | undefined };
+    if (log.photoUri) {
+      try {
+        let base64: string;
+        if (Platform.OS === 'web') {
+          const response = await fetch(log.photoUri);
+          if (!response.ok) throw new Error('Photo unavailable');
+          const blob = await response.blob();
+          if (blob.size > 12_000_000) throw new Error('Photo too large');
+          base64 = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result).split(',')[1]);
+            reader.onerror = () => reject(new Error('Could not read photo'));
+            reader.readAsDataURL(blob);
+          });
+        } else {
+          const { File } = await import('expo-file-system');
+          const file = new File(log.photoUri);
+          if (!file.exists || file.size > 12_000_000) throw new Error('Photo unavailable');
+          base64 = await file.base64();
+        }
+        const filename = `meal-${log.id.replace(/[^a-zA-Z0-9_-]/g, '-')}.jpg`;
+        photos[filename] = base64;
+        copy.photoUri = filename;
+      } catch {
+        // Cached images may already have been removed by the OS. Keep every
+        // journal record and report missing photos instead of losing the backup.
+        missingPhotos += 1;
+      }
+    }
+    foodLogs.push(copy);
+  }
+
+  const backup = JSON.stringify({
+    format: 'slimsy-backup',
+    version: 1,
+    state: {
+      schemaVersion: 1,
+      userProfile: params.userProfile,
+      preferences: params.preferences,
+      weightLogs: params.weightLogs,
+      foodLogs,
+      waterLogs: params.waterLogs,
+      medicationLogs: params.medicationLogs,
+      sideEffectLogs: params.sideEffectLogs,
+      dailyTargets: params.dailyTargets ?? { calories: 1400, protein: 100, fiber: 25, water: 8 },
+    },
+    photos,
+  }, null, 2);
+  const filename = `slimsy-backup-${new Date().toISOString().split('T')[0]}.json`;
+  if (Platform.OS === 'web') {
+    const blob = new Blob([backup], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } else {
+    const { File, Paths } = await import('expo-file-system');
+    const { isAvailableAsync, shareAsync } = await import('expo-sharing');
+    if (!(await isAvailableAsync())) throw new Error('Sharing is not available on this device.');
+    const file = new File(Paths.cache, filename);
+    file.write(backup);
+    await shareAsync(file.uri, { mimeType: 'application/json', UTI: 'public.json', dialogTitle: 'Save Slimsy Backup' });
+  }
+  if (missingPhotos > 0) {
+    Alert.alert('Backup created', `All your records are included. ${missingPhotos} cached photo(s) were no longer available and could not be included.`);
   }
 }

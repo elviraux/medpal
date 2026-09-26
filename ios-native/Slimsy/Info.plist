@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDisplayName</key><string>Slimsy</string>
+  <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleName</key><string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+  <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>LSRequiresIPhoneOS</key><true/>
+  <key>UIApplicationSceneManifest</key><dict><key>UIApplicationSupportsMultipleScenes</key><false/></dict>
+  <key>ITSAppUsesNonExemptEncryption</key><false/>
+  <key>UILaunchScreen</key><dict><key>UIColorName</key><string>LaunchBackground</string></dict>
+  <key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
+  <key>NSCameraUsageDescription</key><string>Take a photo of your meal to record it and estimate its nutrition.</string>
+  <key>NSPhotoLibraryUsageDescription</key><string>Choose and crop a meal photo to record it and estimate its nutrition.</string>
+  <key>UIAppFonts</key><array><string>DMSans.ttf</string><string>Fraunces.ttf</string></array>
+  <key>NewellAPIURL</key><string>$(NEWELL_API_URL)</string>
+  <key>FastshotProjectID</key><string>$(FASTSHOT_PROJECT_ID)</string>
+  <key>MonthlyProductID</key><string>$(SLIMSY_MONTHLY_PRODUCT_ID)</string>
+  <key>YearlyProductID</key><string>$(SLIMSY_YEARLY_PRODUCT_ID)</string>
+  <key>AdaptyPublicSDKKey</key><string>$(ADAPTY_PUBLIC_SDK_KEY)</string>
+  <key>AdaptyPlacementID</key><string>$(ADAPTY_PLACEMENT_ID)</string>
+</dict>
+</plist>

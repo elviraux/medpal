@@ -1,50 +1,24 @@
-# Welcome to your Fastshot app
+# Slimsy
 
-This is an [Expo](https://expo.dev) project created with [Fastshot](https://fastshot.ai), an AI-powered mobile development platform that helps you build React Native apps faster.
+A companion for tracking GLP-1 medication, meals, hydration, side effects, and weight.
 
-## Running locally:
+## Native iOS
 
-1. Install dependencies
+Open **[ios-native/Slimsy.xcodeproj](ios-native/Slimsy.xcodeproj)** in Xcode, choose the **Slimsy** scheme and an iPhone simulator, then Run. The native app uses SwiftUI, Swift Charts, UIKit photo cropping, UserNotifications, StoreKit, and the native Adapty SDK. It does not require Metro or CocoaPods.
 
-   ```bash
-   npm install
-   ```
+All 28 onboarding stages are preserved; see the [feature parity audit](ios-native/FEATURE_PARITY.md).
 
-2. Start the app
+The redesigned interface uses an ivory and forest-green palette, Fraunces and DM Sans typography, native navigation and sheets, an interactive weight chart, and light/dark appearances.
 
-   ```bash
-   npx expo start
-   ```
+See **[the iOS guide](ios-native/README.md)** for configuration, testing, data transfer, and device builds. **[Preview the native design](ios-native/Preview/overview.png).**
 
-## Need help?
+## Existing Expo app
 
-Have questions or want to iterate on your app? Head back to [Fastshot](https://fastshot.ai) to continue chatting with our AI agents. They can help you:
+The original React Native app remains available:
 
-- Add new features and screens
-- Debug issues and fix bugs
-- Refactor and improve your code
-- Integrate APIs and third-party libraries
+```sh
+npm ci
+npx expo start
+```
 
-## Learn more
-
-To learn more about developing your project, check out these resources:
-
-### Fastshot Resources
-- [Fastshot Platform](https://fastshot.ai): Build and iterate on your mobile apps with AI assistance
-- [Fastshot Documentation](https://fastshot.ai/docs): Learn how to make the most of AI-powered development
-- [Fastshot Community](https://fastshot.ai/community): Connect with other developers building with Fastshot
-
-### Expo Resources
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers building the future of mobile development with AI:
-
-- **[Fastshot Discord](https://fastshot.ai/discord)**: Get help, share your projects, and connect with other Fastshot users
-- **[Fastshot on GitHub](https://github.com/fastshot-ai)**: Contribute to our open source tools and integrations
-
-You can also join the broader Expo community:
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+To move data to the separate native development build, open **Settings → Data & Privacy → Save Backup for Native iOS** in the Expo app, then **You → Restore a backup** in the native app. The backup includes all records, preferences, targets, and available meal photos.

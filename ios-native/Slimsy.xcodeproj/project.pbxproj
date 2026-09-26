@@ -1,0 +1,772 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1EF152601C894F565510BE5A /* DMSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 952942C96AA173AC5A1A684C /* DMSans.ttf */; };
+		21888AF76822080500193052 /* OnboardingArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F84BF91B815B88B2E52DA2 /* OnboardingArtwork.swift */; };
+		2FDAE0CE658CE5D8ECC9324F /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124661717E0BA9CB936F4 /* ExportService.swift */; };
+		344DF60A955CAD455F3232E9 /* SlimsyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E420B83D5FA7E47F3DF07EE6 /* SlimsyUITests.swift */; };
+		39A27786312AF9785AF439F3 /* LogDoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCB4CEF95743C514C0E7B1 /* LogDoseView.swift */; };
+		3BA80F0BE7AD8CDF6A5CF62F /* LegacyMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C06E6145D6BB53BE03A2449 /* LegacyMigration.swift */; };
+		3C2D2FA4882D3F4AAF6F522B /* Fraunces.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E4C46EB86915292B779198 /* Fraunces.ttf */; };
+		3F64270C3FA19DE7031C7405 /* DMSans-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6CD8BCA0FE0DD2A5EA9DA6B0 /* DMSans-OFL.txt */; };
+		4BCFEEC01922D4B6BB572014 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F32584A9CAAF923BB9F429 /* ModelTests.swift */; };
+		59E60C0834654C3E07142888 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5A3D895E3D474B2D86D17 /* Theme.swift */; };
+		6333AEE937ECC5597630A28E /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E832C1FA4CDE4D8207B7D6 /* Charts.swift */; };
+		68D7A5F7C6F53321B14C4432 /* FoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CB95BF322E6CCE5A78BB /* FoodView.swift */; };
+		6CD8A536684AEFD2BDBF424B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCA34524A7CFA372F9740753 /* Assets.xcassets */; };
+		732F5D1FEE27CFB7C7051623 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0795B4E25E45CAAD6D5AA5E7 /* Onboarding.swift */; };
+		750430958D3B865E302BAEEC /* LogWeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7300505433436C77DE4CEC /* LogWeightView.swift */; };
+		7E09738C08C8E010132C8304 /* ProView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F912F279723BBDEF91684 /* ProView.swift */; };
+		7F6E09005471B3D8B10B4A5C /* NutritionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B6D75B4EE1CC0E3BAED76 /* NutritionTests.swift */; };
+		86FCFE0C85D364DC0F7871A2 /* Pharmacokinetics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0063E43D0A0AB57464C382B3 /* Pharmacokinetics.swift */; };
+		87DDC105A089DB22BF322BCA /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01EC54DB01AFD00E5CE5A1 /* DashboardView.swift */; };
+		88A2FC24E8E0D5505B065E71 /* Adapty in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7EEF176A10F9CB31AF6EE /* Adapty */; };
+		96E01800B8C9F385A1473F2E /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719C2DD37EE02E0D3E299D3 /* Components.swift */; };
+		9CD39017B0FCC5E657AFB919 /* PurchaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949D3B336FD18ED2D0654219 /* PurchaseStore.swift */; };
+		9CE576D528C519582D88CD6F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B566E9F2268AADCFA72F3EE /* SettingsView.swift */; };
+		9DC566C54F4A2D923274A205 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DB08C83E64BE6A075767B /* OnboardingView.swift */; };
+		A065C099CC954D4ECD8A42CD /* Fraunces-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47073A025A62D67C69E18DD3 /* Fraunces-OFL.txt */; };
+		A60B288DA7F6AFE9EE22CE78 /* ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C93A7B804F246055A44977C /* ReminderService.swift */; };
+		A67ACC0B559B73978D092AAF /* NutritionAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0713A1E2F79D6CC9E9A39E /* NutritionAnalyzer.swift */; };
+		A80C78F8C2C1D527C9BDF566 /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0199D159AA9658A9F93537 /* WeightView.swift */; };
+		B382C0AB371BC85D2F45BCF5 /* EditForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E599CE9471D5164D9C3C0F55 /* EditForms.swift */; };
+		B8BB4162D5433E404FDE9710 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16E1E1633C94B07FDE954CF /* AppStore.swift */; };
+		BB5D83A2F96623628D90B883 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423FD22F3AEC70BCD049751 /* OnboardingTests.swift */; };
+		C9F44D44F83EC5C69F6A9939 /* LogFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232C6B00FF372B04B81AC469 /* LogFoodView.swift */; };
+		DB472D8CDCF2B0E34D323D79 /* SlimsyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47AC0DC2BBB34D7AD44BDA /* SlimsyApp.swift */; };
+		F622A2AB20DE4DB45CF56CA3 /* LogSideEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211EF18D7ADF87C6F46B5EEF /* LogSideEffectView.swift */; };
+		FCADDFC234BE8F09B5EF40E3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC03C05B241468548BF1AAE /* Models.swift */; };
+		FDE04A9384A2FA06071C46A9 /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BE1625A777B40CABCBC33A /* MedicationView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6139AA59F18ABC422B1FBAD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC1B5D596F25019EE81A2E20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B75076FE8AC0E375240E850E;
+			remoteInfo = Slimsy;
+		};
+		CBCE8408FB62D71E37BB771C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC1B5D596F25019EE81A2E20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B75076FE8AC0E375240E850E;
+			remoteInfo = Slimsy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0063E43D0A0AB57464C382B3 /* Pharmacokinetics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pharmacokinetics.swift; sourceTree = "<group>"; };
+		0795B4E25E45CAAD6D5AA5E7 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		0DC6F82DEF15C608DE821F22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		13BE1625A777B40CABCBC33A /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
+		1A2F912F279723BBDEF91684 /* ProView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProView.swift; sourceTree = "<group>"; };
+		211EF18D7ADF87C6F46B5EEF /* LogSideEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogSideEffectView.swift; sourceTree = "<group>"; };
+		232C6B00FF372B04B81AC469 /* LogFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFoodView.swift; sourceTree = "<group>"; };
+		2B566E9F2268AADCFA72F3EE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2C06E6145D6BB53BE03A2449 /* LegacyMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyMigration.swift; sourceTree = "<group>"; };
+		2C93A7B804F246055A44977C /* ReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderService.swift; sourceTree = "<group>"; };
+		3E5DB08C83E64BE6A075767B /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		409B6D75B4EE1CC0E3BAED76 /* NutritionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionTests.swift; sourceTree = "<group>"; };
+		47073A025A62D67C69E18DD3 /* Fraunces-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Fraunces-OFL.txt"; sourceTree = "<group>"; };
+		4719C2DD37EE02E0D3E299D3 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		4F34A04A1B8FBBEB8AC25DBE /* SlimsyUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SlimsyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55C5A3D895E3D474B2D86D17 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		58FCB4CEF95743C514C0E7B1 /* LogDoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDoseView.swift; sourceTree = "<group>"; };
+		632124661717E0BA9CB936F4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		6CD8BCA0FE0DD2A5EA9DA6B0 /* DMSans-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DMSans-OFL.txt"; sourceTree = "<group>"; };
+		809148BDA7CF9216C78595CF /* Slimsy.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Slimsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81E4C46EB86915292B779198 /* Fraunces.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fraunces.ttf; sourceTree = "<group>"; };
+		8278143982D86D3D1C64FFB1 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		949D3B336FD18ED2D0654219 /* PurchaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseStore.swift; sourceTree = "<group>"; };
+		952942C96AA173AC5A1A684C /* DMSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DMSans.ttf; sourceTree = "<group>"; };
+		A16E1E1633C94B07FDE954CF /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		A423FD22F3AEC70BCD049751 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
+		AD7300505433436C77DE4CEC /* LogWeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWeightView.swift; sourceTree = "<group>"; };
+		B5F84BF91B815B88B2E52DA2 /* OnboardingArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingArtwork.swift; sourceTree = "<group>"; };
+		BBC03C05B241468548BF1AAE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C0E33FE42A203CCB611B7941 /* SlimsyTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SlimsyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5F32584A9CAAF923BB9F429 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		CCA34524A7CFA372F9740753 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD0713A1E2F79D6CC9E9A39E /* NutritionAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionAnalyzer.swift; sourceTree = "<group>"; };
+		CE01EC54DB01AFD00E5CE5A1 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		D0E832C1FA4CDE4D8207B7D6 /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
+		DA59CB95BF322E6CCE5A78BB /* FoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodView.swift; sourceTree = "<group>"; };
+		E420B83D5FA7E47F3DF07EE6 /* SlimsyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimsyUITests.swift; sourceTree = "<group>"; };
+		E599CE9471D5164D9C3C0F55 /* EditForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditForms.swift; sourceTree = "<group>"; };
+		EB47AC0DC2BBB34D7AD44BDA /* SlimsyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimsyApp.swift; sourceTree = "<group>"; };
+		FD0199D159AA9658A9F93537 /* WeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1DA497999AD26AB880642C54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88A2FC24E8E0D5505B065E71 /* Adapty in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3EB41E196D5ED769714E4CF3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				EB47AC0DC2BBB34D7AD44BDA /* SlimsyApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		56E29AD13FA33A8F836B1C93 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				8278143982D86D3D1C64FFB1 /* Local.xcconfig */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		6B9665B84C06F69239279A76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				809148BDA7CF9216C78595CF /* Slimsy.app */,
+				C0E33FE42A203CCB611B7941 /* SlimsyTests.xctest */,
+				4F34A04A1B8FBBEB8AC25DBE /* SlimsyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7D9C352688D94C7EC724219D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6CD8BCA0FE0DD2A5EA9DA6B0 /* DMSans-OFL.txt */,
+				952942C96AA173AC5A1A684C /* DMSans.ttf */,
+				47073A025A62D67C69E18DD3 /* Fraunces-OFL.txt */,
+				81E4C46EB86915292B779198 /* Fraunces.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		8E4F570952DEE7C925972273 /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				E599CE9471D5164D9C3C0F55 /* EditForms.swift */,
+				58FCB4CEF95743C514C0E7B1 /* LogDoseView.swift */,
+				232C6B00FF372B04B81AC469 /* LogFoodView.swift */,
+				211EF18D7ADF87C6F46B5EEF /* LogSideEffectView.swift */,
+				AD7300505433436C77DE4CEC /* LogWeightView.swift */,
+			);
+			path = Forms;
+			sourceTree = "<group>";
+		};
+		9C0A82342AFF8E77330D4893 /* SlimsyTests */ = {
+			isa = PBXGroup;
+			children = (
+				C5F32584A9CAAF923BB9F429 /* ModelTests.swift */,
+				409B6D75B4EE1CC0E3BAED76 /* NutritionTests.swift */,
+				A423FD22F3AEC70BCD049751 /* OnboardingTests.swift */,
+			);
+			path = SlimsyTests;
+			sourceTree = "<group>";
+		};
+		9EE067AAED27B87D711BAA8E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CCA34524A7CFA372F9740753 /* Assets.xcassets */,
+				7D9C352688D94C7EC724219D /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B1BCDF7A588B30054B3DA193 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BBC03C05B241468548BF1AAE /* Models.swift */,
+				0795B4E25E45CAAD6D5AA5E7 /* Onboarding.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B274350F4DBAF9BBFABC1C88 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				D0E832C1FA4CDE4D8207B7D6 /* Charts.swift */,
+				4719C2DD37EE02E0D3E299D3 /* Components.swift */,
+				B5F84BF91B815B88B2E52DA2 /* OnboardingArtwork.swift */,
+				55C5A3D895E3D474B2D86D17 /* Theme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		B27CB0427C192BB98769D13C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A16E1E1633C94B07FDE954CF /* AppStore.swift */,
+				632124661717E0BA9CB936F4 /* ExportService.swift */,
+				2C06E6145D6BB53BE03A2449 /* LegacyMigration.swift */,
+				CD0713A1E2F79D6CC9E9A39E /* NutritionAnalyzer.swift */,
+				0063E43D0A0AB57464C382B3 /* Pharmacokinetics.swift */,
+				949D3B336FD18ED2D0654219 /* PurchaseStore.swift */,
+				2C93A7B804F246055A44977C /* ReminderService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BE0BF9864B7EE4DCCB11C4F7 = {
+			isa = PBXGroup;
+			children = (
+				56E29AD13FA33A8F836B1C93 /* Configuration */,
+				FB7BA0E43CBDF2C778EEA52E /* Slimsy */,
+				9C0A82342AFF8E77330D4893 /* SlimsyTests */,
+				DD14317C2E0BDB6BD7518EA1 /* SlimsyUITests */,
+				6B9665B84C06F69239279A76 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D27F2BD54DA06E92644B4D4A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE01EC54DB01AFD00E5CE5A1 /* DashboardView.swift */,
+				DA59CB95BF322E6CCE5A78BB /* FoodView.swift */,
+				13BE1625A777B40CABCBC33A /* MedicationView.swift */,
+				3E5DB08C83E64BE6A075767B /* OnboardingView.swift */,
+				1A2F912F279723BBDEF91684 /* ProView.swift */,
+				2B566E9F2268AADCFA72F3EE /* SettingsView.swift */,
+				FD0199D159AA9658A9F93537 /* WeightView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD14317C2E0BDB6BD7518EA1 /* SlimsyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E420B83D5FA7E47F3DF07EE6 /* SlimsyUITests.swift */,
+			);
+			path = SlimsyUITests;
+			sourceTree = "<group>";
+		};
+		FB7BA0E43CBDF2C778EEA52E /* Slimsy */ = {
+			isa = PBXGroup;
+			children = (
+				0DC6F82DEF15C608DE821F22 /* Info.plist */,
+				3EB41E196D5ED769714E4CF3 /* App */,
+				B274350F4DBAF9BBFABC1C88 /* Design */,
+				8E4F570952DEE7C925972273 /* Forms */,
+				B1BCDF7A588B30054B3DA193 /* Models */,
+				9EE067AAED27B87D711BAA8E /* Resources */,
+				B27CB0427C192BB98769D13C /* Services */,
+				D27F2BD54DA06E92644B4D4A /* Views */,
+			);
+			path = Slimsy;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0CA3ACF64348BB0369922058 /* SlimsyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DB83D1225586821F9715C5A /* Build configuration list for PBXNativeTarget "SlimsyTests" */;
+			buildPhases = (
+				39C9E117E8419311C27EA5B1 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B0732D4B5B559EECBF652B6 /* PBXTargetDependency */,
+			);
+			name = SlimsyTests;
+			packageProductDependencies = (
+			);
+			productName = SlimsyTests;
+			productReference = C0E33FE42A203CCB611B7941 /* SlimsyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B75076FE8AC0E375240E850E /* Slimsy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFCDE872B9DB57842D2801C4 /* Build configuration list for PBXNativeTarget "Slimsy" */;
+			buildPhases = (
+				8B0A0B285A6864E98B45D1A5 /* Sources */,
+				5B6CBD507929B35BD897BDFD /* Resources */,
+				1DA497999AD26AB880642C54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Slimsy;
+			packageProductDependencies = (
+				0ED7EEF176A10F9CB31AF6EE /* Adapty */,
+			);
+			productName = Slimsy;
+			productReference = 809148BDA7CF9216C78595CF /* Slimsy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CE462535772FF763FB0A25C7 /* SlimsyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A055D0F48793A0E52E79088 /* Build configuration list for PBXNativeTarget "SlimsyUITests" */;
+			buildPhases = (
+				42F4F44D6595B05D290D2471 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				59E1D9C8BC69038C1A09EE44 /* PBXTargetDependency */,
+			);
+			name = SlimsyUITests;
+			packageProductDependencies = (
+			);
+			productName = SlimsyUITests;
+			productReference = 4F34A04A1B8FBBEB8AC25DBE /* SlimsyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC1B5D596F25019EE81A2E20 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					0CA3ACF64348BB0369922058 = {
+						DevelopmentTeam = "";
+					};
+					B75076FE8AC0E375240E850E = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					CE462535772FF763FB0A25C7 = {
+						DevelopmentTeam = "";
+						TestTargetID = B75076FE8AC0E375240E850E;
+					};
+				};
+			};
+			buildConfigurationList = 5DF3CB4DA61A2B8F713B8992 /* Build configuration list for PBXProject "Slimsy" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = BE0BF9864B7EE4DCCB11C4F7;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5EFB074FC4655431BE16F91B /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6B9665B84C06F69239279A76 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B75076FE8AC0E375240E850E /* Slimsy */,
+				0CA3ACF64348BB0369922058 /* SlimsyTests */,
+				CE462535772FF763FB0A25C7 /* SlimsyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5B6CBD507929B35BD897BDFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CD8A536684AEFD2BDBF424B /* Assets.xcassets in Resources */,
+				3F64270C3FA19DE7031C7405 /* DMSans-OFL.txt in Resources */,
+				1EF152601C894F565510BE5A /* DMSans.ttf in Resources */,
+				A065C099CC954D4ECD8A42CD /* Fraunces-OFL.txt in Resources */,
+				3C2D2FA4882D3F4AAF6F522B /* Fraunces.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		39C9E117E8419311C27EA5B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BCFEEC01922D4B6BB572014 /* ModelTests.swift in Sources */,
+				7F6E09005471B3D8B10B4A5C /* NutritionTests.swift in Sources */,
+				BB5D83A2F96623628D90B883 /* OnboardingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42F4F44D6595B05D290D2471 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				344DF60A955CAD455F3232E9 /* SlimsyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B0A0B285A6864E98B45D1A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8BB4162D5433E404FDE9710 /* AppStore.swift in Sources */,
+				6333AEE937ECC5597630A28E /* Charts.swift in Sources */,
+				96E01800B8C9F385A1473F2E /* Components.swift in Sources */,
+				87DDC105A089DB22BF322BCA /* DashboardView.swift in Sources */,
+				B382C0AB371BC85D2F45BCF5 /* EditForms.swift in Sources */,
+				2FDAE0CE658CE5D8ECC9324F /* ExportService.swift in Sources */,
+				68D7A5F7C6F53321B14C4432 /* FoodView.swift in Sources */,
+				3BA80F0BE7AD8CDF6A5CF62F /* LegacyMigration.swift in Sources */,
+				39A27786312AF9785AF439F3 /* LogDoseView.swift in Sources */,
+				C9F44D44F83EC5C69F6A9939 /* LogFoodView.swift in Sources */,
+				F622A2AB20DE4DB45CF56CA3 /* LogSideEffectView.swift in Sources */,
+				750430958D3B865E302BAEEC /* LogWeightView.swift in Sources */,
+				FDE04A9384A2FA06071C46A9 /* MedicationView.swift in Sources */,
+				FCADDFC234BE8F09B5EF40E3 /* Models.swift in Sources */,
+				A67ACC0B559B73978D092AAF /* NutritionAnalyzer.swift in Sources */,
+				732F5D1FEE27CFB7C7051623 /* Onboarding.swift in Sources */,
+				21888AF76822080500193052 /* OnboardingArtwork.swift in Sources */,
+				9DC566C54F4A2D923274A205 /* OnboardingView.swift in Sources */,
+				86FCFE0C85D364DC0F7871A2 /* Pharmacokinetics.swift in Sources */,
+				7E09738C08C8E010132C8304 /* ProView.swift in Sources */,
+				9CD39017B0FCC5E657AFB919 /* PurchaseStore.swift in Sources */,
+				A60B288DA7F6AFE9EE22CE78 /* ReminderService.swift in Sources */,
+				9CE576D528C519582D88CD6F /* SettingsView.swift in Sources */,
+				DB472D8CDCF2B0E34D323D79 /* SlimsyApp.swift in Sources */,
+				59E60C0834654C3E07142888 /* Theme.swift in Sources */,
+				A80C78F8C2C1D527C9BDF566 /* WeightView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1B0732D4B5B559EECBF652B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B75076FE8AC0E375240E850E /* Slimsy */;
+			targetProxy = CBCE8408FB62D71E37BB771C /* PBXContainerItemProxy */;
+		};
+		59E1D9C8BC69038C1A09EE44 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B75076FE8AC0E375240E850E /* Slimsy */;
+			targetProxy = 6139AA59F18ABC422B1FBAD0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		14584024D58E9F37BD07F4B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ADAPTY_PLACEMENT_ID = default;
+				ADAPTY_PUBLIC_SDK_KEY = "";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FASTSHOT_PROJECT_ID = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				NEWELL_API_URL = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SLIMSY_MONTHLY_PRODUCT_ID = "";
+				SLIMSY_YEARLY_PRODUCT_ID = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Release;
+		};
+		898B0234AF2ADB5DBBCA9487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Slimsy.app/Slimsy";
+			};
+			name = Release;
+		};
+		92C1C5DF3D4816FC8FD324D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ADAPTY_PLACEMENT_ID = default;
+				ADAPTY_PUBLIC_SDK_KEY = "";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FASTSHOT_PROJECT_ID = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				NEWELL_API_URL = "";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SLIMSY_MONTHLY_PRODUCT_ID = "";
+				SLIMSY_YEARLY_PRODUCT_ID = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Debug;
+		};
+		B6BE38B2704DECE1C61C6FB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Slimsy.app/Slimsy";
+			};
+			name = Debug;
+		};
+		C002CC2B6946AE7F428090A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Slimsy;
+			};
+			name = Release;
+		};
+		DC6719D31ED8406549D1ABC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Slimsy;
+			};
+			name = Debug;
+		};
+		E38877FF3BF9EFC173A0DE0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8278143982D86D3D1C64FFB1 /* Local.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Slimsy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy;
+				PRODUCT_NAME = Slimsy;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		FD4D40736392DE16C2F55D6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8278143982D86D3D1C64FFB1 /* Local.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Slimsy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy.native;
+				PRODUCT_NAME = Slimsy;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5DF3CB4DA61A2B8F713B8992 /* Build configuration list for PBXProject "Slimsy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92C1C5DF3D4816FC8FD324D7 /* Debug */,
+				14584024D58E9F37BD07F4B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6A055D0F48793A0E52E79088 /* Build configuration list for PBXNativeTarget "SlimsyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6719D31ED8406549D1ABC3 /* Debug */,
+				C002CC2B6946AE7F428090A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7DB83D1225586821F9715C5A /* Build configuration list for PBXNativeTarget "SlimsyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6BE38B2704DECE1C61C6FB6 /* Debug */,
+				898B0234AF2ADB5DBBCA9487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CFCDE872B9DB57842D2801C4 /* Build configuration list for PBXNativeTarget "Slimsy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD4D40736392DE16C2F55D6F /* Debug */,
+				E38877FF3BF9EFC173A0DE0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5EFB074FC4655431BE16F91B /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adaptyteam/AdaptySDK-iOS.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.15.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0ED7EEF176A10F9CB31AF6EE /* Adapty */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5EFB074FC4655431BE16F91B /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */;
+			productName = Adapty;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = CC1B5D596F25019EE81A2E20 /* Project object */;
+}
