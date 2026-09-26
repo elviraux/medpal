@@ -9,21 +9,29 @@
 /* Begin PBXBuildFile section */
 		1EF152601C894F565510BE5A /* DMSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 952942C96AA173AC5A1A684C /* DMSans.ttf */; };
 		21888AF76822080500193052 /* OnboardingArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F84BF91B815B88B2E52DA2 /* OnboardingArtwork.swift */; };
+		28DD7F964142B9A5D4CBE114 /* Fraunces.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E4C46EB86915292B779198 /* Fraunces.ttf */; };
+		2CBBED6CA3C191DFAD620ABF /* RaccoonMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E29962B0F11EE0E1254A9B2 /* RaccoonMascot.swift */; };
 		2FDAE0CE658CE5D8ECC9324F /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124661717E0BA9CB936F4 /* ExportService.swift */; };
 		344DF60A955CAD455F3232E9 /* SlimsyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E420B83D5FA7E47F3DF07EE6 /* SlimsyUITests.swift */; };
 		39A27786312AF9785AF439F3 /* LogDoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCB4CEF95743C514C0E7B1 /* LogDoseView.swift */; };
 		3BA80F0BE7AD8CDF6A5CF62F /* LegacyMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C06E6145D6BB53BE03A2449 /* LegacyMigration.swift */; };
 		3C2D2FA4882D3F4AAF6F522B /* Fraunces.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E4C46EB86915292B779198 /* Fraunces.ttf */; };
 		3F64270C3FA19DE7031C7405 /* DMSans-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6CD8BCA0FE0DD2A5EA9DA6B0 /* DMSans-OFL.txt */; };
+		44C090523BD6544D017637DC /* Pharmacokinetics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0063E43D0A0AB57464C382B3 /* Pharmacokinetics.swift */; };
 		4BCFEEC01922D4B6BB572014 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F32584A9CAAF923BB9F429 /* ModelTests.swift */; };
+		4ED219EBA7607B0446337A22 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5A3D895E3D474B2D86D17 /* Theme.swift */; };
 		59E60C0834654C3E07142888 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5A3D895E3D474B2D86D17 /* Theme.swift */; };
 		6333AEE937ECC5597630A28E /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E832C1FA4CDE4D8207B7D6 /* Charts.swift */; };
 		68D7A5F7C6F53321B14C4432 /* FoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA59CB95BF322E6CCE5A78BB /* FoodView.swift */; };
 		6CD8A536684AEFD2BDBF424B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCA34524A7CFA372F9740753 /* Assets.xcassets */; };
 		732F5D1FEE27CFB7C7051623 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0795B4E25E45CAAD6D5AA5E7 /* Onboarding.swift */; };
 		750430958D3B865E302BAEEC /* LogWeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7300505433436C77DE4CEC /* LogWeightView.swift */; };
+		78444F2F29ED5744C9345F4C /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65538761326A3401FF2B159 /* WidgetSnapshot.swift */; };
 		7E09738C08C8E010132C8304 /* ProView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F912F279723BBDEF91684 /* ProView.swift */; };
+		7F3F228664823CE91FD5C5D6 /* DMSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 952942C96AA173AC5A1A684C /* DMSans.ttf */; };
 		7F6E09005471B3D8B10B4A5C /* NutritionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B6D75B4EE1CC0E3BAED76 /* NutritionTests.swift */; };
+		83D2081E708E3E74AFE9612B /* LevelChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B66AE356392B3D071BD6AC /* LevelChart.swift */; };
+		858E3CA7EAAD6F0C49F51176 /* SlimsyWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5AE80BA06A405FD194DC8930 /* SlimsyWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		86FCFE0C85D364DC0F7871A2 /* Pharmacokinetics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0063E43D0A0AB57464C382B3 /* Pharmacokinetics.swift */; };
 		87DDC105A089DB22BF322BCA /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01EC54DB01AFD00E5CE5A1 /* DashboardView.swift */; };
 		88A2FC24E8E0D5505B065E71 /* Adapty in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7EEF176A10F9CB31AF6EE /* Adapty */; };
@@ -34,18 +42,29 @@
 		A065C099CC954D4ECD8A42CD /* Fraunces-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47073A025A62D67C69E18DD3 /* Fraunces-OFL.txt */; };
 		A60B288DA7F6AFE9EE22CE78 /* ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C93A7B804F246055A44977C /* ReminderService.swift */; };
 		A67ACC0B559B73978D092AAF /* NutritionAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0713A1E2F79D6CC9E9A39E /* NutritionAnalyzer.swift */; };
+		A7DF049519C8C30353CBAA4E /* SlimsyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE7FCC784D44CCC552238D /* SlimsyWidget.swift */; };
 		A80C78F8C2C1D527C9BDF566 /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0199D159AA9658A9F93537 /* WeightView.swift */; };
 		B382C0AB371BC85D2F45BCF5 /* EditForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E599CE9471D5164D9C3C0F55 /* EditForms.swift */; };
+		B6D40E5408B6799D7476DB54 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC03C05B241468548BF1AAE /* Models.swift */; };
 		B8BB4162D5433E404FDE9710 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16E1E1633C94B07FDE954CF /* AppStore.swift */; };
 		BB5D83A2F96623628D90B883 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423FD22F3AEC70BCD049751 /* OnboardingTests.swift */; };
 		C9F44D44F83EC5C69F6A9939 /* LogFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232C6B00FF372B04B81AC469 /* LogFoodView.swift */; };
 		DB472D8CDCF2B0E34D323D79 /* SlimsyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47AC0DC2BBB34D7AD44BDA /* SlimsyApp.swift */; };
+		E05643F061F4650972869464 /* LevelChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B66AE356392B3D071BD6AC /* LevelChart.swift */; };
+		EFFEF6D90BBDB5906C024EA0 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65538761326A3401FF2B159 /* WidgetSnapshot.swift */; };
 		F622A2AB20DE4DB45CF56CA3 /* LogSideEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211EF18D7ADF87C6F46B5EEF /* LogSideEffectView.swift */; };
 		FCADDFC234BE8F09B5EF40E3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC03C05B241468548BF1AAE /* Models.swift */; };
 		FDE04A9384A2FA06071C46A9 /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BE1625A777B40CABCBC33A /* MedicationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55B894F0B2E8AC64FB4F6A2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC1B5D596F25019EE81A2E20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BA84A9BC684E34D1AAA6BFF;
+			remoteInfo = SlimsyWidget;
+		};
 		6139AA59F18ABC422B1FBAD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CC1B5D596F25019EE81A2E20 /* Project object */;
@@ -62,10 +81,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5403607B15DFAF9C0E9F5E00 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				858E3CA7EAAD6F0C49F51176 /* SlimsyWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0063E43D0A0AB57464C382B3 /* Pharmacokinetics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pharmacokinetics.swift; sourceTree = "<group>"; };
 		0795B4E25E45CAAD6D5AA5E7 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		0DC6F82DEF15C608DE821F22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0DCE7FCC784D44CCC552238D /* SlimsyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimsyWidget.swift; sourceTree = "<group>"; };
 		13BE1625A777B40CABCBC33A /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		1A2F912F279723BBDEF91684 /* ProView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProView.swift; sourceTree = "<group>"; };
 		211EF18D7ADF87C6F46B5EEF /* LogSideEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogSideEffectView.swift; sourceTree = "<group>"; };
@@ -77,9 +111,12 @@
 		409B6D75B4EE1CC0E3BAED76 /* NutritionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionTests.swift; sourceTree = "<group>"; };
 		47073A025A62D67C69E18DD3 /* Fraunces-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Fraunces-OFL.txt"; sourceTree = "<group>"; };
 		4719C2DD37EE02E0D3E299D3 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		4E29962B0F11EE0E1254A9B2 /* RaccoonMascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaccoonMascot.swift; sourceTree = "<group>"; };
 		4F34A04A1B8FBBEB8AC25DBE /* SlimsyUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SlimsyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C5A3D895E3D474B2D86D17 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		58FCB4CEF95743C514C0E7B1 /* LogDoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDoseView.swift; sourceTree = "<group>"; };
+		5AE80BA06A405FD194DC8930 /* SlimsyWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SlimsyWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		62B66AE356392B3D071BD6AC /* LevelChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelChart.swift; sourceTree = "<group>"; };
 		632124661717E0BA9CB936F4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		6CD8BCA0FE0DD2A5EA9DA6B0 /* DMSans-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DMSans-OFL.txt"; sourceTree = "<group>"; };
 		809148BDA7CF9216C78595CF /* Slimsy.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Slimsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,15 +126,19 @@
 		952942C96AA173AC5A1A684C /* DMSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DMSans.ttf; sourceTree = "<group>"; };
 		A16E1E1633C94B07FDE954CF /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A423FD22F3AEC70BCD049751 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
+		A65538761326A3401FF2B159 /* WidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshot.swift; sourceTree = "<group>"; };
 		AD7300505433436C77DE4CEC /* LogWeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWeightView.swift; sourceTree = "<group>"; };
 		B5F84BF91B815B88B2E52DA2 /* OnboardingArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingArtwork.swift; sourceTree = "<group>"; };
 		BBC03C05B241468548BF1AAE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		C0E33FE42A203CCB611B7941 /* SlimsyTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SlimsyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C329357A3765DABFF63C3CB7 /* SlimsyWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SlimsyWidget.entitlements; sourceTree = "<group>"; };
 		C5F32584A9CAAF923BB9F429 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		CCA34524A7CFA372F9740753 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD0713A1E2F79D6CC9E9A39E /* NutritionAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionAnalyzer.swift; sourceTree = "<group>"; };
 		CE01EC54DB01AFD00E5CE5A1 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		D0E832C1FA4CDE4D8207B7D6 /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
+		D106F1B1C6B8E189AED214E1 /* Slimsy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slimsy.entitlements; sourceTree = "<group>"; };
+		D5CFB092C48514F23E9469D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DA59CB95BF322E6CCE5A78BB /* FoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodView.swift; sourceTree = "<group>"; };
 		E420B83D5FA7E47F3DF07EE6 /* SlimsyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimsyUITests.swift; sourceTree = "<group>"; };
 		E599CE9471D5164D9C3C0F55 /* EditForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditForms.swift; sourceTree = "<group>"; };
@@ -139,6 +180,7 @@
 				809148BDA7CF9216C78595CF /* Slimsy.app */,
 				C0E33FE42A203CCB611B7941 /* SlimsyTests.xctest */,
 				4F34A04A1B8FBBEB8AC25DBE /* SlimsyUITests.xctest */,
+				5AE80BA06A405FD194DC8930 /* SlimsyWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,7 +241,9 @@
 			children = (
 				D0E832C1FA4CDE4D8207B7D6 /* Charts.swift */,
 				4719C2DD37EE02E0D3E299D3 /* Components.swift */,
+				62B66AE356392B3D071BD6AC /* LevelChart.swift */,
 				B5F84BF91B815B88B2E52DA2 /* OnboardingArtwork.swift */,
+				4E29962B0F11EE0E1254A9B2 /* RaccoonMascot.swift */,
 				55C5A3D895E3D474B2D86D17 /* Theme.swift */,
 			);
 			path = Design;
@@ -215,6 +259,7 @@
 				0063E43D0A0AB57464C382B3 /* Pharmacokinetics.swift */,
 				949D3B336FD18ED2D0654219 /* PurchaseStore.swift */,
 				2C93A7B804F246055A44977C /* ReminderService.swift */,
+				A65538761326A3401FF2B159 /* WidgetSnapshot.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -226,8 +271,19 @@
 				FB7BA0E43CBDF2C778EEA52E /* Slimsy */,
 				9C0A82342AFF8E77330D4893 /* SlimsyTests */,
 				DD14317C2E0BDB6BD7518EA1 /* SlimsyUITests */,
+				C7EE03D0CFA16EA5691C6670 /* SlimsyWidget */,
 				6B9665B84C06F69239279A76 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		C7EE03D0CFA16EA5691C6670 /* SlimsyWidget */ = {
+			isa = PBXGroup;
+			children = (
+				D5CFB092C48514F23E9469D8 /* Info.plist */,
+				C329357A3765DABFF63C3CB7 /* SlimsyWidget.entitlements */,
+				0DCE7FCC784D44CCC552238D /* SlimsyWidget.swift */,
+			);
+			path = SlimsyWidget;
 			sourceTree = "<group>";
 		};
 		D27F2BD54DA06E92644B4D4A /* Views */ = {
@@ -256,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				0DC6F82DEF15C608DE821F22 /* Info.plist */,
+				D106F1B1C6B8E189AED214E1 /* Slimsy.entitlements */,
 				3EB41E196D5ED769714E4CF3 /* App */,
 				B274350F4DBAF9BBFABC1C88 /* Design */,
 				8E4F570952DEE7C925972273 /* Forms */,
@@ -288,6 +345,24 @@
 			productReference = C0E33FE42A203CCB611B7941 /* SlimsyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5BA84A9BC684E34D1AAA6BFF /* SlimsyWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACBAAFACE68A8458F281218F /* Build configuration list for PBXNativeTarget "SlimsyWidget" */;
+			buildPhases = (
+				CCE8C4629819C9B4D1DA9256 /* Sources */,
+				FCF06621E47458C3D802150A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SlimsyWidget;
+			packageProductDependencies = (
+			);
+			productName = SlimsyWidget;
+			productReference = 5AE80BA06A405FD194DC8930 /* SlimsyWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		B75076FE8AC0E375240E850E /* Slimsy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CFCDE872B9DB57842D2801C4 /* Build configuration list for PBXNativeTarget "Slimsy" */;
@@ -295,10 +370,12 @@
 				8B0A0B285A6864E98B45D1A5 /* Sources */,
 				5B6CBD507929B35BD897BDFD /* Resources */,
 				1DA497999AD26AB880642C54 /* Frameworks */,
+				5403607B15DFAF9C0E9F5E00 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				31877DB3362EAA9FC79A0B50 /* PBXTargetDependency */,
 			);
 			name = Slimsy;
 			packageProductDependencies = (
@@ -338,6 +415,10 @@
 					0CA3ACF64348BB0369922058 = {
 						DevelopmentTeam = "";
 					};
+					5BA84A9BC684E34D1AAA6BFF = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					B75076FE8AC0E375240E850E = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
@@ -366,6 +447,7 @@
 			projectRoot = "";
 			targets = (
 				B75076FE8AC0E375240E850E /* Slimsy */,
+				5BA84A9BC684E34D1AAA6BFF /* SlimsyWidget */,
 				0CA3ACF64348BB0369922058 /* SlimsyTests */,
 				CE462535772FF763FB0A25C7 /* SlimsyUITests */,
 			);
@@ -382,6 +464,15 @@
 				1EF152601C894F565510BE5A /* DMSans.ttf in Resources */,
 				A065C099CC954D4ECD8A42CD /* Fraunces-OFL.txt in Resources */,
 				3C2D2FA4882D3F4AAF6F522B /* Fraunces.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCF06621E47458C3D802150A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F3F228664823CE91FD5C5D6 /* DMSans.ttf in Resources */,
+				28DD7F964142B9A5D4CBE114 /* Fraunces.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +509,7 @@
 				2FDAE0CE658CE5D8ECC9324F /* ExportService.swift in Sources */,
 				68D7A5F7C6F53321B14C4432 /* FoodView.swift in Sources */,
 				3BA80F0BE7AD8CDF6A5CF62F /* LegacyMigration.swift in Sources */,
+				E05643F061F4650972869464 /* LevelChart.swift in Sources */,
 				39A27786312AF9785AF439F3 /* LogDoseView.swift in Sources */,
 				C9F44D44F83EC5C69F6A9939 /* LogFoodView.swift in Sources */,
 				F622A2AB20DE4DB45CF56CA3 /* LogSideEffectView.swift in Sources */,
@@ -431,11 +523,26 @@
 				86FCFE0C85D364DC0F7871A2 /* Pharmacokinetics.swift in Sources */,
 				7E09738C08C8E010132C8304 /* ProView.swift in Sources */,
 				9CD39017B0FCC5E657AFB919 /* PurchaseStore.swift in Sources */,
+				2CBBED6CA3C191DFAD620ABF /* RaccoonMascot.swift in Sources */,
 				A60B288DA7F6AFE9EE22CE78 /* ReminderService.swift in Sources */,
 				9CE576D528C519582D88CD6F /* SettingsView.swift in Sources */,
 				DB472D8CDCF2B0E34D323D79 /* SlimsyApp.swift in Sources */,
 				59E60C0834654C3E07142888 /* Theme.swift in Sources */,
 				A80C78F8C2C1D527C9BDF566 /* WeightView.swift in Sources */,
+				78444F2F29ED5744C9345F4C /* WidgetSnapshot.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCE8C4629819C9B4D1DA9256 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83D2081E708E3E74AFE9612B /* LevelChart.swift in Sources */,
+				B6D40E5408B6799D7476DB54 /* Models.swift in Sources */,
+				44C090523BD6544D017637DC /* Pharmacokinetics.swift in Sources */,
+				A7DF049519C8C30353CBAA4E /* SlimsyWidget.swift in Sources */,
+				4ED219EBA7607B0446337A22 /* Theme.swift in Sources */,
+				EFFEF6D90BBDB5906C024EA0 /* WidgetSnapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +553,11 @@
 			isa = PBXTargetDependency;
 			target = B75076FE8AC0E375240E850E /* Slimsy */;
 			targetProxy = CBCE8408FB62D71E37BB771C /* PBXContainerItemProxy */;
+		};
+		31877DB3362EAA9FC79A0B50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5BA84A9BC684E34D1AAA6BFF /* SlimsyWidget */;
+			targetProxy = 55B894F0B2E8AC64FB4F6A2F /* PBXContainerItemProxy */;
 		};
 		59E1D9C8BC69038C1A09EE44 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -514,11 +626,29 @@
 				NEWELL_API_URL = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SLIMSY_APP_GROUP = group.com.fastshotai.slimsy;
 				SLIMSY_MONTHLY_PRODUCT_ID = "";
 				SLIMSY_YEARLY_PRODUCT_ID = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.10;
+			};
+			name = Release;
+		};
+		7FEE2BC45D4E59262A5AF732 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SlimsyWidget/SlimsyWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SlimsyWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -605,11 +735,29 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SLIMSY_APP_GROUP = group.com.fastshotai.slimsy.native;
 				SLIMSY_MONTHLY_PRODUCT_ID = "";
 				SLIMSY_YEARLY_PRODUCT_ID = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.10;
+			};
+			name = Debug;
+		};
+		9B1C17A860FFCB7AFABAF9E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SlimsyWidget/SlimsyWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SlimsyWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastshotai.slimsy.native.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -669,6 +817,7 @@
 			baseConfigurationReference = 8278143982D86D3D1C64FFB1 /* Local.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Slimsy/Slimsy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -691,6 +840,7 @@
 			baseConfigurationReference = 8278143982D86D3D1C64FFB1 /* Local.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Slimsy/Slimsy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -734,6 +884,15 @@
 			buildConfigurations = (
 				B6BE38B2704DECE1C61C6FB6 /* Debug */,
 				898B0234AF2ADB5DBBCA9487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ACBAAFACE68A8458F281218F /* Build configuration list for PBXNativeTarget "SlimsyWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B1C17A860FFCB7AFABAF9E4 /* Debug */,
+				7FEE2BC45D4E59262A5AF732 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

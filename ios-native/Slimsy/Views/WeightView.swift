@@ -22,7 +22,7 @@ struct WeightView: View {
             ScreenHeader(eyebrow: "The bigger picture", title: "Every step counts.", actionLabel: "Log weight") { router.sheet = .weight }
             currentWeightCard
             HStack(spacing: 12) {
-                smallStat("Since you started", value: store.weightChange.map { store.units.weight(abs($0)) } ?? "—", unit: store.units.weightLabel, symbol: (store.weightChange ?? 0) >= 0 ? "arrow.down.right" : "arrow.up.right", color: Palette.green)
+                smallStat("Since you started", value: store.weightChange.map { store.units.weight(abs($0)) } ?? "—", unit: store.units.weightLabel, symbol: (store.weightChange ?? 0) >= 0 ? "arrow.down.right" : "arrow.up.right", color: Palette.plum)
                 smallStat("Current BMI", value: store.bmi.map { $0.formatted(.number.precision(.fractionLength(1))) } ?? "—", unit: "", symbol: "figure.stand", color: Palette.blue)
             }
             trendCard
@@ -49,7 +49,7 @@ struct WeightView: View {
                     }
                     Spacer(minLength: 0)
                     ZStack {
-                        Circle().fill(Palette.paleGreen).frame(width: 74, height: 74)
+                        Circle().fill(Palette.blush).frame(width: 74, height: 74)
                         SlimsyMark(size: 45)
                     }
                 }
@@ -84,7 +84,7 @@ struct WeightView: View {
             }.pickerStyle(.segmented).accessibilityIdentifier("weight-period")
             AppCard {
                 if filtered.isEmpty {
-                    EmptyState(symbol: "chart.xyaxis.line", title: "A fresh page", message: "No check-ins in this time period. Choose a wider range or log a weight.", actionTitle: "Add a check-in") { router.sheet = .weight }
+                    EmptyState(symbol: "chart.xyaxis.line", title: "Nothing in this range", message: "No check-ins in this time period. Choose a wider range or log a weight.", actionTitle: "Add a check-in") { router.sheet = .weight }
                 } else {
                     VStack(alignment: .leading, spacing: 15) {
                         HStack {
@@ -100,16 +100,16 @@ struct WeightView: View {
         }
     }
     private func milestoneCard(start: Double, goal: Double) -> some View {
-        AppCard(tint: Palette.paleGreen) {
+        AppCard(tint: Palette.blush) {
             HStack(spacing: 17) {
                 ZStack {
                     MetricRing(progress: store.goalProgress, size: 58, lineWidth: 4)
-                    Text("\(Int((store.goalProgress * 100).rounded()))%").font(TypeStyle.body(14, weight: .semibold)).foregroundStyle(Palette.green)
+                    Text("\(Int((store.goalProgress * 100).rounded()))%").font(TypeStyle.body(14, weight: .semibold)).foregroundStyle(Palette.plum)
                 }
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(store.goalProgress >= 1 ? "Look how far you've come." : "You're writing your story.").font(TypeStyle.display(20)).foregroundStyle(Palette.ink)
+                    Text(store.goalProgress >= 1 ? "Look how far you've come." : "You're on your way.").font(TypeStyle.display(20)).foregroundStyle(Palette.ink)
                     Text("Progress toward your goal of \(store.units.weight(goal, decimals: 0)) \(store.units.weightLabel).").font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
-                    Button("Adjust your goals") { router.sheet = .goals }.font(TypeStyle.body(11, weight: .semibold)).foregroundStyle(Palette.green).frame(minHeight: 32)
+                    Button("Adjust your goals") { router.sheet = .goals }.font(TypeStyle.body(11, weight: .semibold)).foregroundStyle(Palette.plum).frame(minHeight: 32)
                 }
             }
         }

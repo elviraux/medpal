@@ -12,7 +12,7 @@ struct Screen<Content: View>: View {
                 .frame(maxWidth: .infinity)
         }
         .scrollIndicators(.hidden)
-        .background(Palette.background)
+        .background(Backdrop())
         .toolbar(.hidden, for: .navigationBar)
     }
 }
@@ -21,7 +21,7 @@ struct Eyebrow: View {
     var text: String
     var color: Color = Palette.secondary
     var body: some View {
-        Text(text.uppercased()).font(TypeStyle.body(10, weight: .bold)).tracking(2).foregroundStyle(color)
+        Text(text.uppercased()).font(TypeStyle.body(10, weight: .semibold)).tracking(2.4).foregroundStyle(color)
     }
 }
 
@@ -43,7 +43,8 @@ struct ScreenHeader: View {
             if let action, let actionLabel {
                 Button(action: action) {
                     Image(systemName: symbol).font(.system(size: 19, weight: .medium))
-                        .foregroundStyle(Palette.background).frame(width: 46, height: 46).background(Palette.green, in: Circle())
+                        .foregroundStyle(Palette.background).frame(width: 46, height: 46).background(Palette.plum, in: Circle())
+                        .shadow(color: Palette.aubergine.opacity(0.18), radius: 10, y: 5)
                 }
                 .accessibilityLabel(actionLabel)
                 .buttonStyle(PressFeedback())
@@ -58,8 +59,9 @@ struct AppCard<Content: View>: View {
     @ViewBuilder var content: Content
     var body: some View {
         content.padding(padding).frame(maxWidth: .infinity, alignment: .leading)
-            .background(tint, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 24, style: .continuous).stroke(Palette.line.opacity(0.65), lineWidth: 0.75))
+            .background(tint, in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 26, style: .continuous).stroke(Palette.line.opacity(0.7), lineWidth: 0.75))
+            .shadow(color: Palette.aubergine.opacity(0.05), radius: 18, y: 8)
     }
 }
 
@@ -69,10 +71,10 @@ struct SectionTitle: View {
     var action: (() -> Void)? = nil
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
-            Text(title).font(TypeStyle.body(18, weight: .semibold)).foregroundStyle(Palette.ink).accessibilityAddTraits(.isHeader)
+            Text(title).font(TypeStyle.display(21)).foregroundStyle(Palette.ink).accessibilityAddTraits(.isHeader)
             Spacer()
             if let actionTitle, let action {
-                Button(actionTitle, action: action).font(TypeStyle.body(12, weight: .semibold)).foregroundStyle(Palette.green).frame(minHeight: 32)
+                Button(actionTitle, action: action).font(TypeStyle.body(12, weight: .semibold)).foregroundStyle(Palette.plum).frame(minHeight: 32)
             }
         }
     }
@@ -80,12 +82,12 @@ struct SectionTitle: View {
 
 struct IconBadge: View {
     var symbol: String
-    var color: Color = Palette.green
+    var color: Color = Palette.plum
     var size: CGFloat = 42
     var body: some View {
         Image(systemName: symbol).font(.system(size: size * 0.43, weight: .regular))
             .foregroundStyle(color).frame(width: size, height: size)
-            .background(color.opacity(0.10), in: RoundedRectangle(cornerRadius: size * 0.32))
+            .background(color.opacity(0.10), in: Circle())
             .accessibilityHidden(true)
     }
 }
@@ -93,7 +95,7 @@ struct IconBadge: View {
 struct Tag: View {
     var text: String
     var symbol: String? = nil
-    var color: Color = Palette.green
+    var color: Color = Palette.plum
     var background: Color? = nil
     var body: some View {
         HStack(spacing: 5) {
@@ -116,11 +118,12 @@ struct PrimaryButton: View {
         Button(action: action) {
             HStack(spacing: 10) {
                 if isLoading { ProgressView().tint(Palette.background) }
-                Text(title).font(TypeStyle.body(15, weight: .semibold))
+                Text(title).font(TypeStyle.body(15, weight: .semibold)).tracking(0.3)
                 if let symbol, !isLoading { Image(systemName: symbol).font(.system(size: 13, weight: .semibold)) }
             }
-            .foregroundStyle(Palette.background).frame(maxWidth: .infinity).frame(minHeight: 54)
-            .background(disabled ? Palette.secondary.opacity(0.5) : Palette.green, in: RoundedRectangle(cornerRadius: 18))
+            .foregroundStyle(Palette.background).frame(maxWidth: .infinity).frame(minHeight: 56)
+            .background(disabled ? Palette.secondary.opacity(0.5) : Palette.plum, in: Capsule())
+            .shadow(color: Palette.aubergine.opacity(disabled ? 0 : 0.2), radius: 14, y: 7)
         }
         .buttonStyle(PressFeedback()).disabled(disabled || isLoading)
     }
@@ -137,8 +140,8 @@ struct SecondaryButton: View {
                 Text(title)
             }
             .font(TypeStyle.body(13, weight: .semibold))
-            .foregroundStyle(Palette.green).frame(maxWidth: .infinity).frame(minHeight: 48)
-            .background(Palette.paleGreen, in: RoundedRectangle(cornerRadius: 16))
+            .foregroundStyle(Palette.plum).frame(maxWidth: .infinity).frame(minHeight: 50)
+            .background(Palette.blush, in: Capsule())
         }.buttonStyle(PressFeedback())
     }
 }
@@ -154,14 +157,14 @@ struct EmptyState: View {
             IconBadge(symbol: symbol, size: 52)
             Text(title).font(TypeStyle.body(16, weight: .semibold)).foregroundStyle(Palette.ink)
             Text(message).font(TypeStyle.body(13)).foregroundStyle(Palette.secondary).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
-            if let actionTitle, let action { Button(actionTitle, action: action).font(TypeStyle.body(13, weight: .semibold)).foregroundStyle(Palette.green).frame(minHeight: 44) }
+            if let actionTitle, let action { Button(actionTitle, action: action).font(TypeStyle.body(13, weight: .semibold)).foregroundStyle(Palette.plum).frame(minHeight: 44) }
         }.padding(.vertical, 18).frame(maxWidth: .infinity)
     }
 }
 
 struct MetricRing: View {
     var progress: Double
-    var color: Color = Palette.green
+    var color: Color = Palette.plum
     var size: CGFloat = 60
     var lineWidth: CGFloat = 5
     var symbol: String? = nil
@@ -177,7 +180,7 @@ struct MetricRing: View {
 
 struct ProgressTrack: View {
     var progress: Double
-    var color: Color = Palette.green
+    var color: Color = Palette.plum
     var height: CGFloat = 5
     var body: some View {
         GeometryReader { proxy in
@@ -207,7 +210,7 @@ struct InfoRow: View {
     var symbol: String
     var title: String
     var value: String
-    var color: Color = Palette.green
+    var color: Color = Palette.plum
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: symbol).foregroundStyle(color).frame(width: 22).accessibilityHidden(true)
@@ -232,8 +235,8 @@ struct ChoiceChip: View {
             .foregroundStyle(selected ? Palette.background : Palette.ink)
             .padding(.horizontal, 15).frame(minHeight: 44)
             .frame(maxWidth: .infinity)
-            .background(selected ? Palette.green : Palette.surface, in: RoundedRectangle(cornerRadius: 14))
-            .overlay(RoundedRectangle(cornerRadius: 14).stroke(selected ? Color.clear : Palette.line, lineWidth: 1))
+            .background(selected ? Palette.plum : Palette.surface, in: Capsule())
+            .overlay(Capsule().stroke(selected ? Color.clear : Palette.line, lineWidth: 1))
         }
         .buttonStyle(PressFeedback())
         .accessibilityAddTraits(selected ? .isSelected : [])
@@ -255,10 +258,10 @@ struct SelectionRow: View {
                     if let detail { Text(detail).font(TypeStyle.body(12)).foregroundStyle(Palette.secondary) }
                 }
                 Spacer(minLength: 0)
-                Image(systemName: selected ? "checkmark.circle.fill" : "circle").foregroundStyle(selected ? Palette.green : Palette.line).font(.system(size: 21))
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle").foregroundStyle(selected ? Palette.plum : Palette.line).font(.system(size: 21))
             }
-            .padding(15).background(selected ? Palette.paleGreen : Palette.surface, in: RoundedRectangle(cornerRadius: 18))
-            .overlay(RoundedRectangle(cornerRadius: 18).stroke(selected ? Palette.green.opacity(0.35) : Palette.line, lineWidth: 1))
+            .padding(15).background(selected ? Palette.blush : Palette.surface, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(selected ? Palette.plum.opacity(0.4) : Palette.line, lineWidth: 1))
         }.buttonStyle(PressFeedback()).accessibilityAddTraits(selected ? .isSelected : [])
     }
 }
@@ -287,8 +290,9 @@ struct TextEntry: View {
                 if let suffix { Text(suffix).font(TypeStyle.body(13)).foregroundStyle(Palette.secondary) }
             }
             .padding(15).frame(minHeight: 52)
-            .background(Palette.surface, in: RoundedRectangle(cornerRadius: 15))
-            .overlay(RoundedRectangle(cornerRadius: 15).stroke(Palette.line, lineWidth: 1))
+            .background(Palette.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(focused ? Palette.plum.opacity(0.55) : Palette.line, lineWidth: 1))
+            .animation(.easeOut(duration: 0.15), value: focused)
             .contentShape(Rectangle()).onTapGesture { focused = true }
         }
     }
@@ -302,8 +306,8 @@ struct NotesEntry: View {
             FieldLabel(title: title + " · optional")
             TextField("Anything you'd like to remember…", text: $text, axis: .vertical)
                 .font(TypeStyle.body(14)).foregroundStyle(Palette.ink).lineLimit(3...6)
-                .padding(16).background(Palette.surface, in: RoundedRectangle(cornerRadius: 16))
-                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Palette.line, lineWidth: 1))
+                .padding(16).background(Palette.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Palette.line, lineWidth: 1))
                 .accessibilityLabel(title)
         }
     }
@@ -339,7 +343,7 @@ struct FormShell<Content: View>: View {
             }
             .scrollIndicators(.hidden)
             .scrollDismissesKeyboard(.interactively)
-            .background(Palette.background)
+            .background(Backdrop())
             .navigationTitle(title).navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -357,7 +361,7 @@ struct FormShell<Content: View>: View {
                     .background(Palette.background)
             }
         }
-        .tint(Palette.green).presentationDragIndicator(.visible)
+        .tint(Palette.plum).presentationDragIndicator(.visible)
         .alert("Changes weren't saved", isPresented: Binding(get: { store.errorMessage != nil }, set: { if !$0 { store.errorMessage = nil } })) {
             Button("OK", role: .cancel) { store.errorMessage = nil }
         } message: { Text(store.errorMessage ?? "Please try again.") }

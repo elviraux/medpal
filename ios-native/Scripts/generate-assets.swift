@@ -13,20 +13,20 @@ let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 1024, pixelsHig
 guard let context = NSGraphicsContext(bitmapImageRep: bitmap) else { fatalError("Could not create icon drawing context") }
 NSGraphicsContext.saveGraphicsState()
 NSGraphicsContext.current = context
-color(0x193E31).setFill()
+color(0x2E1B26).setFill()
 NSBezierPath(rect: NSRect(x: 0, y: 0, width: 1024, height: 1024)).fill()
 
 let firstLeaf = NSBezierPath()
 firstLeaf.move(to: NSPoint(x: 507, y: 218))
 firstLeaf.curve(to: NSPoint(x: 280, y: 791), controlPoint1: NSPoint(x: 129, y: 410), controlPoint2: NSPoint(x: 196, y: 693))
 firstLeaf.curve(to: NSPoint(x: 507, y: 218), controlPoint1: NSPoint(x: 686, y: 672), controlPoint2: NSPoint(x: 696, y: 452))
-color(0xDBEAAF).setFill(); firstLeaf.fill()
+color(0xEBD5B0).setFill(); firstLeaf.fill()
 
 let secondLeaf = NSBezierPath()
 secondLeaf.move(to: NSPoint(x: 552, y: 511))
 secondLeaf.curve(to: NSPoint(x: 803, y: 821), controlPoint1: NSPoint(x: 506, y: 748), controlPoint2: NSPoint(x: 680, y: 850))
 secondLeaf.curve(to: NSPoint(x: 552, y: 511), controlPoint1: NSPoint(x: 856, y: 587), controlPoint2: NSPoint(x: 749, y: 483))
-color(0x8DAC79).setFill(); secondLeaf.fill()
+color(0xC48A99).setFill(); secondLeaf.fill()
 NSGraphicsContext.restoreGraphicsState()
 try bitmap.representation(using: .png, properties: [:])!.write(to: iconDirectory.appendingPathComponent("AppIcon.png"))
 let contents = """

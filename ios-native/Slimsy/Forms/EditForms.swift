@@ -101,13 +101,13 @@ struct EditTargetsView: View {
     var body: some View {
         FormShell(title: "Daily targets", saveTitle: "Save targets", canSave: valid, onSave: save) {
             VStack(alignment: .leading, spacing: 9) {
-                Eyebrow(text: "Build your daily rhythm")
-                Text("A little intention.").font(TypeStyle.display(30)).foregroundStyle(Palette.ink)
+                Eyebrow(text: "Your daily targets")
+                Text("Set your intentions.").font(TypeStyle.display(30)).foregroundStyle(Palette.ink)
                 Text("Set the targets that work for you and your care plan.").font(TypeStyle.body(13)).foregroundStyle(Palette.secondary)
             }
             TargetControl(title: "Calories", symbol: "flame", color: Palette.peach, value: $calories, unit: "kcal", range: 800...4000, step: 50)
-            TargetControl(title: "Protein", symbol: "fish", color: Palette.green, value: $protein, unit: "g", range: 20...300, step: 5)
-            TargetControl(title: "Fiber", symbol: "leaf", color: Palette.green, value: $fiber, unit: "g", range: 10...60, step: 1)
+            TargetControl(title: "Protein", symbol: "fish", color: Palette.plum, value: $protein, unit: "g", range: 20...300, step: 5)
+            TargetControl(title: "Fiber", symbol: "leaf", color: Palette.plum, value: $fiber, unit: "g", range: 10...60, step: 1)
             TargetControl(title: "Water", symbol: "drop", color: Palette.blue, value: $water, unit: "glasses", range: 1...20, step: 1)
         }
         .onAppear {
@@ -210,7 +210,7 @@ struct WeeklyPacePicker: View {
                 Text(value.formatted(.number.precision(.fractionLength(0...2)))).font(TypeStyle.metric(37)).foregroundStyle(Palette.ink)
                 Text("\(units.weightLabel) / week").font(TypeStyle.body(13)).foregroundStyle(Palette.secondary)
             }
-            Slider(value: $value, in: units == .metric ? 0.25...1 : 0.5...2.5, step: units == .metric ? 0.25 : 0.5).tint(Palette.green).accessibilityLabel("Weekly weight goal")
+            Slider(value: $value, in: units == .metric ? 0.25...1 : 0.5...2.5, step: units == .metric ? 0.25 : 0.5).tint(Palette.plum).accessibilityLabel("Weekly weight goal")
             HStack { Text("A gentler pace"); Spacer(); Text("A quicker pace") }.font(TypeStyle.body(10)).foregroundStyle(Palette.secondary)
             Text("A personal tracking goal, not a prediction or a medical recommendation.").font(TypeStyle.body(10)).foregroundStyle(Palette.secondary)
         }
@@ -245,7 +245,7 @@ struct EditProfileView: View {
                 $0.userProfile.startWeight = startWeight.decimalValue.map(store.units.pounds)
             }) { Feedback.saved(); dismiss() }
         }) {
-            Text("A little more you.").font(TypeStyle.display(30)).foregroundStyle(Palette.ink)
+            Text("Your details.").font(TypeStyle.display(30)).foregroundStyle(Palette.ink)
             TextEntry(title: "Your name", placeholder: "What should we call you?", text: $name, identifier: "profile-name")
             if store.units == .metric {
                 TextEntry(title: "Height", placeholder: "170", text: $height, keyboard: .decimalPad, suffix: "cm")

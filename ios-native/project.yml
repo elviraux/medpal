@@ -23,6 +23,10 @@ settings:
     SLIMSY_YEARLY_PRODUCT_ID: ""
     ADAPTY_PUBLIC_SDK_KEY: ""
     ADAPTY_PLACEMENT_ID: default
+    SLIMSY_APP_GROUP: group.com.fastshotai.slimsy
+  configs:
+    Debug:
+      SLIMSY_APP_GROUP: group.com.fastshotai.slimsy.native
 targets:
   Slimsy:
     type: application
@@ -32,6 +36,7 @@ targets:
     dependencies:
       - package: Adapty
         product: Adapty
+      - target: SlimsyWidget
     configFiles:
       Debug: Configuration/Local.xcconfig
       Release: Configuration/Local.xcconfig
@@ -44,6 +49,7 @@ targets:
         SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: Slimsy/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Slimsy/Slimsy.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
       configs:
@@ -54,6 +60,28 @@ targets:
         - SlimsyTests
         - SlimsyUITests
       gatherCoverageData: true
+  SlimsyWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SlimsyWidget
+      - path: Slimsy/Design/Theme.swift
+      - path: Slimsy/Design/LevelChart.swift
+      - path: Slimsy/Models/Models.swift
+      - path: Slimsy/Services/Pharmacokinetics.swift
+      - path: Slimsy/Services/WidgetSnapshot.swift
+      - path: Slimsy/Resources/Fonts/DMSans.ttf
+      - path: Slimsy/Resources/Fonts/Fraunces.ttf
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.fastshotai.slimsy.widget
+        INFOPLIST_FILE: SlimsyWidget/Info.plist
+        CODE_SIGN_ENTITLEMENTS: SlimsyWidget/SlimsyWidget.entitlements
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+      configs:
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.fastshotai.slimsy.native.widget
   SlimsyTests:
     type: bundle.unit-test
     platform: iOS

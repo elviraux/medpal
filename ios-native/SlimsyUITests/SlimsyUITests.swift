@@ -7,6 +7,56 @@ final class SlimsyUITests: XCTestCase {
         app = XCUIApplication()
     }
 
+    func testRaccoonMovesAndGreetsOnWelcomeAndToday() throws {
+        app.launchArguments = ["--onboarding"]
+        app.launch()
+        let welcome = app.buttons["welcome-raccoon"]
+        XCTAssertTrue(welcome.waitForExistence(timeout: 15))
+        capture("20-mascot-welcome")
+        let first = try mascotPixels(welcome)
+        Thread.sleep(forTimeInterval: 0.75)
+        XCTAssertNotEqual(first, try mascotPixels(welcome), "The mascot should animate while visible")
+        welcome.tap()
+        XCTAssertTrue(app.staticTexts["Happy you're here."].waitForExistence(timeout: 5))
+        capture("23-mascot-greeting")
+        XCTAssertTrue(app.buttons["onboarding-continue"].isEnabled)
+        app.buttons["onboarding-continue"].tap()
+        XCTAssertTrue(app.buttons["onboarding-medication-Wegovy"].waitForExistence(timeout: 5))
+
+        app.terminate()
+        app.launchArguments = ["--demo-data"]
+        app.launch()
+        let profile = app.buttons["Open your profile"]
+        XCTAssertTrue(profile.waitForExistence(timeout: 15))
+        profile.tap()
+        XCTAssertTrue(app.staticTexts["Make it yours."].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Today"].tap()
+        let companion = app.buttons["dashboard-raccoon"]
+        reveal(companion)
+        companion.tap()
+        XCTAssertTrue(app.staticTexts["Happy you're here."].waitForExistence(timeout: 5))
+        capture("21-mascot-today")
+    }
+
+    func testRaccoonRespectsReduceMotionAndStillGreets() throws {
+        app.launchArguments = ["--onboarding", "--mascot-reduce-motion"]
+        app.launch()
+        let mascot = app.buttons["welcome-raccoon"]
+        XCTAssertTrue(mascot.waitForExistence(timeout: 15))
+        let first = try mascotPixels(mascot)
+        Thread.sleep(forTimeInterval: 0.75)
+        XCTAssertEqual(first, try mascotPixels(mascot), "Reduce Motion must stop idle and greeting movement")
+        mascot.tap()
+        XCTAssertTrue(app.staticTexts["Happy you're here."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["onboarding-continue"].isEnabled)
+        capture("22-mascot-reduced-motion")
+    }
+
+    private func mascotPixels(_ element: XCUIElement) throws -> Data {
+        let image = try XCTUnwrap(element.screenshot().image.cgImage)
+        return try XCTUnwrap(image.dataProvider?.data) as Data
+    }
+
     func testAllTabsAndNativeSheets() {
         app.launchArguments = ["--demo-data"]
         app.launch()
@@ -26,7 +76,7 @@ final class SlimsyUITests: XCTestCase {
         capture("05-weight-entry")
         app.buttons["Cancel"].tap()
         app.tabBars.buttons["You"].tap()
-        XCTAssertTrue(app.staticTexts["A little more you."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Make it yours."].waitForExistence(timeout: 5))
         capture("06-profile")
         app.buttons["settings-daily-targets"].tap()
         XCTAssertTrue(app.textFields["target-calories"].waitForExistence(timeout: 5))
@@ -386,7 +436,7 @@ final class SlimsyUITests: XCTestCase {
     private func reveal(_ element: XCUIElement) {
         for _ in 0..<8 {
             if element.exists && element.isHittable {
-                let footer = app.buttons["save-entry"].exists ? app.buttons["save-entry"] : app.buttons["onboarding-continue"]
+                let footer = app.buttons["save-entry"].exists ? app.buttons["save-entry"] : app.buttons["onboarding-continue"].exists ? app.buttons["onboarding-continue"] : app.tabBars.firstMatch
                 if !footer.exists || element.frame.maxY < footer.frame.minY || element == footer { return }
             }
             app.swipeUp()

@@ -23,5 +23,6 @@
   <key>YearlyProductID</key><string>$(SLIMSY_YEARLY_PRODUCT_ID)</string>
   <key>AdaptyPublicSDKKey</key><string>$(ADAPTY_PUBLIC_SDK_KEY)</string>
   <key>AdaptyPlacementID</key><string>$(ADAPTY_PLACEMENT_ID)</string>
+  <key>AppGroup</key><string>$(SLIMSY_APP_GROUP)</string>
 </dict>
 </plist>

@@ -50,6 +50,7 @@ final class AppStore {
                 errorMessage = "Your previous Slimsy journal is still intact, but couldn't be migrated. \(error.localizedDescription)"
             }
         }
+        publishWidgetSnapshot()
     }
 
     var profile: UserProfile { data.userProfile }
@@ -74,13 +75,6 @@ final class AppStore {
     var bmi: Double? {
         guard let weight = currentWeight, let height = profile.height, height > 0 else { return nil }
         return weight * 0.453592 / pow(height / 100, 2)
-    }
-    func lastDose(at date: Date = .now) -> MedicationLog? {
-        data.medicationLogs.first { ($0.timestamp ?? .distantFuture) <= date }
-    }
-    func nextDose(at date: Date = .now) -> Date? {
-        guard let last = lastDose(at: date)?.timestamp else { return nil }
-        return Calendar.current.date(byAdding: .day, value: profile.intervalDays, to: last)
     }
     var suggestedSite: InjectionSite {
         let recent = Set(data.medicationLogs.compactMap(\.injectionSite).prefix(3))
@@ -110,14 +104,23 @@ final class AppStore {
                 try encoder.encode(next).write(to: fileURL, options: [.atomic, .completeFileProtectionUnlessOpen])
             }
             let remindersChanged = next.preferences != data.preferences || next.userProfile != data.userProfile || next.medicationLogs != data.medicationLogs
+            let widgetChanged = next.userProfile != data.userProfile || next.medicationLogs != data.medicationLogs
             data = next
             errorMessage = nil
             if allowsNotifications && remindersChanged { ReminderService.shared.refresh(data: next) }
+            if widgetChanged { publishWidgetSnapshot() }
             return true
         } catch {
             errorMessage = error.localizedDescription
             return false
         }
+    }
+
+    /// Only the real journal feeds the widget; previews and tests never do.
+    private func publishWidgetSnapshot() {
+        guard fileURL == Self.defaultFileURL, !storageIsReadOnly else { return }
+        // The journal itself is already saved; a stale widget must not fail that save.
+        do { try WidgetSnapshot.save(data) } catch { assertionFailure("The widget snapshot couldn't be saved: \(error)") }
     }
 
     @discardableResult func addWeight(_ log: WeightLog) -> Bool {

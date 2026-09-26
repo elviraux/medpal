@@ -11,7 +11,7 @@ Open `Slimsy.xcodeproj` in Xcode and run the **Slimsy** scheme on an iPhone simu
 - Deployment target: **iOS 17.0+**.
 - Built with **Xcode 26.3 / Swift 6.2.4**, in Swift 5 language mode.
 - The Adapty iOS SDK is pinned through Swift Package Manager. No CocoaPods, JavaScript runtime, or Metro server is needed.
-- For a physical iPhone, select your signing team in the app target first.
+- For a physical iPhone, select your signing team in the app and widget targets first. Both share the App Group `group.com.fastshotai.slimsy` (`group.com.fastshotai.slimsy.native` in Debug), which feeds the Home Screen widget; enable it for your team.
 - Debug bundle ID: `com.fastshotai.slimsy.native`, so it can coexist with the Expo app.
 - Release bundle ID: `com.fastshotai.slimsy`, matching the original app for an in-place upgrade.
 
@@ -21,8 +21,10 @@ From this directory:
 xcodebuild -project Slimsy.xcodeproj -scheme Slimsy \
   -configuration Debug \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.3' \
-  -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
+  -derivedDataPath build build
 ```
+
+Simulator builds are signed locally without a team, which the widget's App Group requires; an unsigned (`CODE_SIGNING_ALLOWED=NO`) build stops at launch because it cannot open the App Group.
 
 After adding Swift files or changing target settings:
 
@@ -150,6 +152,8 @@ These launch modes are compiled out of Release builds. Screenshots in `Preview` 
 
 ## Design assets and references
 
-Fraunces and DM Sans are bundled under the SIL Open Font License; licenses are in `Slimsy/Resources/Fonts`. The leaf mark, welcome illustration, injection diagram, and app icon are code-drawn. Regenerate the app icon with `swift Scripts/generate-assets.swift "$PWD"`.
+Fraunces and DM Sans are bundled under the SIL Open Font License; licenses are in `Slimsy/Resources/Fonts`. The leaf mark, injection diagram, and app icon are code-drawn. Regenerate the app icon with `swift Scripts/generate-assets.swift "$PWD"`.
+
+The raccoon companion was generated with **GPT Image 2.5 Sunburst** and is bundled as transparent, independently animated head, eyelid, arm, body, and tail layers. It appears on welcome, Today, and the first-dose confirmation. Tap to greet it; Reduce Motion uses a matching still. See the [mascot artwork, exact prompts, and animation API](Design/Mascot/README.md). Rebuild its image sets with `python3 Scripts/prepare-mascot.py` (requires Pillow). Debug-only `--mascot-reduce-motion` previews the still without changing system settings.
 
 Platform references: [SwiftUI tab navigation](https://developer.apple.com/documentation/swiftui/tabview), [Swift Charts selection](https://developer.apple.com/documentation/swiftui/view/chartxselection(value:)), [notification authorization](https://developer.apple.com/documentation/usernotifications/asking-permission-to-use-notifications), and [Expo's File API](https://docs.expo.dev/versions/v54.0.0/sdk/filesystem/).

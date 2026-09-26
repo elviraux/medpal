@@ -33,7 +33,7 @@ struct LogFoodView: View {
     var body: some View {
         FormShell(title: existingLog == nil ? "Log your food" : "Edit your meal", saveTitle: existingLog == nil ? "Save meal" : "Save changes", canSave: valid && !isAnalyzing, onSave: save) {
             VStack(alignment: .leading, spacing: 8) {
-                Eyebrow(text: "A little nourishment")
+                Eyebrow(text: "Nourishment")
                 Text("What's on your plate?").font(TypeStyle.display(29)).foregroundStyle(Palette.ink)
             }
             Picker("Meal", selection: $meal) { ForEach(MealType.allCases) { Text($0.title).tag($0) } }
@@ -93,8 +93,8 @@ struct LogFoodView: View {
                     .accessibilityLabel("Your meal photo")
                 if isAnalyzing {
                     HStack(spacing: 10) {
-                        ProgressView().tint(Palette.green)
-                        Text("Getting to know your plate…").font(TypeStyle.body(12)).foregroundStyle(Palette.green)
+                        ProgressView().tint(Palette.plum)
+                        Text("Analyzing your plate…").font(TypeStyle.body(12)).foregroundStyle(Palette.plum)
                         Spacer()
                         Button("Cancel") { analysisTask?.cancel(); generation = UUID(); isAnalyzing = false }.font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
                     }.frame(minHeight: 44)
@@ -107,7 +107,7 @@ struct LogFoodView: View {
             } else {
                 HStack(spacing: 12) {
                     Button(action: openCamera) {
-                        photoAction("Take a photo", symbol: "camera", color: Palette.green, background: Palette.paleGreen)
+                        photoAction("Take a photo", symbol: "camera", color: Palette.plum, background: Palette.blush)
                     }.buttonStyle(PressFeedback()).accessibilityIdentifier("food-camera")
                     Button { photoSource = .library } label: {
                         photoAction("Photo library", symbol: "photo.on.rectangle.angled", color: Palette.peach, background: Palette.palePeach)

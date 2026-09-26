@@ -1,0 +1,3 @@
+Use case: precise-object-edit
+Input image: the approved Slimsy raccoon mascot; the mask identifies its two eyes.
+Change ONLY the two eyes from open to gently closed, as in a natural happy blink. Each closed eye is a soft, gently curved dark eyelid with subtle fur and tiny eyelashes, sitting exactly where the existing open eye is. The character still looks warm, friendly, and content. Preserve the nose, smile, charcoal face mask, fur, ears, entire head silhouette, body, scarf, lighting, framing, size, camera angle and all other pixels. Keep the exact original 1024x1024 placement; do not recenter, rescale or redraw the character. Transparent background, no new objects, no text.

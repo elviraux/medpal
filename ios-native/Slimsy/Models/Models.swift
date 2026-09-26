@@ -314,6 +314,14 @@ struct AppData: Codable, Equatable {
         let ids = [weightLogs.map(\.id), foodLogs.map(\.id), waterLogs.map(\.id), medicationLogs.map(\.id), sideEffectLogs.map(\.id)]
         guard ids.allSatisfy({ Set($0).count == $0.count }) else { throw DataError.duplicateIDs }
     }
+
+    func lastDose(at date: Date = .now) -> MedicationLog? {
+        medicationLogs.first { ($0.timestamp ?? .distantFuture) <= date }
+    }
+    func nextDose(at date: Date = .now) -> Date? {
+        guard let last = lastDose(at: date)?.timestamp else { return nil }
+        return Calendar.current.date(byAdding: .day, value: userProfile.intervalDays, to: last)
+    }
 }
 
 enum DataError: LocalizedError {

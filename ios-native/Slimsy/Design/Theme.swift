@@ -1,20 +1,20 @@
 import SwiftUI
 
 enum Palette {
-    static let background = adaptive(0xF6F6EF, dark: 0x131D18)
-    static let surface = adaptive(0xFFFFFF, dark: 0x1D2C24)
-    static let ink = adaptive(0x253B30, dark: 0xEFF2E7)
-    static let secondary = adaptive(0x657160, dark: 0xAFBBAC)
-    static let line = adaptive(0xE5E8DD, dark: 0x34473A)
-    static let green = adaptive(0x315F48, dark: 0xAFD1A0)
-    static let paleGreen = adaptive(0xE8EEDF, dark: 0x2C4031)
-    static let forest = Color(hex: 0x193E31)
-    static let lime = Color(hex: 0xDBEAAF)
-    static let peach = adaptive(0xA65532, dark: 0xF0B591)
-    static let palePeach = adaptive(0xF6EADD, dark: 0x413025)
-    static let blue = adaptive(0x446E83, dark: 0xA2C8DA)
-    static let paleBlue = adaptive(0xEAF1F3, dark: 0x283D46)
-    static let red = adaptive(0xB24E45, dark: 0xF3A49C)
+    static let background = adaptive(0xF8F3EF, dark: 0x151012)
+    static let surface = adaptive(0xFFFDFB, dark: 0x211A1E)
+    static let ink = adaptive(0x2D2026, dark: 0xF5EDE9)
+    static let secondary = adaptive(0x766569, dark: 0xB9A9AD)
+    static let line = adaptive(0xEEE4DF, dark: 0x3A2F34)
+    static let plum = adaptive(0x72384C, dark: 0xE6B3C2)
+    static let blush = adaptive(0xF4E4E6, dark: 0x3B2631)
+    static let aubergine = Color(hex: 0x2E1B26)
+    static let champagne = Color(hex: 0xEBD5B0)
+    static let peach = adaptive(0xA8544A, dark: 0xF2B7A5)
+    static let palePeach = adaptive(0xF8EAE4, dark: 0x402B28)
+    static let blue = adaptive(0x4D6D80, dark: 0xA9C5D5)
+    static let paleBlue = adaptive(0xECF0F2, dark: 0x25343D)
+    static let red = adaptive(0xB0443F, dark: 0xF3A49C)
 
     static func adaptive(_ light: UInt32, dark: UInt32) -> Color {
         Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(rgb: dark) : UIColor(rgb: light) })
@@ -32,10 +32,21 @@ extension UIColor {
 }
 
 enum TypeStyle {
-    static func display(_ size: CGFloat = 34) -> Font { .custom("Fraunces-Regular", size: size, relativeTo: .largeTitle) }
+    static func display(_ size: CGFloat = 34) -> Font { .custom("Fraunces-Light", size: size, relativeTo: .largeTitle) }
     static func body(_ size: CGFloat = 15, weight: Font.Weight = .regular) -> Font { .custom("DMSans-9ptRegular", size: size, relativeTo: .body).weight(weight) }
-    static func metric(_ size: CGFloat = 40) -> Font { .custom("DMSans-9ptRegular", size: size, relativeTo: .title).weight(.medium) }
+    static func metric(_ size: CGFloat = 40) -> Font { .custom("Fraunces-Light", size: size, relativeTo: .title) }
     static let caption = body(12, weight: .medium)
+}
+
+/// Warm porcelain with a soft blush glow at the top of the screen.
+struct Backdrop: View {
+    var body: some View {
+        Palette.background
+            .overlay(alignment: .top) {
+                RadialGradient(colors: [Palette.blush, .clear], center: .topTrailing, startRadius: 0, endRadius: 440).frame(height: 440)
+            }
+            .ignoresSafeArea()
+    }
 }
 
 struct PressFeedback: ButtonStyle {
@@ -55,7 +66,7 @@ enum Feedback {
 
 /// Two growing leaves form Slimsy's small, recognizable mark.
 struct SlimsyMark: View {
-    var color: Color = Palette.green
+    var color: Color = Palette.plum
     var size: CGFloat = 38
     var body: some View {
         ZStack {

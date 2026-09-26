@@ -31,7 +31,7 @@ struct LogWeightView: View {
             }
             AppCard {
                 DatePicker("Check-in date", selection: $date, in: ...Date.now, displayedComponents: .date)
-                    .font(TypeStyle.body(14)).tint(Palette.green)
+                    .font(TypeStyle.body(14)).tint(Palette.plum)
             }
             NotesEntry(text: $notes)
         }

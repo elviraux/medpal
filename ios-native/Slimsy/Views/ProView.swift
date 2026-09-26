@@ -20,21 +20,23 @@ struct ProView: View {
                 VStack(alignment: .leading, spacing: 25) {
                     SlimsyMark(size: 45)
                     Eyebrow(text: "Slimsy Pro")
-                    Text("A little extra\nsupport.").font(TypeStyle.display(38)).foregroundStyle(Palette.ink)
+                    Text("Your journey,\nelevated.").font(TypeStyle.display(40)).foregroundStyle(Palette.ink)
                     Text("A thoughtful companion for every part of your GLP-1 journey.").font(TypeStyle.body(14)).foregroundStyle(Palette.secondary)
-                    VStack(alignment: .leading, spacing: 17) {
-                        feature("A photo, a food estimate", symbol: "camera")
-                        feature("Your progress, beautifully clear", symbol: "chart.xyaxis.line")
-                        feature("A rhythm for your medication", symbol: "bell")
-                        feature("Thoughtful injection-site rotation", symbol: "figure.stand")
-                        feature("Your GLP-1 level estimate", symbol: "waveform.path.ecg")
-                        feature("A record of how you feel", symbol: "heart.text.clipboard")
+                    AppCard {
+                        VStack(alignment: .leading, spacing: 17) {
+                            feature("A photo, a food estimate", symbol: "camera")
+                            feature("Your progress, beautifully clear", symbol: "chart.xyaxis.line")
+                            feature("A rhythm for your medication", symbol: "bell")
+                            feature("Thoughtful injection-site rotation", symbol: "figure.stand")
+                            feature("Your GLP-1 level estimate", symbol: "waveform.path.ecg")
+                            feature("A record of how you feel", symbol: "heart.text.clipboard")
+                        }
                     }
                     if purchases.hasPro { Tag(text: "Your Pro membership is active", symbol: "checkmark.seal") }
                     ForEach(purchases.products, id: \.id) { product in
                         SelectionRow(title: product.displayName, detail: [purchases.trialLabels[product.id], "\(product.displayPrice)\(periodLabel(product))"].compactMap { $0 }.joined(separator: " · "), symbol: "sparkles", selected: product.id == selectedProductID) { selectedProductID = product.id }
                     }
-                    if purchases.isLoading { ProgressView().tint(Palette.green).frame(maxWidth: .infinity) }
+                    if purchases.isLoading { ProgressView().tint(Palette.plum).frame(maxWidth: .infinity) }
                     if let message = purchases.message { Text(message).font(TypeStyle.body(12)).foregroundStyle(Palette.secondary) }
                     if canContinueWithoutPurchase {
                         Text("Subscription plans are currently unavailable. You can continue to your journal.")
@@ -49,11 +51,11 @@ struct ProView: View {
                     if let error = store.errorMessage { ErrorBanner(message: error) }
                 }.padding(26)
             }
-            .background(Palette.background).navigationBarTitleDisplayMode(.inline)
+            .background(Backdrop()).navigationBarTitleDisplayMode(.inline)
             .safeAreaInset(edge: .bottom) { actions }
             .toolbar { if onContinue == nil { ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } } } }
             .task { await purchases.load(); selectDefaultProduct() }
-        }.tint(Palette.green)
+        }.tint(Palette.plum)
     }
     private var actions: some View {
         VStack(spacing: 8) {

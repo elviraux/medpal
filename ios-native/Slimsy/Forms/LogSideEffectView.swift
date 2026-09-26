@@ -12,7 +12,7 @@ struct LogSideEffectView: View {
         FormShell(title: "How you feel", saveTitle: "Save side effect", canSave: effect != nil, onSave: save) {
             VStack(alignment: .leading, spacing: 9) {
                 Eyebrow(text: "Listen to your body")
-                Text("A little check-in.").font(TypeStyle.display(30)).foregroundStyle(Palette.ink)
+                Text("How are you feeling?").font(TypeStyle.display(30)).foregroundStyle(Palette.ink)
                 Text("Keep track of what you notice, so you can share it with your care team.").font(TypeStyle.body(13)).foregroundStyle(Palette.secondary)
             }
             LazyVGrid(columns: [.init(.flexible()), .init(.flexible())], spacing: 10) {

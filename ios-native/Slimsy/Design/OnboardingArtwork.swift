@@ -3,7 +3,7 @@ import Charts
 
 struct OnboardingInsightView: View {
     let insight: OnboardingInsight
-    private var accent: Color { insight == .pace || insight == .daily ? Palette.peach : Palette.green }
+    private var accent: Color { insight == .pace || insight == .daily ? Palette.peach : Palette.plum }
     var body: some View {
         VStack(alignment: .leading, spacing: 25) {
             Eyebrow(text: insight.caption)
@@ -24,27 +24,27 @@ private struct InsightIllustration: View {
         GeometryReader { geometry in
             let width = geometry.size.width
             ZStack {
-                RoundedRectangle(cornerRadius: 85).fill(Palette.paleGreen).frame(width: width * 0.76, height: 155).rotationEffect(.degrees(-6))
+                RoundedRectangle(cornerRadius: 85).fill(Palette.blush).frame(width: width * 0.76, height: 155).rotationEffect(.degrees(-6))
                 Circle().fill(Palette.palePeach).frame(width: 83, height: 83).offset(x: width * 0.22, y: -31)
                 if insight == .daily {
-                    Circle().stroke(Palette.green.opacity(0.25), lineWidth: 2).frame(width: 122, height: 122)
+                    Circle().stroke(Palette.plum.opacity(0.25), lineWidth: 2).frame(width: 122, height: 122)
                     Circle().trim(from: 0, to: 0.2).stroke(Palette.peach, style: StrokeStyle(lineWidth: 9, lineCap: .round)).frame(width: 122, height: 122).rotationEffect(.degrees(-90))
-                    Image(systemName: "clock").font(.system(size: 63, weight: .ultraLight)).foregroundStyle(Palette.green)
+                    Image(systemName: "clock").font(.system(size: 63, weight: .ultraLight)).foregroundStyle(Palette.plum)
                 } else if insight == .goals || insight == .concerns {
-                    Circle().stroke(Palette.green.opacity(0.15), lineWidth: 9).frame(width: 126, height: 126)
+                    Circle().stroke(Palette.plum.opacity(0.15), lineWidth: 9).frame(width: 126, height: 126)
                     Circle().trim(from: 0, to: insight == .goals ? 0.87 : 0.68)
-                        .stroke(Palette.green, style: StrokeStyle(lineWidth: 9, lineCap: .round)).frame(width: 126, height: 126).rotationEffect(.degrees(-90))
-                    Image(systemName: insight.symbol).font(.system(size: 44, weight: .ultraLight)).foregroundStyle(Palette.green)
+                        .stroke(Palette.plum, style: StrokeStyle(lineWidth: 9, lineCap: .round)).frame(width: 126, height: 126).rotationEffect(.degrees(-90))
+                    Image(systemName: insight.symbol).font(.system(size: 44, weight: .ultraLight)).foregroundStyle(Palette.plum)
                 } else {
                     HStack(alignment: .bottom, spacing: 13) {
                         ForEach(0..<4) { index in
                             let rank = insight == .pace ? 4 - index : index + 1
-                            RoundedRectangle(cornerRadius: 9).fill(index == 3 ? Palette.green : Palette.green.opacity(0.15 + Double(index) * 0.12))
+                            RoundedRectangle(cornerRadius: 9).fill(index == 3 ? Palette.plum : Palette.plum.opacity(0.15 + Double(index) * 0.12))
                                 .frame(width: 35, height: CGFloat(24 + rank * 24))
                         }
                     }.offset(y: 7)
                 }
-                LeafShape().fill(Palette.green).frame(width: 26, height: 45).rotationEffect(.degrees(35)).offset(x: width * 0.32, y: 46)
+                LeafShape().fill(Palette.plum).frame(width: 26, height: 45).rotationEffect(.degrees(35)).offset(x: width * 0.32, y: 46)
                 Image(systemName: "sparkle").font(.system(size: 20, weight: .ultraLight)).foregroundStyle(Palette.peach).offset(x: -width * 0.32, y: -44)
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }.accessibilityHidden(true)
@@ -66,16 +66,16 @@ struct OnboardingLevelChart: View {
                     Label(profile.medicationLabel, systemImage: "waveform.path.ecg").font(TypeStyle.body(13, weight: .semibold))
                     Spacer()
                     Text(profile.dose ?? "").font(TypeStyle.body(12)).foregroundStyle(Palette.secondary)
-                }.foregroundStyle(Palette.green)
+                }.foregroundStyle(Palette.plum)
                 Chart {
                     ForEach(result.curve) { point in
                         AreaMark(x: .value("Hours", point.hour), y: .value("Relative level", point.level))
-                            .foregroundStyle(LinearGradient(colors: [Palette.green.opacity(0.22), Palette.green.opacity(0.01)], startPoint: .top, endPoint: .bottom))
+                            .foregroundStyle(LinearGradient(colors: [Palette.plum.opacity(0.22), Palette.plum.opacity(0.01)], startPoint: .top, endPoint: .bottom))
                         LineMark(x: .value("Hours", point.hour), y: .value("Relative level", point.level))
-                            .foregroundStyle(Palette.green).lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                            .foregroundStyle(Palette.plum).lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
                     }
                     ForEach(result.peaks) { point in
-                        PointMark(x: .value("Hours", point.hour), y: .value("Peak", point.level)).foregroundStyle(Palette.green).symbolSize(35)
+                        PointMark(x: .value("Hours", point.hour), y: .value("Peak", point.level)).foregroundStyle(Palette.plum).symbolSize(35)
                     }
                     ForEach(result.troughs) { point in
                         PointMark(x: .value("Hours", point.hour), y: .value("Trough", point.level)).foregroundStyle(Palette.peach).symbolSize(25)
@@ -91,7 +91,7 @@ struct OnboardingLevelChart: View {
                 .accessibilityLabel("Illustrative medication levels across \(result.cycles) dosing cycles. Peaks rise as scheduled doses accumulate.")
                 .accessibilityIdentifier("onboarding-level-chart")
                 VStack(alignment: .leading, spacing: 14) {
-                    legend("Peak level", detail: "The model's high point after a dose", color: Palette.green)
+                    legend("Peak level", detail: "The model's high point after a dose", color: Palette.plum)
                     legend("Trough level", detail: "The level before the next scheduled dose", color: Palette.peach)
                 }
                 Text(profile.frequencyLabel).font(TypeStyle.body(11, weight: .medium)).foregroundStyle(Palette.secondary)
@@ -126,7 +126,7 @@ struct DoseCelebration: View {
                     ForEach(0..<24) { index in
                         let angle = Double(index) * .pi / 12
                         let radius = expanded ? CGFloat(100 + (index % 4) * 32) : 15
-                        RoundedRectangle(cornerRadius: 3).fill(index.isMultiple(of: 2) ? Palette.green : Palette.peach)
+                        RoundedRectangle(cornerRadius: 3).fill(index.isMultiple(of: 2) ? Palette.plum : Palette.peach)
                             .frame(width: 6, height: 12)
                             .rotationEffect(.degrees(expanded ? Double(index) * 53 : 0))
                             .offset(x: cos(angle) * radius, y: sin(angle) * radius)
@@ -134,9 +134,8 @@ struct DoseCelebration: View {
                     }
                 }
                 VStack(spacing: 18) {
-                    Image(systemName: "checkmark").font(.system(size: 33, weight: .light)).foregroundStyle(Palette.green)
-                        .frame(width: 90, height: 90).background(Palette.paleGreen, in: Circle())
-                    Text("A little milestone.").font(TypeStyle.display(33)).foregroundStyle(Palette.ink)
+                    RaccoonMascot(size: 155, mood: .celebrating, interactive: false)
+                    Text("Beautifully done.").font(TypeStyle.display(33)).foregroundStyle(Palette.ink)
                     Text("Your dose is logged.").font(TypeStyle.body(15)).foregroundStyle(Palette.secondary)
                 }
             }.frame(width: proxy.size.width, height: proxy.size.height)

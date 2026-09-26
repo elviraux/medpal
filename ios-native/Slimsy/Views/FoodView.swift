@@ -13,7 +13,7 @@ struct FoodView: View {
             nutritionSummary
             WaterCard()
             VStack(spacing: 18) {
-                SectionTitle(title: "On the menu", actionTitle: "+ Add meal") { router.sheet = .food() }
+                SectionTitle(title: "On the menu", actionTitle: "Add meal") { router.sheet = .food() }
                 ForEach(MealType.allCases) { meal in mealSection(meal) }
             }
         }
@@ -21,7 +21,7 @@ struct FoodView: View {
             NavigationStack {
                 @Bindable var store = store
                 DatePicker("Choose a day", selection: $store.selectedDate, in: ...Date.now, displayedComponents: .date)
-                    .datePickerStyle(.graphical).padding(24).tint(Palette.green)
+                    .datePickerStyle(.graphical).padding(24).tint(Palette.plum)
                     .navigationTitle("Your food journal").navigationBarTitleDisplayMode(.inline)
                     .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showsDatePicker = false } } }
             }.presentationDetents([.medium, .large])
@@ -46,7 +46,7 @@ struct FoodView: View {
             Spacer()
             Button { shiftDay(1) } label: { Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).frame(width: 44, height: 44) }
                 .disabled(Calendar.current.isDateInToday(store.selectedDate)).opacity(Calendar.current.isDateInToday(store.selectedDate) ? 0.35 : 1).accessibilityLabel("Next day")
-        }.foregroundStyle(Palette.green).background(Palette.paleGreen.opacity(0.6), in: Capsule())
+        }.foregroundStyle(Palette.plum).background(Palette.blush.opacity(0.6), in: Capsule())
     }
     private func shiftDay(_ amount: Int) {
         if let next = Calendar.current.date(byAdding: .day, value: amount, to: store.selectedDate) { store.selectedDate = min(next, .now) }
@@ -65,14 +65,14 @@ struct FoodView: View {
                         }
                     }
                     VStack(alignment: .leading, spacing: 13) {
-                        Eyebrow(text: "A little balance")
+                        Eyebrow(text: "Daily balance")
                         Text("Fuel for\nfeeling good.").font(TypeStyle.display(24)).foregroundStyle(Palette.ink)
                         Text("\(Int(totals.calories)) of \(Int(store.targets.calories)) kcal").font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
                     }
                     Spacer(minLength: 0)
                 }
                 HStack(spacing: 24) {
-                    macro(title: "Protein", value: totals.protein, target: store.targets.protein, color: Palette.green)
+                    macro(title: "Protein", value: totals.protein, target: store.targets.protein, color: Palette.plum)
                     macro(title: "Fiber", value: totals.fiber, target: store.targets.fiber, color: Palette.blue)
                 }
             }.padding(.vertical, 4)
@@ -100,11 +100,11 @@ struct FoodView: View {
             if logs.isEmpty {
                 Button { router.sheet = .food(nil, type) } label: {
                     HStack {
-                        Text("Make room for \(type.title.lowercased())").font(TypeStyle.body(12)).foregroundStyle(Palette.secondary)
+                        Text("Add \(type.title.lowercased())").font(TypeStyle.body(12)).foregroundStyle(Palette.secondary)
                         Spacer()
-                        Image(systemName: "plus").font(.system(size: 13)).foregroundStyle(Palette.green)
-                    }.padding(19).frame(minHeight: 62).background(Palette.surface.opacity(0.6), in: RoundedRectangle(cornerRadius: 18))
-                        .overlay(RoundedRectangle(cornerRadius: 18).stroke(Palette.line, style: StrokeStyle(lineWidth: 1, dash: [4, 4])))
+                        Image(systemName: "plus").font(.system(size: 13)).foregroundStyle(Palette.plum)
+                    }.padding(19).frame(minHeight: 62).background(Palette.surface.opacity(0.6), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Palette.line, lineWidth: 1))
                 }.buttonStyle(PressFeedback()).accessibilityLabel("Add \(type.title.lowercased())")
             } else {
                 ForEach(logs) { log in
@@ -126,7 +126,8 @@ struct FoodView: View {
                             Button("Delete meal", systemImage: "trash", role: .destructive) { pendingDelete = log }
                         } label: { Image(systemName: "ellipsis").foregroundStyle(Palette.secondary).frame(width: 40, height: 48) }
                         .accessibilityLabel("Options for \(log.title)")
-                    }.background(Palette.surface, in: RoundedRectangle(cornerRadius: 20))
+                    }.background(Palette.surface, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(Palette.line.opacity(0.7), lineWidth: 0.75))
                 }
             }
         }
@@ -137,11 +138,11 @@ struct MealIllustration: View {
     var meal: MealType
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 14).fill(meal == .lunch || meal == .dinner ? Palette.paleGreen : Palette.palePeach)
+            RoundedRectangle(cornerRadius: 14).fill(meal == .lunch || meal == .dinner ? Palette.blush : Palette.palePeach)
             Circle().fill(Palette.surface).frame(width: 35, height: 35)
                 .overlay(Circle().stroke(Palette.line, lineWidth: 1).padding(3))
             Image(systemName: meal == .breakfast ? "cup.and.saucer.fill" : meal == .snack ? "carrot.fill" : "leaf.fill")
-                .font(.system(size: 18, weight: .light)).foregroundStyle(meal == .lunch || meal == .dinner ? Palette.green : Palette.peach)
+                .font(.system(size: 18, weight: .light)).foregroundStyle(meal == .lunch || meal == .dinner ? Palette.plum : Palette.peach)
         }.accessibilityHidden(true)
     }
 }
@@ -153,7 +154,7 @@ struct WaterCard: View {
         AppCard(tint: Palette.paleBlue) {
             VStack(alignment: .leading, spacing: 17) {
                 HStack {
-                    Label("A moment to hydrate", systemImage: "drop").font(TypeStyle.body(14, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Label("Hydration", systemImage: "drop").font(TypeStyle.body(14, weight: .semibold)).foregroundStyle(Palette.ink)
                     Spacer()
                     Text("\(water) / \(store.targets.water)").font(TypeStyle.body(12, weight: .semibold)).foregroundStyle(Palette.blue).monospacedDigit().accessibilityIdentifier("water-count")
                 }
@@ -178,7 +179,7 @@ struct WaterCard: View {
                     Button { change(1) } label: { Image(systemName: "plus").frame(width: 44, height: 44).background(Palette.surface, in: Circle()) }
                         .disabled(water == 20).accessibilityLabel("Add a glass of water").accessibilityIdentifier("water-plus")
                 }.foregroundStyle(Palette.blue).font(.system(size: 13, weight: .semibold)).buttonStyle(PressFeedback())
-                Text(water >= store.targets.water ? "Your daily water goal, checked off." : "One glass at a time. You've got this.").font(TypeStyle.body(11)).foregroundStyle(Palette.blue)
+                Text(water >= store.targets.water ? "Water goal reached." : "One glass at a time.").font(TypeStyle.body(11)).foregroundStyle(Palette.blue)
             }
         }
     }

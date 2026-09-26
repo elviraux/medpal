@@ -21,7 +21,7 @@ struct SettingsView: View {
 
     var body: some View {
         Screen {
-            ScreenHeader(eyebrow: "Made for your journey", title: "A little more you.")
+            ScreenHeader(eyebrow: "Profile & preferences", title: "Make it yours.")
             profileCard
             if store.isDemo {
                 Tag(text: "Previewing sample data", symbol: "eye", color: Palette.peach)
@@ -30,14 +30,14 @@ struct SettingsView: View {
                 SectionTitle(title: "Your plan")
                 AppCard(padding: 7) {
                     VStack(spacing: 0) {
-                        settingLink("Medication", detail: "\(store.profile.medicationLabel) · \(store.profile.dose ?? "")", symbol: "pills", color: Palette.green) { router.sheet = .medication }
+                        settingLink("Medication", detail: "\(store.profile.medicationLabel) · \(store.profile.dose ?? "")", symbol: "pills", color: Palette.plum) { router.sheet = .medication }
                         Divider().padding(.leading, 58)
                         settingLink("Daily targets", detail: "Food, nutrition & hydration", symbol: "target", color: Palette.peach) { router.sheet = .targets }
                         Divider().padding(.leading, 58)
                         settingLink("Weight goals", detail: store.profile.goalWeight.map { "Goal: \(store.units.weight($0)) \(store.units.weightLabel)" } ?? "Set your own pace", symbol: "flag", color: Palette.blue) { router.sheet = .goals }
                         if purchases.isConfigured {
                             Divider().padding(.leading, 58)
-                            settingLink("Slimsy Pro", detail: purchases.hasPro ? "Your membership is active" : "Explore plans & restore purchases", symbol: "sparkles", color: Palette.green) { router.sheet = .pro }
+                            settingLink("Slimsy Pro", detail: purchases.hasPro ? "Your membership is active" : "Explore plans & restore purchases", symbol: "sparkles", color: Palette.plum) { router.sheet = .pro }
                         }
                     }
                 }
@@ -57,8 +57,8 @@ struct SettingsView: View {
                 .font(TypeStyle.body(12, weight: .medium)).foregroundStyle(Palette.red).frame(maxWidth: .infinity).frame(minHeight: 44)
                 .accessibilityIdentifier("reset-data")
             VStack(spacing: 8) {
-                HStack(spacing: 4) { SlimsyMark(size: 24); Text("slimsy").font(TypeStyle.display(25)).foregroundStyle(Palette.green) }
-                Text("A little better, every day.").font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
+                HStack(spacing: 4) { SlimsyMark(size: 24); Text("slimsy").font(TypeStyle.display(25)).foregroundStyle(Palette.plum) }
+                Text("Your GLP-1 journey, beautifully kept.").font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
                 Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0") · Made for iPhone")
                     .font(TypeStyle.body(9)).foregroundStyle(Palette.secondary.opacity(0.7))
             }.frame(maxWidth: .infinity).padding(.bottom, 12)
@@ -93,26 +93,28 @@ struct SettingsView: View {
 
     private var profileCard: some View {
         Button { router.sheet = .profile } label: {
-            HStack(spacing: 17) {
-                ZStack {
-                    Circle().fill(Palette.paleGreen).frame(width: 66, height: 66)
-                    if let initial = store.profile.name?.first { Text(String(initial).uppercased()).font(TypeStyle.display(32)).foregroundStyle(Palette.green) }
-                    else { SlimsyMark(size: 37) }
+            AppCard {
+                HStack(spacing: 17) {
+                    ZStack {
+                        Circle().fill(Palette.blush).frame(width: 66, height: 66)
+                        if let initial = store.profile.name?.first { Text(String(initial).uppercased()).font(TypeStyle.display(32)).foregroundStyle(Palette.plum) }
+                        else { SlimsyMark(size: 37) }
+                    }
+                    VStack(alignment: .leading, spacing: 7) {
+                        Text(store.profile.name?.nonempty ?? "Your Slimsy profile").font(TypeStyle.display(25)).foregroundStyle(Palette.ink)
+                        Text(store.profile.startDate.flatMap { DayKey.date($0) }.map { "On your journey since \($0.formatted(.dateTime.month(.wide).year()))" } ?? "Your journey, your own pace")
+                            .font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
+                    }
+                    Spacer(minLength: 0)
+                    Image(systemName: "pencil").font(.system(size: 13)).foregroundStyle(Palette.plum)
                 }
-                VStack(alignment: .leading, spacing: 7) {
-                    Text(store.profile.name?.nonempty ?? "Your Slimsy profile").font(TypeStyle.display(25)).foregroundStyle(Palette.ink)
-                    Text(store.profile.startDate.flatMap { DayKey.date($0) }.map { "Growing since \($0.formatted(.dateTime.month(.wide).year()))" } ?? "Your journey, your own pace")
-                        .font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
-                }
-                Spacer(minLength: 0)
-                Image(systemName: "pencil").font(.system(size: 13)).foregroundStyle(Palette.green)
-            }.padding(20).frame(maxWidth: .infinity).background(Palette.surface, in: RoundedRectangle(cornerRadius: 24))
+            }
         }.buttonStyle(PressFeedback()).accessibilityLabel("Edit your profile")
     }
 
     private var preferencesCard: some View {
         VStack(spacing: 14) {
-            SectionTitle(title: "Make it yours")
+            SectionTitle(title: "Preferences")
             AppCard {
                 VStack(alignment: .leading, spacing: 21) {
                     VStack(alignment: .leading, spacing: 11) {
@@ -138,13 +140,13 @@ struct SettingsView: View {
     private func reminderToggle(title: String, subtitle: String, symbol: String, value: Bool, isWater: Bool) -> some View {
         Toggle(isOn: Binding(get: { value }, set: { enabled in changeReminder(enabled, isWater: isWater) })) {
             HStack(spacing: 11) {
-                Image(systemName: symbol).font(.system(size: 17)).foregroundStyle(Palette.green).frame(width: 24)
+                Image(systemName: symbol).font(.system(size: 17)).foregroundStyle(Palette.plum).frame(width: 24)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title).font(TypeStyle.body(13, weight: .medium)).foregroundStyle(Palette.ink)
                     Text(subtitle).font(TypeStyle.body(10)).foregroundStyle(Palette.secondary)
                 }
             }
-        }.tint(Palette.green).disabled(notificationRequestInFlight)
+        }.tint(Palette.plum).disabled(notificationRequestInFlight)
     }
     private func changeReminder(_ enabled: Bool, isWater: Bool) {
         if !store.allowsNotifications {
@@ -173,10 +175,10 @@ struct SettingsView: View {
 
     private var dataCard: some View {
         VStack(spacing: 14) {
-            SectionTitle(title: "Your data, in your hands")
+            SectionTitle(title: "Your data")
             AppCard(padding: 7) {
                 VStack(spacing: 0) {
-                    settingLink("Export your journal", detail: "A CSV to keep or share with your care team", symbol: "square.and.arrow.up", color: Palette.green) {
+                    settingLink("Export your journal", detail: "A CSV to keep or share with your care team", symbol: "square.and.arrow.up", color: Palette.plum) {
                         do { shareURL = try ExportService.csvFile(store.data); showingShare = true } catch { message = error.localizedDescription }
                     }
                     Divider().padding(.leading, 58)

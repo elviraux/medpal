@@ -9,7 +9,7 @@ struct MedicationView: View {
 
     var body: some View {
         Screen {
-            ScreenHeader(eyebrow: "A little consistency", title: "Your medication.", actionLabel: "Edit medication", symbol: "slider.horizontal.3") { router.sheet = .medication }
+            ScreenHeader(eyebrow: "Your treatment", title: "Your medication.", actionLabel: "Edit medication", symbol: "slider.horizontal.3") { router.sheet = .medication }
             scheduleCard
             if store.profile.isInjection { rotationCard }
             HStack(spacing: 12) {
@@ -51,17 +51,17 @@ struct MedicationView: View {
                 HStack(spacing: 13) {
                     IconBadge(symbol: store.profile.isInjection ? "syringe" : "pills", size: 49)
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(store.profile.medicationLabel).font(TypeStyle.body(20, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(store.profile.medicationLabel).font(TypeStyle.display(25)).foregroundStyle(Palette.ink)
                         Text("\(store.profile.dose ?? "Dose not set") · \(store.profile.frequencyLabel)").font(TypeStyle.body(12)).foregroundStyle(Palette.secondary)
                     }
                     Spacer()
                 }
                 Rectangle().fill(Palette.line).frame(height: 1)
                 TimelineView(.periodic(from: .now, by: 60)) { context in
-                    if let next = store.nextDose(at: context.date) {
+                    if let next = store.data.nextDose(at: context.date) {
                         let countdown = DoseCountdown(nextDose: next, now: context.date)
                         VStack(alignment: .leading, spacing: 16) {
-                            Eyebrow(text: countdown.overdue ? "Your scheduled dose is due" : "A little time until your next dose")
+                            Eyebrow(text: countdown.overdue ? "Your scheduled dose is due" : "Until your next dose")
                             if countdown.overdue {
                                 HStack(spacing: 10) {
                                     Image(systemName: "calendar.badge.clock").foregroundStyle(Palette.peach)
@@ -100,11 +100,11 @@ struct MedicationView: View {
         }.frame(maxWidth: .infinity).accessibilityElement(children: .combine)
     }
     private var rotationCard: some View {
-        AppCard(tint: Palette.paleGreen.opacity(0.65)) {
+        AppCard(tint: Palette.blush.opacity(0.65)) {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     SectionTitle(title: "A new spot, each time")
-                    Image(systemName: "arrow.triangle.2.circlepath").font(.system(size: 15)).foregroundStyle(Palette.green)
+                    Image(systemName: "arrow.triangle.2.circlepath").font(.system(size: 15)).foregroundStyle(Palette.plum)
                 }
                 HStack(spacing: 16) {
                     InjectionDiagram(selected: store.suggestedSite, suggested: store.suggestedSite) { _ in router.sheet = .dose }
@@ -113,8 +113,8 @@ struct MedicationView: View {
                         Eyebrow(text: "Rotation suggestion")
                         Text(store.suggestedSite.title).font(TypeStyle.display(23)).foregroundStyle(Palette.ink)
                         Text("Based on your last three logged sites. Use only sites approved for your medication.").font(TypeStyle.body(11)).foregroundStyle(Palette.secondary).fixedSize(horizontal: false, vertical: true)
-                        if let site = store.lastDose()?.injectionSite {
-                            Text("Last used: \(site.title.lowercased())").font(TypeStyle.body(10)).foregroundStyle(Palette.green)
+                        if let site = store.data.lastDose()?.injectionSite {
+                            Text("Last used: \(site.title.lowercased())").font(TypeStyle.body(10)).foregroundStyle(Palette.plum)
                         }
                     }
                 }
@@ -186,26 +186,26 @@ struct InjectionDiagram: View {
     var onSelect: (InjectionSite) -> Void
     private func location(_ site: InjectionSite) -> UnitPoint {
         switch site {
-        case .abdomenLeft: UnitPoint(x: 0.65, y: 0.47)
-        case .abdomenRight: UnitPoint(x: 0.35, y: 0.47)
-        case .thighLeft: UnitPoint(x: 0.64, y: 0.73)
-        case .thighRight: UnitPoint(x: 0.36, y: 0.73)
-        case .armLeft: UnitPoint(x: 0.83, y: 0.35)
-        case .armRight: UnitPoint(x: 0.17, y: 0.35)
+        case .abdomenLeft: UnitPoint(x: 0.595, y: 0.475)
+        case .abdomenRight: UnitPoint(x: 0.405, y: 0.475)
+        case .thighLeft: UnitPoint(x: 0.605, y: 0.69)
+        case .thighRight: UnitPoint(x: 0.395, y: 0.69)
+        case .armLeft: UnitPoint(x: 0.75, y: 0.36)
+        case .armRight: UnitPoint(x: 0.25, y: 0.36)
         }
     }
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                BodyShape().fill(Palette.green.opacity(0.09)).overlay(BodyShape().stroke(Palette.green.opacity(0.22), lineWidth: 1))
+                BodyShape().fill(Palette.plum.opacity(0.09)).overlay(BodyShape().stroke(Palette.plum.opacity(0.22), lineWidth: 1))
                 ForEach(InjectionSite.allCases) { site in
                     let position = location(site)
                     Button { onSelect(site); Feedback.light() } label: {
                         ZStack {
-                            if site == suggested { Circle().stroke(Palette.green.opacity(0.7), style: StrokeStyle(lineWidth: 1, dash: [2, 2])).frame(width: 26, height: 26) }
-                            Circle().fill(site == selected ? Palette.green : Palette.surface).frame(width: 13, height: 13)
-                                .overlay(Circle().stroke(Palette.green.opacity(0.65), lineWidth: 1))
-                            if site == selected { Circle().fill(Palette.lime).frame(width: 4, height: 4) }
+                            if site == suggested { Circle().stroke(Palette.plum.opacity(0.7), style: StrokeStyle(lineWidth: 1, dash: [2, 2])).frame(width: 26, height: 26) }
+                            Circle().fill(site == selected ? Palette.plum : Palette.surface).frame(width: 13, height: 13)
+                                .overlay(Circle().stroke(Palette.plum.opacity(0.65), lineWidth: 1))
+                            if site == selected { Circle().fill(Palette.champagne).frame(width: 4, height: 4) }
                         }.frame(width: 40, height: 40).contentShape(Circle())
                     }
                     .buttonStyle(.plain).position(x: proxy.size.width * position.x, y: proxy.size.height * position.y)
@@ -216,30 +216,39 @@ struct InjectionDiagram: View {
     }
 }
 
+/// A front-facing woman in a 100×160 box, mirrored from her right half.
 private struct BodyShape: Shape {
+    /// (end, control) quad curves from the crown down the viewer's left side to the crotch.
+    private static let side: [(CGPoint, CGPoint)] = [
+        (CGPoint(x: 38, y: 12), CGPoint(x: 39, y: 0.5)),
+        (CGPoint(x: 37.5, y: 27), CGPoint(x: 36, y: 20)),
+        (CGPoint(x: 43, y: 28), CGPoint(x: 39, y: 29.5)),
+        (CGPoint(x: 45.5, y: 29.5), CGPoint(x: 44.5, y: 28)),
+        (CGPoint(x: 35, y: 33), CGPoint(x: 44, y: 32.5)),
+        (CGPoint(x: 31, y: 38), CGPoint(x: 32, y: 33.5)),
+        (CGPoint(x: 20, y: 60), CGPoint(x: 25.5, y: 47)),
+        (CGPoint(x: 13, y: 82), CGPoint(x: 15.5, y: 71)),
+        (CGPoint(x: 18, y: 87), CGPoint(x: 11, y: 89)),
+        (CGPoint(x: 25.5, y: 62), CGPoint(x: 21, y: 73)),
+        (CGPoint(x: 35.5, y: 46), CGPoint(x: 30, y: 53)),
+        (CGPoint(x: 36.5, y: 58), CGPoint(x: 34, y: 52)),
+        (CGPoint(x: 38.5, y: 67), CGPoint(x: 39, y: 62)),
+        (CGPoint(x: 31.5, y: 87), CGPoint(x: 31, y: 76)),
+        (CGPoint(x: 34.5, y: 124), CGPoint(x: 30.5, y: 106)),
+        (CGPoint(x: 38, y: 152), CGPoint(x: 35.5, y: 140)),
+        (CGPoint(x: 46, y: 155.5), CGPoint(x: 39.5, y: 157)),
+        (CGPoint(x: 47, y: 126), CGPoint(x: 47.5, y: 140)),
+        (CGPoint(x: 50, y: 97), CGPoint(x: 47, y: 106))
+    ]
     func path(in rect: CGRect) -> Path {
+        func mirror(_ point: CGPoint) -> CGPoint { CGPoint(x: 100 - point.x, y: point.y) }
         var p = Path()
-        p.addEllipse(in: CGRect(x: 39, y: 2, width: 22, height: 22))
-        p.move(to: CGPoint(x: 42, y: 25))
-        p.addQuadCurve(to: CGPoint(x: 29, y: 29), control: CGPoint(x: 36, y: 28))
-        p.addQuadCurve(to: CGPoint(x: 17, y: 38), control: CGPoint(x: 20, y: 30))
-        p.addLine(to: CGPoint(x: 8, y: 81))
-        p.addQuadCurve(to: CGPoint(x: 18, y: 87), control: CGPoint(x: 5, y: 90))
-        p.addLine(to: CGPoint(x: 32, y: 49))
-        p.addLine(to: CGPoint(x: 32, y: 88))
-        p.addLine(to: CGPoint(x: 31, y: 146))
-        p.addQuadCurve(to: CGPoint(x: 44, y: 148), control: CGPoint(x: 35, y: 155))
-        p.addLine(to: CGPoint(x: 50, y: 100))
-        p.addLine(to: CGPoint(x: 56, y: 148))
-        p.addQuadCurve(to: CGPoint(x: 69, y: 146), control: CGPoint(x: 66, y: 155))
-        p.addLine(to: CGPoint(x: 68, y: 88))
-        p.addLine(to: CGPoint(x: 68, y: 49))
-        p.addLine(to: CGPoint(x: 82, y: 87))
-        p.addQuadCurve(to: CGPoint(x: 92, y: 81), control: CGPoint(x: 95, y: 90))
-        p.addLine(to: CGPoint(x: 83, y: 38))
-        p.addQuadCurve(to: CGPoint(x: 71, y: 29), control: CGPoint(x: 80, y: 30))
-        p.addQuadCurve(to: CGPoint(x: 58, y: 25), control: CGPoint(x: 64, y: 28))
+        var points = [CGPoint(x: 50, y: 0.5)]
+        p.move(to: points[0])
+        for (end, control) in Self.side { p.addQuadCurve(to: end, control: control); points.append(end) }
+        for (index, segment) in Self.side.enumerated().reversed() { p.addQuadCurve(to: mirror(points[index]), control: mirror(segment.1)) }
         p.closeSubpath()
+        p.addEllipse(in: CGRect(x: 43.5, y: 6, width: 13, height: 19.5))
         return p.applying(CGAffineTransform(scaleX: rect.width / 100, y: rect.height / 160))
     }
 }

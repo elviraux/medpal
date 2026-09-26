@@ -22,7 +22,7 @@ for name in ["DMSans", "Fraunces"] {
 func color(_ rgb: UInt32) -> NSColor {
     NSColor(srgbRed: CGFloat((rgb >> 16) & 255) / 255, green: CGFloat((rgb >> 8) & 255) / 255, blue: CGFloat(rgb & 255) / 255, alpha: 1)
 }
-func text(_ value: String, x: CGFloat, y: CGFloat, size: CGFloat, display: Bool = false, tint: UInt32 = 0x253B30) {
+func text(_ value: String, x: CGFloat, y: CGFloat, size: CGFloat, display: Bool = false, tint: UInt32 = 0x2D2026) {
     let name = display ? "Fraunces-Regular" : "DMSans-9ptRegular"
     let attributes: [NSAttributedString.Key: Any] = [.font: NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: size), .foregroundColor: color(tint)]
     (value as NSString).draw(at: NSPoint(x: x, y: y), withAttributes: attributes)
@@ -33,26 +33,26 @@ guard let context = NSGraphicsContext(bitmapImageRep: bitmap) else { fatalError(
 NSGraphicsContext.saveGraphicsState()
 NSGraphicsContext.current = context
 NSGraphicsContext.current?.imageInterpolation = .high
-color(0xEBEEE3).setFill()
+color(0xF3EAE6).setFill()
 NSBezierPath(rect: NSRect(x: 0, y: 0, width: width, height: height)).fill()
 text("slimsy", x: 46, y: 777, size: 58, display: true)
-text("A little better, every day.", x: 250, y: 799, size: 21, display: true)
-text("NATIVE IOS  /  SWIFTUI", x: 1320, y: 805, size: 12, tint: 0x637461)
+text("Your GLP-1 journey, beautifully kept.", x: 250, y: 799, size: 21, display: true)
+text("NATIVE IOS  /  SWIFTUI", x: 1320, y: 805, size: 12, tint: 0x766569)
 for (index, name) in wanted.prefix(5).enumerated() {
     let image = NSImage(contentsOf: destination.appendingPathComponent(name + ".png"))!
     let x = CGFloat(46 + index * 306)
     let imageWidth: CGFloat = 282
     let imageHeight = image.size.height / image.size.width * imageWidth
     let rect = NSRect(x: x, y: 92, width: imageWidth, height: imageHeight)
-    color(0x253B30).setFill()
+    color(0x2D2026).setFill()
     NSBezierPath(roundedRect: rect.insetBy(dx: -3, dy: -3), xRadius: 38, yRadius: 38).fill()
     NSGraphicsContext.saveGraphicsState()
     NSBezierPath(roundedRect: rect, xRadius: 35, yRadius: 35).addClip()
     image.draw(in: rect)
     NSGraphicsContext.restoreGraphicsState()
-    text(String(name.dropFirst(3)).uppercased(), x: x + 2, y: 54, size: 11, tint: 0x637461)
+    text(String(name.dropFirst(3)).uppercased(), x: x + 2, y: 54, size: 11, tint: 0x766569)
 }
-text("iPhone 17 Pro · Sample data", x: 46, y: 20, size: 11, tint: 0x7A8375)
+text("iPhone 17 Pro · Sample data", x: 46, y: 20, size: 11, tint: 0x8A7A7E)
 NSGraphicsContext.restoreGraphicsState()
 try bitmap.representation(using: .png, properties: [:])!.write(to: destination.appendingPathComponent("overview.png"))
 print("Exported native screenshots and Preview/overview.png")

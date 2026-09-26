@@ -80,15 +80,9 @@ struct OnboardingView: View {
                             .onChange(of: step) { _, _ in reader.scrollTo("top", anchor: .top) }
                         }
                     }
-                    .background(Palette.background)
+                    .background(Backdrop())
                     .safeAreaInset(edge: .bottom) { footer }
                     .toolbar(.hidden, for: .navigationBar)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button("Done", action: dismissKeyboard)
-                        }
-                    }
                     .overlay { if celebrating { DoseCelebration() } }
                 }
             }
@@ -104,7 +98,7 @@ struct OnboardingView: View {
             } label: {
                 Image(systemName: "arrow.left").font(.system(size: 15)).foregroundStyle(Palette.ink).frame(width: 38, height: 44)
             }.accessibilityLabel("Previous setup step").accessibilityIdentifier("onboarding-back").disabled(celebrating)
-            ProgressView(value: Double(step.rawValue), total: Double(OnboardingStep.pro.rawValue)).tint(Palette.green)
+            ProgressView(value: Double(step.rawValue), total: Double(OnboardingStep.pro.rawValue)).tint(Palette.plum)
                 .accessibilityLabel("Setup progress")
             Text(String(format: "%02d / 27", step.rawValue))
                 .font(TypeStyle.body(10, weight: .medium)).foregroundStyle(Palette.secondary).monospacedDigit()
@@ -166,18 +160,18 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: 27) {
-            HStack(spacing: 4) { SlimsyMark(size: 35); Text("slimsy").font(TypeStyle.display(34)).foregroundStyle(Palette.green) }.padding(.top, 8)
-            WelcomeIllustration().frame(height: 275).padding(.vertical, 4)
+            HStack(spacing: 4) { SlimsyMark(size: 35); Text("slimsy").font(TypeStyle.display(34)).foregroundStyle(Palette.plum) }.padding(.top, 8)
+            WelcomeRaccoonIllustration().frame(height: 275).padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 16) {
-                Eyebrow(text: "A little better, every day")
+                Eyebrow(text: "Your GLP-1 companion")
                 Text("Your journey.\nA gentler way.").font(TypeStyle.display(43)).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
-                Text("Your medication, meals, and milestones.\nTogether in one calm little place.")
+                Text("Your medication, meals, and milestones,\nbeautifully kept in one place.")
                     .font(TypeStyle.body(15)).foregroundStyle(Palette.secondary).lineSpacing(5).fixedSize(horizontal: false, vertical: true)
             }
             HStack(spacing: 17) {
                 Label("Made for you", systemImage: "heart")
                 Label("At your pace", systemImage: "leaf")
-            }.font(TypeStyle.body(11, weight: .medium)).foregroundStyle(Palette.green)
+            }.font(TypeStyle.body(11, weight: .medium)).foregroundStyle(Palette.plum)
         }
     }
     private var medication: some View {
@@ -241,7 +235,7 @@ struct OnboardingView: View {
     private var disclaimer: some View {
         VStack(alignment: .leading, spacing: 24) {
             heading("Before we begin", "A companion\nfor your care.", "Please read the health disclaimer before continuing.")
-            AppCard(tint: Palette.paleGreen.opacity(0.6)) {
+            AppCard(tint: Palette.blush.opacity(0.6)) {
                 VStack(alignment: .leading, spacing: 18) {
                     IconBadge(symbol: "cross.case", size: 48)
                     Text("Slimsy is a tracking tool, not a medical device. Its information should not be considered medical advice.")
@@ -252,7 +246,7 @@ struct OnboardingView: View {
             AppCard {
                 Toggle(isOn: $consent) {
                     Text("I understand this app is not medical advice").font(TypeStyle.body(14, weight: .medium)).foregroundStyle(Palette.ink)
-                }.tint(Palette.green).accessibilityIdentifier("onboarding-consent")
+                }.tint(Palette.plum).accessibilityIdentifier("onboarding-consent")
             }
             legalLinks
         }
@@ -268,7 +262,7 @@ struct OnboardingView: View {
     }
     private var heightEntry: some View {
         VStack(alignment: .leading, spacing: 30) {
-            heading("A little about you", "What's\nyour height?", "One small detail to help personalize your progress.")
+            heading("About you", "What's\nyour height?", "One small detail to help personalize your progress.")
             IconBadge(symbol: "ruler", size: 64).padding(.vertical, 12)
             if units == .metric {
                 TextEntry(title: "Height", placeholder: "170", text: $height, keyboard: .decimalPad, suffix: "cm", identifier: "onboarding-height")
@@ -292,7 +286,7 @@ struct OnboardingView: View {
             heading("Mark the beginning", "When did\nyou start?", "When did you begin taking your GLP-1 medication?")
             AppCard {
                 DatePicker("Journey start date", selection: $startDate, in: ...Date.now, displayedComponents: .date)
-                    .datePickerStyle(.graphical).tint(Palette.green).accessibilityIdentifier("onboarding-start-date")
+                    .datePickerStyle(.graphical).tint(Palette.plum).accessibilityIdentifier("onboarding-start-date")
             }
         }
     }
@@ -304,7 +298,7 @@ struct OnboardingView: View {
     }
     private var activitySelection: some View {
         VStack(alignment: .leading, spacing: 24) {
-            heading("Your daily life", "A little\nmovement.", "How active are you in a typical week?")
+            heading("Your daily life", "How active\nare you?", "Think about a typical week.")
             ForEach(ActivityLevel.allCases) { level in
                 SelectionRow(title: level.title, detail: level.detail, symbol: level.symbol, selected: activity == level) { activity = level }
                     .accessibilityIdentifier("onboarding-activity-\(level.rawValue)")
@@ -314,7 +308,7 @@ struct OnboardingView: View {
     private var toughDays: some View {
         VStack(alignment: .leading, spacing: 24) {
             heading("Give yourself some grace", "Tough days\nhappen.", "And that's completely normal.")
-            AppCard(tint: Palette.paleGreen) {
+            AppCard(tint: Palette.blush) {
                 VStack(alignment: .leading, spacing: 15) {
                     IconBadge(symbol: "sun.max", size: 48)
                     Text("It gets easier.").font(TypeStyle.display(25)).foregroundStyle(Palette.ink)
@@ -324,7 +318,7 @@ struct OnboardingView: View {
             }
             AppCard {
                 VStack(alignment: .leading, spacing: 18) {
-                    FieldLabel(title: "A little care on the tough days")
+                    FieldLabel(title: "On tougher days")
                     tip("Stay hydrated — drink plenty of water", symbol: "drop")
                     tip("Eat small, frequent meals", symbol: "fork.knife")
                     tip("Get enough rest and sleep", symbol: "moon")
@@ -366,8 +360,8 @@ struct OnboardingView: View {
     }
     private var firstDose: some View {
         VStack(alignment: .leading, spacing: 24) {
-            heading("Your first check-in", "One dose.\nA little clarity.", "Record your starting dose to begin your medication cycle, or come back to it later.")
-            AppCard(tint: Palette.paleGreen) {
+            heading("Your first check-in", "Log your\nfirst dose.", "Record your starting dose to begin your medication cycle, or come back to it later.")
+            AppCard(tint: Palette.blush) {
                 HStack(spacing: 15) {
                     IconBadge(symbol: "flag", size: 46)
                     VStack(alignment: .leading, spacing: 5) {
@@ -385,13 +379,13 @@ struct OnboardingView: View {
                         Text("A gentle dose reminder").font(TypeStyle.body(14, weight: .semibold)).foregroundStyle(Palette.ink)
                         Text("We'll ask to send notifications when you're all set.").font(TypeStyle.body(11)).foregroundStyle(Palette.secondary)
                     }
-                }.tint(Palette.green)
+                }.tint(Palette.plum)
             }
         }
     }
     private var rating: some View {
         VStack(alignment: .leading, spacing: 28) {
-            heading("A little encouragement", "Enjoying Slimsy\nso far?", "You're off to a great start.")
+            heading("Your feedback", "Enjoying Slimsy\nso far?", "You're off to a great start.")
             ZStack {
                 Circle().fill(Palette.palePeach).frame(width: 160, height: 160)
                 Image(systemName: "heart.fill").font(.system(size: 65, weight: .light)).foregroundStyle(Palette.peach)
@@ -403,12 +397,12 @@ struct OnboardingView: View {
                 requestReview()
                 requestedReview = true
             }.accessibilityIdentifier("onboarding-rate")
-            if requestedReview { Text("Thank you for your support.").font(TypeStyle.body(13)).foregroundStyle(Palette.green) }
+            if requestedReview { Text("Thank you for your support.").font(TypeStyle.body(13)).foregroundStyle(Palette.plum) }
         }
     }
     private var levels: some View {
         VStack(alignment: .leading, spacing: 24) {
-            heading("A little understanding", "Your estimated\nGLP-1 levels.", "An illustration of \(profile.medicationLabel) over your dosing schedule.")
+            heading("How it works", "Your estimated\nGLP-1 levels.", "An illustration of \(profile.medicationLabel) over your dosing schedule.")
             OnboardingLevelChart(profile: profile)
             Text("After each dose, the model rises to a peak and then gradually falls. Repeated doses build on the medication remaining from earlier doses.")
                 .font(TypeStyle.body(14)).foregroundStyle(Palette.secondary).lineSpacing(4)
@@ -420,7 +414,7 @@ struct OnboardingView: View {
         HStack(spacing: 22) {
             Link("Terms of service", destination: URL(string: "https://slimsy.lovable.app/terms")!)
             Link("Privacy policy", destination: URL(string: "https://slimsy.lovable.app/privacy")!)
-        }.font(TypeStyle.body(11)).foregroundStyle(Palette.green).frame(maxWidth: .infinity)
+        }.font(TypeStyle.body(11)).foregroundStyle(Palette.plum).frame(maxWidth: .infinity)
     }
     private func heading(_ label: String, _ title: String, _ subtitle: String) -> some View {
         VStack(alignment: .leading, spacing: 13) {
@@ -431,7 +425,7 @@ struct OnboardingView: View {
     }
     private func tip(_ text: String, symbol: String) -> some View {
         HStack(alignment: .top, spacing: 13) {
-            Image(systemName: symbol).foregroundStyle(Palette.green).frame(width: 20)
+            Image(systemName: symbol).foregroundStyle(Palette.plum).frame(width: 20)
             Text(text).font(TypeStyle.body(13)).foregroundStyle(Palette.secondary).fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -508,25 +502,25 @@ struct WelcomeIllustration: View {
         GeometryReader { proxy in
             let w = proxy.size.width
             ZStack {
-                RoundedRectangle(cornerRadius: 120).fill(Palette.paleGreen).frame(width: w * 0.76, height: 247).rotationEffect(.degrees(-9))
-                Circle().fill(Color(hex: 0xECCBA7)).frame(width: 86, height: 86).offset(x: 72, y: -64)
+                RoundedRectangle(cornerRadius: 120).fill(Palette.blush).frame(width: w * 0.76, height: 247).rotationEffect(.degrees(-9))
+                Circle().fill(Palette.champagne).frame(width: 86, height: 86).offset(x: 72, y: -64)
                 Circle().stroke(Palette.surface.opacity(0.7), lineWidth: 1).frame(width: 188, height: 188).offset(x: 0, y: 15)
                 Path { path in
                     path.move(to: CGPoint(x: w * 0.47, y: 235))
                     path.addCurve(to: CGPoint(x: w * 0.55, y: 55), control1: CGPoint(x: w * 0.36, y: 150), control2: CGPoint(x: w * 0.65, y: 130))
-                }.stroke(Palette.green, style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                LeafShape().fill(Palette.green).frame(width: 60, height: 107).rotationEffect(.degrees(-52)).offset(x: -30, y: -10)
-                LeafShape().fill(Color(hex: 0x8EAA75)).frame(width: 44, height: 85).rotationEffect(.degrees(41)).offset(x: 35, y: -58)
-                LeafShape().fill(Color(hex: 0xA2B78B)).frame(width: 41, height: 75).rotationEffect(.degrees(52)).offset(x: 29, y: 58)
+                }.stroke(Palette.plum, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                LeafShape().fill(Palette.plum).frame(width: 60, height: 107).rotationEffect(.degrees(-52)).offset(x: -30, y: -10)
+                LeafShape().fill(Color(hex: 0xC48A99)).frame(width: 44, height: 85).rotationEffect(.degrees(41)).offset(x: 35, y: -58)
+                LeafShape().fill(Color(hex: 0xDDB4BD)).frame(width: 41, height: 75).rotationEffect(.degrees(52)).offset(x: 29, y: 58)
                 HStack(spacing: 9) {
-                    Image(systemName: "checkmark").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.green).frame(width: 28, height: 28).background(Palette.paleGreen, in: Circle())
+                    Image(systemName: "checkmark").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.plum).frame(width: 28, height: 28).background(Palette.blush, in: Circle())
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("A LITTLE PROGRESS").font(TypeStyle.body(8, weight: .bold)).tracking(1.4).foregroundStyle(Palette.secondary)
+                        Text("DAILY RITUAL").font(TypeStyle.body(8, weight: .bold)).tracking(1.4).foregroundStyle(Palette.secondary)
                         Text("Every day, a fresh start.").font(TypeStyle.body(11, weight: .medium)).foregroundStyle(Palette.ink)
                     }
                 }.padding(14).background(Palette.surface, in: RoundedRectangle(cornerRadius: 19))
-                    .shadow(color: Palette.forest.opacity(0.06), radius: 18, y: 8).rotationEffect(.degrees(-5)).offset(x: -25, y: 90)
-                Image(systemName: "sparkle").font(.system(size: 23, weight: .ultraLight)).foregroundStyle(Palette.green).offset(x: -w * 0.38, y: -81)
+                    .shadow(color: Palette.aubergine.opacity(0.08), radius: 18, y: 8).rotationEffect(.degrees(-5)).offset(x: -25, y: 90)
+                Image(systemName: "sparkle").font(.system(size: 23, weight: .ultraLight)).foregroundStyle(Palette.plum).offset(x: -w * 0.38, y: -81)
                 Image(systemName: "sparkle").font(.system(size: 16, weight: .ultraLight)).foregroundStyle(Palette.peach).offset(x: w * 0.38, y: 41)
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }.accessibilityHidden(true)

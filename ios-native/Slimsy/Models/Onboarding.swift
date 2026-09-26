@@ -66,7 +66,7 @@ enum OnboardingInsight {
     }
     var caption: String {
         switch self {
-        case .tracking: "The power of a little consistency"
+        case .tracking: "The power of consistency"
         case .goals: "A goal that feels like yours"
         case .pace: "Average lost in 3 months"
         case .daily: "A quick daily check-in"

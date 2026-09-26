@@ -53,6 +53,9 @@ struct SlimsyApp: App {
         initial = AppStore()
         #endif
         _store = State(initialValue: initial)
+        UINavigationBar.appearance().titleTextAttributes = [.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont(name: "Fraunces-Regular", size: 19)!)]
+        UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFontMetrics(forTextStyle: .footnote).scaledFont(for: UIFont(name: "DMSans-9ptRegular_Medium", size: 12)!)], for: .normal)
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Palette.surface)
     }
 
     var body: some Scene {
@@ -60,7 +63,7 @@ struct SlimsyApp: App {
             RootView()
                 .modifier(DebugAppearance())
                 .environment(store).environment(router).environment(purchases)
-                .font(TypeStyle.body()).foregroundStyle(Palette.ink).tint(Palette.green)
+                .font(TypeStyle.body()).foregroundStyle(Palette.ink).tint(Palette.plum)
                 .task { await purchases.refreshEntitlements() }
                 .onChange(of: scenePhase) { _, phase in
                     if phase == .active {
